@@ -1,0 +1,60 @@
+<div class="container d-flex justify-content-between align-items-center mt-3">
+  <div class="text-left">
+    <h4 class="title">Ajouter un département</h4>
+  </div>
+  <nav class="text-right">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+      <li class="breadcrumb-item"><a href="GererDepartement">Liste des Départements</a></li>
+      <li class="breadcrumb-item active">Ajouter un département</li>
+    </ol>
+  </nav>
+</div>  <!-- Breadcrumb Navigation -->
+
+  <!-- Add Department Form -->
+
+<div class="d-flex justify-content-center">
+  <div class="card p-3 container mt-2 shadow border-0">
+    <form [formGroup]="departmentForm" (ngSubmit)="submitForm()">
+
+      <!-- Success and Error Messages -->
+      <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Nom Département -->
+      <div class="form-group">
+        <label for="nomDep" class="text-secondary">Nom Département</label>
+        <input type="text" id="nomDep" class="form-control" formControlName="nomDep" required>
+        <div *ngIf="departmentForm.get('nomDep').invalid && departmentForm.get('nomDep').touched" class="invalid-feedback">
+          Veuillez saisir un nom de département.
+        </div>
+      </div>
+
+      <!-- Responsable Département (Optional) -->
+      <div class="form-group">
+        <label for="responsible" class="text-secondary">Responsable Département (Optionnel)</label>
+        <select id="responsible" class="form-control" formControlName="responsible">
+          <option value="" selected>Pas de responsable</option>
+          <option *ngFor="let responsible of responsibles" [value]="responsible.id">{{ responsible.email | capitalizeFirst }}</option>
+        </select>
+        <div *ngIf="departmentForm.get('responsible').invalid && departmentForm.get('responsible').touched" class="invalid-feedback">
+          Veuillez sélectionner un responsable de département.
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-4 d-flex justify-content-center">
+        <div class="d-flex">
+          <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>

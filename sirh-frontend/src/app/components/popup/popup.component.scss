@@ -1,0 +1,88 @@
+/* General Alert Styles */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease-in-out;
+  opacity: 0; /* Initially hidden */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for emphasis */
+}
+
+/* Success Alert Styling */
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+/* Error Alert Styling */
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* Icon Styling for Alerts */
+.alert i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+/* Show Alerts Smoothly */
+.alert.show {
+  opacity: 1;
+}
+
+/* Form Container Styling */
+.form-container {
+  max-width: 600px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.form-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f7f6;
+}
+
+h3 {
+  color: #333;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field input, .mat-form-field select {
+  padding: 10px;
+}
+
+.mat-form-field input:focus, .mat-form-field select:focus {
+  border-color: #007bff;
+}
+
+button.mat-raised-button {
+  padding: 8px 20px;
+  font-size: 14px;
+}
+
+.mat-divider {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

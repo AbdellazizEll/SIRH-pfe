@@ -1,0 +1,111 @@
+/* Breadcrumb styles */
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.breadcrumb-item a {
+  color: #007bff; /* Link color */
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline; /* Hover effect */
+}
+
+.breadcrumb-item.active {
+  color: #6c757d; /* Gray color for active breadcrumb */
+}
+
+.breadcrumb-item i {
+  margin-right: 5px; /* Space for icon */
+}
+
+/* Table Hover Effect */
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+  text-align: center;}
+
+.table thead th {
+  background-color: #1E1A57;
+  color: #fff;
+}
+
+
+/* Team Links */
+.team-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.team-link:hover {
+  text-decoration: underline;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #0F0D36 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.btn-secondary {
+  background-color: transparent !important;
+  color: #0F0D36 !important;
+}
+
+.btn-secondary:hover {
+  background-color: transparent !important;
+  color: #007bff !important;
+}
+.btn-danger {
+  background-color: #dc3545 !important;
+}
+
+.btn-danger:hover {
+  background-color: #c82333 !important;
+}
+
+/* Pagination Styles */
+.pagination .page-link {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.pagination .page-link:hover {
+  background-color: #f1f1f1;
+}
+
+/* No Departments Alert */
+.alert-secondary {
+  color: #6c757d;
+  background-color: #e2e3e5;
+  border-color: #d3d6d8;
+}
+
+.table .action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* Space between buttons, adjust as needed */
+}
+
+.text-danger i.bi-x-circle-fill {
+  font-size: 1.2em; /* Adjust size */
+  cursor: pointer;
+}

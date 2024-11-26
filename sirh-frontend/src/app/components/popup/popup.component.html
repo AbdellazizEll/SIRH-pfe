@@ -1,0 +1,108 @@
+<div class="form-wrapper d-flex align-items-center justify-content-center">
+  <div class="container form-container">
+    <h3 class="text-center mb-4 font-weight-bold text-dark">{{ inputdata.title }}</h3>
+
+    <!-- Success and Error Messages -->
+    <div *ngIf="successMessage" class="alert alert-success text-center show" role="alert">
+      <i class="fas fa-check-circle"></i> {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger text-center show" role="alert">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
+
+    <!-- Form Starts Here -->
+    <form [formGroup]="myform" (ngSubmit)="updateCollaborator()">
+      <!-- Basic Info Fields -->
+      <mat-divider></mat-divider>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Nom</mat-label>
+            <input formControlName="firstname" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Prenom</mat-label>
+            <input formControlName="lastname" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Tel</mat-label>
+            <input formControlName="phone" matInput>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Role Assignment Fields -->
+      <mat-divider></mat-divider>
+      <div class="form-group row">
+        <!-- Assign Role -->
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Affecter Role</mat-label>
+            <mat-select formControlName="roles" (selectionChange)="onRoleSelectionChange($event)">
+              <mat-option *ngFor="let role of roles" [value]="role">
+                {{ role.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Remove Role -->
+        <div class="col-md-6">
+          <mat-form-field class="full-width">
+            <mat-label>Supprimer Role</mat-label>
+            <mat-select formControlName="rolesRm" (selectionChange)="onRoleSelectionChange2($event)">
+              <mat-option *ngFor="let role of rolesRemoval" [value]="role">
+                {{ role.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Competence Assignment Fields -->
+      <mat-divider></mat-divider>
+      <div formArrayName="competences">
+        <div *ngFor="let competence of competencesArray.controls; let i = index" [formGroupName]="i" class="form-group row">
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <mat-label>Compétence</mat-label>
+              <input formControlName="name" matInput [disabled]="true" [value]="mapCompetenceName(competence.get('name').value)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <mat-label>Évaluation</mat-label>
+              <mat-select formControlName="evaluation">
+                <!-- Map the evaluation value using the mapEvaluationValue function -->
+                <mat-option *ngFor="let value of competence.get('possibleValues').value" [value]="value">
+                  {{ mapEvaluationValue(value) }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Submit and Close Buttons -->
+      <div mat-dialog-actions class="d-flex justify-content-between">
+        <button mat-raised-button color="primary" type="submit">Enregistrer</button>
+        <button mat-raised-button color="warn" (click)="closepopup()">Fermer</button>
+      </div>
+    </form>
+  </div>
+</div>

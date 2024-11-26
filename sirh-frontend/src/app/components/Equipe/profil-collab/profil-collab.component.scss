@@ -1,0 +1,224 @@
+/* Container and layout adjustments */
+.profile-container .container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Profile card styling */
+.profile-card {
+  max-width: 900px;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+/* Avatar section */
+.avatar-section {
+  margin-top: -30px;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.avatar-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+}
+
+.collab-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.collab-info {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  padding: 0;
+  background-color: transparent;
+  font-size: 0.75rem;
+}
+
+.breadcrumb-item a {
+  color: #007bff;
+}
+
+.breadcrumb-item.active {
+  color: #6c757d;
+}
+
+/* Section titles */
+.section-title,
+.poste-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.section-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.poste-name {
+  font-size: 1rem;
+  color: #444;
+  font-weight: normal;
+}
+
+/* Combined Competencies Table */
+.competencies-table {
+  margin-top: 20px;
+}
+
+.competence-header,
+.competence-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.competence-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.competence-row {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.competence-column {
+  font-weight: bold;
+}
+
+.competence-name {
+  font-weight: 500;
+}
+
+.competence-evaluation {
+  display: flex;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.star-icon {
+  color: #FFD700; /* Gold color */
+  font-size: 20px;
+  margin-right: 2px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.descriptive-label {
+  font-size: 0.85rem;
+  color: #444;
+  padding: 2px 6px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+mat-progress-bar {
+  width: 100%;
+  height: 10px;
+  margin-left: 8px;
+}
+
+/* Chart Container */
+.chart-container {
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .breadcrumb-title h4 {
+    font-size: 1rem;
+  }
+
+  .profile-card {
+    padding: 10px;
+  }
+
+  .collab-name {
+    font-size: 1.1rem;
+  }
+
+  .section-title,
+  .poste-title {
+    font-size: 0.9rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+
+  /* Adjust competencies table for smaller screens */
+  .competence-header,
+  .competence-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .competence-column,
+  .competence-name,
+  .competence-evaluation {
+    width: 100%;
+  }
+
+  .competence-evaluation {
+    margin-top: 5px;
+  }
+
+  mat-progress-bar {
+    margin-left: 0;
+  }
+}
+
+/* New styles for numeric evaluation */
+.numeric-evaluation {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.numeric-evaluation mat-progress-bar {
+  height: 10px;
+  border-radius: 5px;
+  flex-grow: 1;
+}
+
+.numeric-value {
+  margin-left: 10px;
+  font-size: 0.85rem;
+  color: #333;
+  min-width: 30px;
+  text-align: right;
+}
+
+/* Optional: Styling for mobile responsiveness */
+@media (max-width: 768px) {
+  .numeric-evaluation {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .numeric-value {
+    margin-left: 0;
+    margin-top: 5px;
+    text-align: left;
+  }
+}

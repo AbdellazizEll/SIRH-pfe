@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="card shadow p-2 border-0 mt-4 mb-4">
+    <div class="card-header col-12" style="background: transparent; border-bottom: none">
+      <div class="row justify-content-center align-items-center">
+        <!-- Competence Tab -->
+        <div
+          class="col-xl-2 col-lg-3 col-md-3 col-sm-3 col-12 border-cust text-center"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <h4
+            routerLink="/responsible-dashboard/CompetenceResponsibleDB"
+            class="titlepage"
+          >
+            Competence
+          </h4>
+        </div>
+        <!-- Absence Tab -->
+        <div
+          class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 border-cust text-center"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <h4
+            routerLink="/responsible-dashboard/AbsenceResponsibleDB"
+            class="titleotherpage"
+          >
+            Absence
+          </h4>
+        </div>
+        <!-- Formation Tab -->
+        <div
+          class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 border-cust text-center"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <h4
+            routerLink="/responsible-dashboard/FormationResponsibleDB"
+            class="titleotherpage"
+          >
+            Formation
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content area where the dashboard components are loaded -->
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.container {
+  max-width: 700px;
+  margin: auto;
+}
+
+.card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.profile-placeholder {
+  width: 100px;
+  height: 100px;
+  font-size: 36px;
+  border-radius: 50%;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+button {
+  margin-top: 20px;
+}

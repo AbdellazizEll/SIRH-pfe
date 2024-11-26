@@ -1,0 +1,121 @@
+<div class="container mt-5" *ngIf="team">
+  <!-- Breadcrumb Navigation -->
+  <div class="container d-flex justify-content-between align-items-center mt-3">
+    <div class="text-left">
+      <h4 class="title">Détails de l'équipe</h4>
+    </div>
+    <nav class="text-right">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/"><i class="bi bi-house-door"></i></a></li>
+        <li *ngIf="origin === 'department'" class="breadcrumb-item">
+          <a [routerLink]="['/ProfilDepartment', team?.fromDepartment.id_dep]">Profil Département</a>
+        </li>
+        <li *ngIf="origin !== 'department'" class="breadcrumb-item">
+          <a [routerLink]="['/MonDepartement', user.id]">Vue Responsable</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Profil Équipe</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- ... your existing breadcrumb code ... -->
+
+  <!-- Team Manager Card -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <!-- Manager Avatar -->
+            <img
+              [src]="managerAvatarUrl"
+              alt="Manager Avatar"
+              class="rounded-circle avatar-img"
+              width="100"
+              height="100"
+            />
+            <ng-template #generatedAvatar>
+              <img
+                [src]="'https://randomuser.me/api/portraits/' + (managerGender === 'male' ? 'men' : 'women') + '/' + (team.managerEquipe?.id % 100) + '.jpg'"
+                alt="Manager Avatar"
+                class="rounded-circle mr-3"
+                width="100"
+                height="100"
+              />
+            </ng-template>
+
+            <div>
+              <h5 class="card-title text-secondary"> Directeur d'équipe</h5>
+              <ng-container *ngIf="team.managerEquipe">
+                <h3 class="text-dark">
+                  {{ team?.managerEquipe?.firstname }}
+                  {{ team?.managerEquipe?.lastname }}
+                </h3>
+                <p class="text-muted mb-0">{{ team?.managerEquipe?.email }}</p>
+                <p class="text-muted mb-0">{{ team?.managerEquipe?.posteOccupe?.titre }}</p>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="mt-4 text-right d-flex justify-content-end" *ngIf="team.managerEquipe">
+            <button class="btn btn-outline-info btn-sm mx-1">
+              <i class="fas fa-linkedin"></i> LinkedIn
+            </button>
+            <button
+              class="btn btn-outline-info btn-sm mx-1"
+              (click)="openCollabDetailPage(team?.managerEquipe?.id)"
+            >
+              <i class="fas fa-info-circle"></i> Voir profil
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Members Section -->
+  <div class="container mt-4">
+    <h4 class="text-center text-secondary mb-4">Membres de l'équipe</h4>
+    <div class="row">
+      <!-- Dynamic Cards for Team Members -->
+      <div class="col-md-4" *ngFor="let member of team.collaborateurs">
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body text-center">
+            <!-- Team Member Avatar -->
+            <img
+              [src]="memberAvatarUrls[member.id]"
+              alt="{{ member.firstname }} {{ member.lastname }} Avatar"
+              class="rounded-circle avatar-img"
+              width="100"
+              height="100"
+            />
+            <ng-template #generatedAvatarMember>
+              <img
+                [src]="'https://randomuser.me/api/portraits/' + (memberGenders[member.id] === 'male' ? 'men' : 'women') + '/' + (member.id % 100) + '.jpg'"
+                alt="{{ member.firstname }} {{ member.lastname }} Avatar"
+                class="rounded-circle mb-3"
+                width="100"
+                height="100"
+              />
+            </ng-template>
+
+            <h5 class="text-dark">
+              {{ member?.firstname }} {{ member?.lastname }}
+            </h5>
+            <p class="text-muted">{{ member?.email }}</p>
+            <p class="text-muted">{{ member?.posteOccupe?.titre }}</p>
+
+            <div class="d-flex justify-content-center mt-2">
+              <button class="btn btn-outline-info btn-sm mx-1" (click)="openCollabDetailPage(member.id)">
+                <i class="bi-person-circle"></i> Profile
+              </button>
+              <button class="btn btn-outline-info btn-sm mx-1">
+                <i class="bi bi-linkedin me-2"></i>LinkedIn
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,50 @@
+<ng-template #modifyRequestModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Modifier la Demande de Formation</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="modifyForm" (ngSubmit)="submitModifiedRequest()">
+
+      <!-- Catalogue Dropdown -->
+      <div class="form-group mb-3">
+        <label for="catalogueSelect" class="form-label">Catalogue</label>
+        <select class="form-control" id="catalogueSelect" formControlName="catalogue" (change)="onCatalogueChange()">
+          <option value="" disabled selected>Choisissez un catalogue</option>
+          <option *ngFor="let cat of catalogue" [value]="cat.id">{{ cat.title }}</option>
+        </select>
+        <div *ngIf="modifyForm.get('catalogue')?.invalid && modifyForm.get('catalogue')?.touched" class="text-danger">
+          Veuillez sélectionner un catalogue.
+        </div>
+      </div>
+
+      <!-- Formation Dropdown (dependent on Catalogue) -->
+      <div class="form-group mb-3">
+        <label for="formationSelect" class="form-label">Formation</label>
+        <select class="form-control" id="formationSelect" formControlName="formationTitle" [disabled]="!catalogueSelected">
+          <option value="" disabled selected>Choisissez une formation</option>
+          <option *ngFor="let formation of formations" [value]="formation.id">{{ formation.title }}</option>
+        </select>
+        <div *ngIf="modifyForm.get('formationTitle')?.invalid && modifyForm.get('formationTitle')?.touched" class="text-danger">
+          Veuillez sélectionner une formation.
+        </div>
+      </div>
+
+      <!-- Justification Field -->
+      <div class="form-group mb-3">
+        <label for="justification" class="form-label">Justification</label>
+        <textarea class="form-control" id="justification" formControlName="justification" rows="3"></textarea>
+        <div *ngIf="modifyForm.get('justification')?.invalid && modifyForm.get('justification')?.touched" class="text-danger">
+          La justification est requise.
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Fermer</button>
+    <button type="button" class="btn btn-primary" [disabled]="!modifyForm.valid" (click)="submitModifiedRequest()">Enregistrer les modifications</button>
+  </div>
+</ng-template>

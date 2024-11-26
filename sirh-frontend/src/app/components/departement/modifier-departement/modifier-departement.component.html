@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Modifier Département</h1>
+<div mat-dialog-content>
+
+  <!-- Success and Error Messages -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <!-- Update Department Details Form -->
+  <form [formGroup]="updateDepartmentForm" (ngSubmit)="updateDepartmentDetails()">
+
+    <!-- Department Name -->
+    <mat-form-field class="full-width">
+      <mat-label>Nom du Département</mat-label>
+      <input matInput formControlName="nomDep" required>
+    </mat-form-field>
+
+    <!-- Action Buttons -->
+    <div class="text-right mt-3">
+      <button mat-raised-button color="primary" type="submit">Sauvegarder Nom</button>
+    </div>
+
+  </form>
+
+  <!-- Set Responsible Person Form -->
+  <form [formGroup]="setResponsibleForm" (ngSubmit)="setResponsiblePerson()">
+
+    <!-- Responsible Selection -->
+    <mat-form-field class="full-width">
+      <mat-label>Sélectionner Responsable</mat-label>
+      <mat-select formControlName="responsable" required>
+        <mat-option *ngFor="let responsible of responsibles" [value]="responsible.id">
+          {{ responsible.email }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Action Buttons -->
+    <div class="text-right mt-3">
+      <button mat-raised-button color="primary" type="submit">Définir Responsable</button>
+    </div>
+
+  </form>
+
+  <!-- Close Button -->
+  <div class="text-right mt-4">
+    <button mat-raised-button color="warn" (click)="onCancel()">Fermer</button>
+  </div>
+
+</div>

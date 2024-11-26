@@ -1,0 +1,137 @@
+<ng-container *ngIf="(formationsState$ | async) as state" [ngSwitch]="state.appState">
+
+  <!-- Breadcrumb and Add Formation Button -->
+  <div class="container d-flex justify-content-between align-items-center mt-3">
+    <h4 class="title">Liste des formations</h4>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+        <li class="breadcrumb-item"><a href="#">Liste des formations</a></li>
+      </ol>
+    </nav>
+  </div>
+  <div class="container text-right mt-2 mb-2">
+    <button class="btn btn-primary" (click)="redirectToAjoutFormation()" >Ajouter une formation</button>
+  </div>
+
+  <!-- Search and Filter Section -->
+  <div class="d-flex justify-content-center">
+    <div class="card p-3 container mt-2 shadow border-0">
+      <!-- Filters -->
+      <div class="row mb-4 mt-3">
+        <div class="col-md-4">
+          <label for="catalogueSelect" class="form-label">Filtrer par catalogue</label>
+          <select
+            class="form-control"
+            id="catalogueSelect"
+            [(ngModel)]="selectedCatalogue"
+            (change)="onFilterChange()"
+            name="selectedCatalogue"
+          >
+            <option value="">Tous les catalogues</option>
+            <option *ngFor="let catalogue of catalogues" [value]="catalogue.id">{{ catalogue.title || 'Catalogue Sans Nom' }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="competenceSelect" class="form-label">Filtrer par compétence</label>
+          <select
+            class="form-control"
+            id="competenceSelect"
+            [(ngModel)]="selectedCompetenceId"
+            (change)="onFilterChange()"
+            name="selectedCompetenceId"
+          >
+            <option value="">Toutes les compétences</option>
+            <option *ngFor="let competence of competences" [value]="competence.id">
+              {{ mapCompetenceName(competence.name) }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="searchInput" class="form-label">Recherche par nom</label>
+          <input class="form-control" id="searchInput" [(ngModel)]="query" (ngModelChange)="onFilterChange()" placeholder="Rechercher des formations">
+        </div>
+      </div>
+
+      <!-- Clear Filter Button -->
+      <button *ngIf="selectedCompetenceId || selectedCatalogue || query" class="btn btn-outline-secondary mb-3" (click)="clearFilter()">Effacer le filtre</button>
+
+      <!-- Formations Table -->
+      <ng-container *ngSwitchCase="'APP_LOADED'">
+        <table class="table table-striped table-hover align-middle text-center">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Description</th>
+            <th scope="col">Compétence</th>
+            <th scope="col">Niveau-Actuel</th>
+            <th scope="col">Niveau-Cible</th>
+            <th scope="col">Date de Début</th>
+            <th scope="col">Date de Fin</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody *ngIf="state.appData?.data?.page?.content && Array.isArray(state.appData.data.page.content)">
+          <tr *ngFor="let formation of state.appData.data.page.content">
+            <td>{{ formation?.title }}</td>
+            <td>{{ formation?.description }}</td>
+            <td>{{ mapCompetenceName(formation?.targetCompetence?.name) }}</td>
+            <td>{{ formation?.currentLevel }}</td>
+            <td>{{ formation?.targetLevel }}</td>
+            <td>{{ formation?.startingAt | date:'MMM d, yyyy' }}</td>
+            <td>{{ formation?.finishingAt |  date:'MMM d, yyyy' }}</td>
+            <td>
+              <button class="btn btn-secondary border-0" (click)="viewFormationDetails(formation?.id)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-secondary border-0" (click)="deleteFormation(formation?.id, $event)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <!-- No Formations Found Message -->
+        <div *ngIf="!state.appData?.data?.page?.content?.length" class="alert alert-secondary text-center">
+          Aucun formation trouvée.
+        </div>
+      </ng-container>
+
+      <!-- Loading Spinner -->
+      <ng-container *ngSwitchCase="'APP_LOADING'">
+        <div class="d-flex justify-content-center mt-4">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Error Message -->
+      <ng-container *ngSwitchCase="'APP_ERROR'">
+        <div class="alert alert-danger text-center">
+          Une erreur s'est produite : {{ state.error?.message || 'Erreur inconnue' }}
+        </div>
+      </ng-container>
+
+      <!-- Pagination -->
+      <nav *ngIf="state.appData?.data?.page?.content?.length > 0" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [ngClass]="0 === (currentPage$ | async) ? 'disabled' : ''">
+            <a (click)="goToNextOrPreviousPage('backward')" class="page-link" aria-label="Previous">
+              <span aria-hidden="true">&laquo; Previous</span>
+            </a>
+          </li>
+          <li *ngFor="let pageNumber of [].constructor(state.appData?.data?.page?.totalPages); let i = index" class="page-item" [ngClass]="i === (currentPage$ | async) ? 'active' : ''">
+            <a (click)="goToPage( i)" class="page-link">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [ngClass]="(state.appData?.data?.page?.totalPages - 1) === (currentPage$ | async) ? 'disabled' : ''">
+            <a (click)="goToNextOrPreviousPage('forward')" class="page-link" aria-label="Next">
+              <span aria-hidden="true">Next &raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</ng-container>

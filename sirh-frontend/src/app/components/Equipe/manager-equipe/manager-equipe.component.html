@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <h1 class="display-4 text-primary text-center">{{ team?.nom }}</h1>
+
+  <!-- Manager Details (Top) -->
+  <div class="row justify-content-center mt-4">
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+      <div class="card shadow-sm border-custom hoverable-card">
+        <div class="card-body text-center py-3">
+          <!-- Manager Avatar -->
+          <div class="mb-3 d-flex justify-content-center">
+              <img
+                [src]="managerAvatarUrl"
+                alt="Manager Avatar"
+                class="rounded-circle avatar-img"
+                width="100"
+                height="100"
+              />
+          </div>
+
+          <h5 class="card-title text-uppercase text-info">Manager de l'Équipe</h5>
+          <p class="mb-2">{{ manager?.firstname }} {{ manager?.lastname }}</p>
+          <p class="small mb-2">{{ manager?.email }}</p>
+          <p class="small"><strong>Position: </strong>{{ manager?.posteOccupe?.titre || 'N/A' }}</p>
+
+          <button class="btn btn-outline-info btn-sm mx-1">
+            <i class="fas fa-linkedin"></i> LinkedIn
+          </button>
+          <button class="btn btn-outline-info btn-sm mx-1" (click)="openCollabDetailPage(manager?.id)">
+            <i class="fas fa-info-circle"></i> Voir Profil
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Collaborators -->
+  <h4 class="text-center text-secondary mt-4">Les Membres de l'Équipe</h4>
+  <div class="row mt-4 justify-content-center">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let member of team?.collaborateurs">
+      <div class="card shadow-sm border-custom hoverable-card">
+        <div class="card-body text-center py-3">
+          <!-- Collaborator Avatar -->
+          <div class="mb-3 d-flex justify-content-center">
+            <img
+              [src]="memberAvatarUrls[member.id]"
+              alt="{{ member.firstname }} {{ member.lastname }} Avatar"
+              class="rounded-circle avatar-img"
+              width="100"
+              height="100"
+            />
+          </div>
+
+          <p class="mb-1">{{ member?.firstname }} {{ member?.lastname }}</p>
+          <p class="small mb-2">{{ member?.email }}</p>
+          <p class="small"><strong>Position: </strong>{{ member?.posteOccupe?.titre || 'N/A' }}</p>
+          <button class="btn btn-outline-info btn-sm mx-1">
+            <i class="fas fa-linkedin"></i> LinkedIn
+          </button>
+          <button class="btn btn-outline-info btn-sm mx-1" (click)="openCollabDetailPage(member.id)">
+            <i class="fas fa-info-circle"></i> Voir Profil
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

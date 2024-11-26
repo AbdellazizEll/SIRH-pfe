@@ -1,0 +1,93 @@
+/* Reset Margins and Padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full Flexbox Layout for Sticky Footer */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.container {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Footer Styling to Keep it at the Bottom */
+footer {
+  background-color: #1E1A57;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #1E1A57;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.navbar-nav li {
+  margin-left: 1rem; /* Creates space between each nav item */
+}
+
+.nav-link, .dropdown-item {
+  color: white;
+}
+
+.nav-link:hover, .dropdown-item:hover {
+  color: #FFC107;
+}
+
+/* User Profile Navigation Adjustment */
+.ms-auto {
+  margin-left: auto !important; /* Pushes profile link to the far right */
+}
+
+/* Button and Link Styling */
+.invalid-feedback {
+  color: #FFC107;
+}
+
+.btn-primary {
+  background-color: #1E1A57;
+  border-color: #1E1A57;
+}
+
+.btn-primary:hover {
+  background-color: #FFC107;
+  border-color: #FFC107;
+}
+
+/* Dropdown Styling Fixes */
+.dropdown-item:focus, .dropdown-toggle:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.no-header-footer .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}

@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <div class="card mb-3 shadow-sm">
+    <div class="row g-0">
+      <div class="col-md-4 d-flex justify-content-center align-items-center bg-light">
+        <div class="profile-placeholder rounded-circle d-flex justify-content-center align-items-center bg-secondary text-white" style="width: 100px; height: 100px; font-size: 36px;">
+          <span>{{ poste?.titre.charAt(0) }}</span>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title mb-1">{{ poste?.titre }}</h5>
+          <p class="card-text text-muted mb-2">{{ poste?.description }}</p>
+          <!-- Additional poste details here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Compétences Requises</h5>
+      <ul class="list-group">
+        <li *ngFor="let competence of competences" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ mapCompetenceName(competence.competence.name) }}</span>
+          <span class="badge bg-primary rounded-pill">{{ mapEvaluationValue(competence.evaluation) }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <app-radar-chart [poste]="poste" [competences]="competences"></app-radar-chart>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <button mat-raised-button color="warn" (click)="closePopup()">Fermer</button>
+  </div>
+</div>

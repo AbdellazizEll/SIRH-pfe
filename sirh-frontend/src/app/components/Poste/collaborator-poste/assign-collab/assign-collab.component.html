@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h2>{{data.title}}</h2>
+
+  <!-- Success and Error Messages -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <!-- Assigned Collaborators List -->
+  <h4>Collaborateurs Assignés</h4>
+  <mat-list *ngIf="assignedCollaborators.length > 0">
+    <mat-list-item *ngFor="let collaborator of assignedCollaborators">
+      <div class="d-flex justify-content-between w-100">
+        <span>{{ collaborator.firstname }} {{ collaborator.lastname }} ({{ collaborator.email }})</span>
+        <button mat-icon-button color="warn" (click)="removeCollaborator(collaborator.id)">
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+  <div *ngIf="assignedCollaborators.length === 0" class="text-muted">Aucun collaborateur assigné</div>
+
+  <!-- Assign New Collaborator Section -->
+  <h4 class="mt-4">Assigner un Nouveau Collaborateur</h4>
+  <form [formGroup]="assignForm" (ngSubmit)="assignCollaborator()">
+    <div class="form-group">
+      <label for="collaborateur">Collaborateur</label>
+      <select class="form-control" id="collaborateur" formControlName="collaborateurId" required>
+        <option *ngFor="let collaborator of joblessCollaborators" [value]="collaborator.id">
+          {{collaborator.firstname}} {{collaborator.lastname}}
+        </option>
+      </select>
+    </div>
+    <button mat-raised-button color="primary" type="submit" [disabled]="assignForm.invalid">Assigner</button>
+  </form>
+
+  <!-- Close Button -->
+  <div class="mt-4">
+    <button mat-raised-button color="warn" (click)="close()">Fermer</button>
+  </div>
+</div>

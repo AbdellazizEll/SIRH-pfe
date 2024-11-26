@@ -1,0 +1,83 @@
+/* Breadcrumb styles for consistency */
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.breadcrumb-item a {
+  color: #007bff; /* Link color */
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline; /* Hover effect */
+}
+
+.breadcrumb-item.active {
+  color: #6c757d; /* Gray color for active breadcrumb */
+}
+
+.breadcrumb-item i {
+  margin-right: 5px; /* Icon spacing */
+}
+
+/* Table Hover Effect */
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+.table thead th {
+  background-color: #1E1A57;
+  color: #fff;
+}
+
+/* Status Badge Styles */
+.badge-success {
+  background-color: #28a745;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #0F0D36 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.btn-secondary {
+  background-color: transparent !important;
+  color: #0F0D36 !important;
+}
+
+.btn-secondary:hover {
+  background-color: transparent !important;
+  color: #007bff !important;
+}
+
+/* Pagination Styles */
+.pagination .page-link {
+  color: #0F0D36;
+  cursor: pointer;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #c3e0ff;
+  border-color: #007bff;
+}
+
+.pagination .page-link:hover {
+  background-color: #f1f1f1;
+}

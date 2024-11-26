@@ -1,0 +1,120 @@
+  <!-- Breadcrumb -->
+  <div class="container d-flex justify-content-between align-items-center mt-3">
+    <div class="text-left">
+      <h4 class="title">Suivi des Inscriptions de l'Équipe</h4>
+    </div>
+    <nav class="text-right">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+        <li class="breadcrumb-item"><a href="#">Inscriptions d'équipe</a></li>
+      </ol>
+    </nav>
+  </div>
+  <div class="container text-right mt-2 mb-2">
+    <button class="btn btn-primary" (click)="addEnrollment()" >Ajouter une inscription </button>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <div class="card p-3 container mt-2 shadow border-0">
+
+      <div *ngIf="enrollmentsState$ | async as state">
+        <ng-container *ngIf="state.appState === 'APP_LOADING'">
+          <div class="loading text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Chargement...</span>
+            </div>
+            <p class="mt-3">Chargement des inscriptions...</p>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="state.appState === 'APP_ERROR'">
+          <p class="text-danger text-center">Erreur lors du chargement des inscriptions. Veuillez réessayer plus tard.</p>
+        </ng-container>
+
+        <ng-container *ngIf="state.appState === 'APP_LOADED' && state.appData">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead class="thead-light">
+              <tr>
+                <th>Collaborateur</th>
+                <th>Formation</th>
+                <th>Niveau Actuel</th>
+                <th>Niveau Cible</th>
+                <th>Progression</th>
+                <th>Statut</th>
+                <th>Historique</th>
+                <th>Date de Début</th>
+                <th>Date de Fin</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let enrollment of state.appData" class="text-center">
+                <td>{{ enrollment.collaboratorDTO.firstname }} {{ enrollment.collaboratorDTO.lastname }}</td>
+                <td>{{ enrollment.formationDTO.title }}</td>
+                <td>{{ enrollment.formationDTO.currentLevel }}</td>
+                <td>{{ enrollment.formationDTO.targetLevel }}</td>
+                <td>
+                  <div class="progress-circle mx-auto" [style]="{'--progress': enrollment.progress + '%'}">
+                    <div class="progress-bar progress-bar-striped bg-info">{{ enrollment.progress }}%</div>
+                  </div>
+                </td>
+                <td>{{ enrollment.completed ? 'Complété' : 'En Cours' }}</td>
+                <td>
+                  <button *ngIf="enrollment.completed" class="btn btn-info btn-sm" (click)="openCompetenceHistoryModal(enrollment.collaboratorDTO.id)">
+                    Voir Historique
+                  </button>
+                </td>
+                <td>{{ enrollment.formationDTO.startingAt | date:'MMM d, yyyy' }}</td>
+                <td>{{ enrollment.formationDTO.finishingAt | date:'MMM d, yyyy' }}</td>
+                <td>
+                  <ng-container *ngIf="enrollment.progress >= 100 && !enrollment.completed">
+                    <button class="btn btn-success btn-sm" (click)="evaluateTraining(enrollment.id, true)">
+                      Évaluer
+                    </button>
+                    <button class="btn btn-danger btn-sm" (click)="evaluateTraining(enrollment.id,false)">
+                      Rejeter
+                    </button>
+                  </ng-container>
+
+                  <ng-container *ngIf="enrollment.completed">
+                    <span class="badge badge-success">Aucune action requise</span>
+                  </ng-container>
+
+                  <ng-container *ngIf="enrollment.progress < 100">
+                    <button class="btn btn-primary btn-sm" (click)="openUpdateProgressModal(enrollment)">
+                      Mettre à jour la progression
+                    </button>
+                  </ng-container>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p *ngIf="state.appData.length === 0" class="text-center mt-4">Aucune inscription trouvée pour cette équipe.</p>
+
+          <nav *ngIf="state.appData.length > 0 && totalPages > 1" aria-label="Page navigation">
+            <ul class="pagination justify-content-center mt-4">
+              <li class="page-item" [class.disabled]="(currentPage$ | async) === 0">
+                <a class="page-link" (click)="goToNextOrPreviousPage('backward')" aria-label="Précédent">
+                  &laquo; Précédent
+                </a>
+              </li>
+              <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item" [class.active]="i === (currentPage$ | async)">
+                <a class="page-link" (click)="goToPage(i)">
+                  {{ i + 1 }}
+                </a>
+              </li>
+              <li class="page-item" [class.disabled]="(currentPage$ | async) === totalPages - 1">
+                <a class="page-link" (click)="goToNextOrPreviousPage('forward')" aria-label="Suivant">
+                  Suivant &raquo;
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </ng-container>
+      </div>
+
+    </div>
+  </div>

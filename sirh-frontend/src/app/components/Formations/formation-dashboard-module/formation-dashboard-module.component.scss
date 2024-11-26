@@ -1,0 +1,29 @@
+.formation-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+  padding: 20px;
+
+  .chart-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+
+    h3 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: 300px;
+    }
+  }
+}

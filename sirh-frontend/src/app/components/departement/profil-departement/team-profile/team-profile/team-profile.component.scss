@@ -1,0 +1,192 @@
+/* General Container Styling */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Avatar Styling */
+.avatar-img,
+.placeholder-avatar {
+  width: 120px; /* Increased size for better visibility */
+  height: 120px; /* Increased size for better visibility */
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 20px; /* Center horizontally and add space below */
+  display: block;
+}
+
+/* Placeholder Avatar Styling */
+.placeholder-avatar {
+  background-color: #6c757d; /* Bootstrap's secondary color */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Breadcrumb styles */
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.breadcrumb-item a {
+  color: #007bff; /* Link color */
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline; /* Hover effect */
+}
+
+.breadcrumb-item.active {
+  color: #6c757d; /* Gray color for active breadcrumb */
+}
+
+.breadcrumb-item i {
+  margin-right: 5px; /* Space for icon */
+}
+
+/* Header Styling */
+h1.display-4 {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+p.lead {
+  font-size: 1.25rem;
+  color: #7f8c8d;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 12px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the content horizontally */
+}
+
+.card:hover {
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+/* Card Title and Text Styling */
+.card-title {
+  font-size: 1.4rem; /* Increased font size for emphasis */
+  color: #2980b9;
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #34495e;
+}
+
+.text-muted {
+  color: #95a5a6 !important;
+}
+
+/* Button Styling */
+.btn {
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary {
+  color: #2980b9;
+  border-color: #2980b9;
+}
+
+.btn-outline-primary:hover {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.btn-outline-info {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-info:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.btn-success {
+  background-color: #27ae60;
+  border-color: #27ae60;
+}
+
+.btn-success:hover {
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+/* Form Styling */
+.form-control {
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.form-control:focus {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-color: #2980b9;
+}
+
+/* Alert Styling */
+.alert {
+  border-radius: 5px;
+  font-size: 0.95rem;
+}
+
+/* Spinner for Loading State */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Customizing the Select Element */
+#managerSelect {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #dcdcdc;
+  transition: all 0.3s ease;
+}
+
+#managerSelect:focus {
+  border-color: #2980b9;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover for Team Members */
+.card-body h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.card-body h5:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Center Cards */
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centers cards horizontally */
+  gap: 20px; /* Adds space between cards */
+}

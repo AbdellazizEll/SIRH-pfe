@@ -1,0 +1,81 @@
+<div class="container mt-4">
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success text-center">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="teamForm" class="form-container">
+
+    <!-- Update Team Section -->
+    <h3>Update Team Information</h3>
+    <div class="form-group">
+      <label for="teamName">Nom de l'équipe</label>
+      <input type="text" id="teamName" formControlName="nom" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" (click)="onUpdateTeam()">Update Team</button>
+    </div>
+
+    <!-- Success and Error Messages for Updating Team -->
+    <div *ngIf="successMessage && action === 'updateTeam'" class="alert alert-success mt-2">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage && action === 'updateTeam'" class="alert alert-danger mt-2">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Assign Manager Section -->
+    <h3>Assign Manager</h3>
+    <div class="form-group">
+      <label for="manager">Manager</label>
+      <select id="manager" formControlName="manager" class="form-control" required>
+        <option *ngFor="let manager of availableManagers" [value]="manager.id">
+          {{ manager.firstname }} {{ manager.lastname }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" (click)="onAssignManager()">Assign Manager</button>
+    </div>
+
+    <!-- Success and Error Messages for Assigning Manager -->
+    <div *ngIf="successMessage && action === 'assignManager'" class="alert alert-success mt-2">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage && action === 'assignManager'" class="alert alert-danger mt-2">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Assign Department Section -->
+    <h3>Assign Department</h3>
+    <div class="form-group">
+      <label for="department">Département</label>
+      <select id="department" formControlName="department" class="form-control" required>
+        <option *ngFor="let department of availableDepartments" [value]="department.id_dep">
+          {{ department.nomDep }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" (click)="onAssignDepartment()">Assign Department</button>
+    </div>
+
+    <!-- Success and Error Messages for Assigning Department -->
+    <div *ngIf="successMessage && action === 'assignDepartment'" class="alert alert-success mt-2">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage && action === 'assignDepartment'" class="alert alert-danger mt-2">
+      {{ errorMessage }}
+    </div>
+  </form>
+
+  <!-- Close Button -->
+  <div class="mt-4 text-center">
+    <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="container d-flex justify-content-between align-items-center mt-3">
+  <div class="text-left">
+    <h4 class="title">Modifier les Informations du Collaborateur</h4>
+  </div>
+  <nav class="text-right">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+      <li class="breadcrumb-item"><a href="collaborateurs">Collaborateurs</a></li>
+      <li class="breadcrumb-item active">Modifier Collaborateur</li>
+    </ol>
+  </nav>
+</div>
+
+<div class="d-flex justify-content-center">
+  <div class="card p-3 container mt-2 shadow border-0 center-container">
+    <div class="card-body" style="max-height: 70vh; overflow-y: auto;">
+      <form [formGroup]="myform" (ngSubmit)="updateCollaborator()" class="mt-4">
+        <!-- Success and Error Messages -->
+        <div *ngIf="successMessage" class="alert alert-success" role="alert">
+          {{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Basic Info Fields -->
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label for="firstname">Nom</label>
+            <input id="firstname" formControlName="firstname" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label for="lastname">Prénom</label>
+            <input id="lastname" formControlName="lastname" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label for="email">Email</label>
+            <input id="email" formControlName="email" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label for="phone">Téléphone</label>
+            <input id="phone" formControlName="phone" class="form-control" required>
+          </div>
+        </div>
+
+        <!-- Role Assignment Fields -->
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label for="assignRole">Affecter Rôle</label>
+            <mat-select id="assignRole" formControlName="roles" class="form-control" (selectionChange)="onRoleSelectionChange($event)">
+              <mat-option *ngFor="let role of roles" [value]="role">
+                {{ role.displayName }}
+              </mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="removeRole">Supprimer Rôle</label>
+            <mat-select id="removeRole" formControlName="rolesRm" class="form-control" (selectionChange)="onRoleSelectionChange2($event)">
+              <mat-option *ngFor="let role of rolesRemoval" [value]="role">
+                {{ role.displayName }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <!-- Competence Assignment Fields -->
+        <div class="form-group" formArrayName="competences">
+          <div *ngFor="let competence of competencesArray.controls; let i = index" [formGroupName]="i" class="form-group row">
+            <div class="col-md-6">
+              <label for="competence-{{i}}">Compétence</label>
+              <input id="competence-{{i}}" formControlName="name" class="form-control" [disabled]="true" required>
+            </div>
+            <div class="col-md-6">
+              <label for="evaluation-{{i}}">Évaluation</label>
+              <mat-select id="evaluation-{{i}}" formControlName="evaluation" class="form-control" required>
+                <mat-option *ngFor="let value of competence.get('possibleValues').value" [value]="value">
+                  {{ mapEvaluationValue(value) }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit and Cancel Buttons -->
+        <div class="mt-4 d-flex justify-content-center">
+          <div class="d-flex">
+            <button type="submit" class="btn btn-primary" [disabled]="!myform.valid">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

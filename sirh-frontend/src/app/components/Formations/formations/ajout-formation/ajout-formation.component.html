@@ -1,0 +1,196 @@
+<div class="container d-flex justify-content-between align-items-center mt-3">
+  <div class="text-left">
+    <h4 class="title">Ajouter une formation</h4>
+  </div>
+  <nav class="text-right">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+      <li class="breadcrumb-item"><a href="/ListDesFormations">Liste des formations</a></li>
+      <li class="breadcrumb-item active">Ajouter une formation</li>
+    </ol>
+  </nav>
+</div>
+
+<div class="d-flex justify-content-center">
+  <div class="card p-3 container mt-2 shadow border-0">
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="alert alert-success text-center">
+      {{ successMessage }}
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">
+      {{ errorMessage }}
+    </div>
+
+    <form (ngSubmit)="addFormation()" #formationForm="ngForm">
+      <div class="row g-4">
+        <!-- Left Column -->
+        <div class="col-md-6">
+          <!-- Titre de la Formation -->
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              class="form-control"
+              id="trainingTitle"
+              placeholder="Titre de la Formation"
+              [(ngModel)]="newFormation.title"
+              name="title"
+              required
+              #title="ngModel"
+              [ngClass]="{'is-invalid': (formSubmitted || title.touched) && title.invalid}">
+            <label for="trainingTitle">Titre de la Formation</label>
+            <div *ngIf="(formSubmitted || title.touched) && title.invalid" class="invalid-feedback d-block">
+              Le titre de la formation est requis.
+            </div>
+          </div>
+
+          <!-- Compétence Ciblée -->
+          <div class="form-floating mb-3">
+            <select
+              class="form-select"
+              id="targetCompetence"
+              [(ngModel)]="newFormation.targetCompetence.id"
+              name="targetCompetence"
+              required
+              #targetCompetence="ngModel"
+              [ngClass]="{'is-invalid': (formSubmitted || targetCompetence.touched) && targetCompetence.invalid}"
+              (change)="onCompetenceChange($event)">
+              <option value="" disabled selected>Sélectionner une compétence</option>
+              <option *ngFor="let competence of competencies" [value]="competence.id">{{ competence.name }}</option>
+            </select>
+            <label for="targetCompetence">Compétence Ciblée</label>
+            <div *ngIf="(formSubmitted || targetCompetence.touched) && targetCompetence.invalid" class="invalid-feedback d-block">
+              Sélectionner une compétence.
+            </div>
+          </div>
+
+          <!-- Niveau Actuel -->
+          <div class="form-floating mb-3">
+            <input
+              type="number"
+              class="form-control"
+              id="currentLevel"
+              placeholder="Niveau Actuel"
+              [(ngModel)]="newFormation.currentLevel"
+              name="currentLevel"
+              min="1"
+              max="5"
+              required
+              #currentLevel="ngModel"
+              [ngClass]="{'is-invalid': (formSubmitted || currentLevel.touched) && currentLevel.invalid}">
+            <label for="currentLevel">Niveau Actuel (1-5)</label>
+            <div *ngIf="(formSubmitted || currentLevel.touched) && currentLevel.invalid" class="invalid-feedback d-block">
+              Le niveau actuel doit être entre 1 et 5.
+            </div>
+          </div>
+
+          <!-- Date de Début -->
+          <div class="form-floating mb-3">
+            <input
+              type="date"
+              class="form-control"
+              id="startingAt"
+              [(ngModel)]="newFormation.startingAt"
+              name="startingAt"
+              [min]="tomorrow"
+              (change)="onStartDateChange()"
+              required
+              #startingAt="ngModel"
+              [ngClass]="{'is-invalid': (formSubmitted || startingAt.touched) && startingAt.invalid}">
+            <label for="startingAt">Date de Début</label>
+            <div *ngIf="(formSubmitted || startingAt.touched) && startingAt.invalid" class="invalid-feedback d-block">
+              La date de début est requise.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-6">
+          <!-- Description -->
+          <div class="form-floating mb-3">
+            <textarea
+              class="form-control"
+              id="trainingDescription"
+              placeholder="Description"
+              [(ngModel)]="newFormation.description"
+              name="description"
+              required
+              #description="ngModel"
+              [ngClass]="{'is-invalid': (formSubmitted || description.touched) && description.invalid}"></textarea>
+            <label for="trainingDescription">Description</label>
+            <div *ngIf="(formSubmitted || description.touched) && description.invalid" class="invalid-feedback d-block">
+              La description est requise.
+            </div>
+          </div>
+
+          <!-- Catalogue -->
+          <div class="form-floating mb-3">
+            <select
+              class="form-select"
+              id="catalogueId"
+              [(ngModel)]="newFormation.catalogue.id"
+              name="catalogue"
+              required
+              #catalogue="ngModel"
+              [ngClass]="{'is-invalid': (formSubmitted || catalogue.touched) && catalogue.invalid}">
+              <option value="" disabled selected>Choisir un Catalogue</option>
+              <option *ngFor="let catalogue of catalogues" [value]="catalogue.id">{{ catalogue.title }}</option>
+            </select>
+            <label for="catalogueId">Catalogue</label>
+            <div *ngIf="(formSubmitted || catalogue.touched) && catalogue.invalid" class="invalid-feedback d-block">
+              Sélectionner un catalogue.
+            </div>
+          </div>
+
+          <!-- Niveau Ciblé -->
+          <div class="form-floating mb-3">
+            <input
+              type="number"
+              class="form-control"
+              id="targetLevel"
+              placeholder="Niveau Ciblé"
+              [(ngModel)]="newFormation.targetLevel"
+              name="targetLevel"
+              min="1"
+              max="5"
+              required
+              #targetLevel="ngModel"
+              [ngClass]="{'is-invalid': (formSubmitted || targetLevel.touched) && targetLevel.invalid}">
+            <label for="targetLevel">Niveau Ciblé (1-5)</label>
+            <div *ngIf="(formSubmitted || targetLevel.touched) && targetLevel.invalid" class="invalid-feedback d-block">
+              Le niveau ciblé doit être entre 1 et 5.
+            </div>
+          </div>
+
+          <!-- Date de Fin -->
+          <div class="form-floating mb-3">
+            <input
+              type="date"
+              class="form-control"
+              id="finishingAt"
+              [(ngModel)]="newFormation.finishingAt"
+              name="finishingAt"
+              [min]="newFormation.startingAt"
+              required
+              #finishingAt="ngModel"
+              [ngClass]="{'is-invalid': (formSubmitted || finishingAt.touched) && finishingAt.invalid}">
+            <label for="finishingAt">Date de Fin</label>
+            <div *ngIf="(formSubmitted || finishingAt.touched) && finishingAt.invalid" class="invalid-feedback d-block">
+              La date de fin est requise.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-4 d-flex justify-content-center">
+        <div class="d-flex">
+          <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

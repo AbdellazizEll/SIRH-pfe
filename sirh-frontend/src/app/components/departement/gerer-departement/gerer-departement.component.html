@@ -1,0 +1,93 @@
+  <div class="container d-flex justify-content-between align-items-center mt-3">
+    <div class="text-left">
+      <h4 class="title">Liste des Départements</h4>
+    </div>
+    <nav class="text-right">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+        <li class="breadcrumb-item"><a href="GererDepartement">Liste des Départements</a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="container text-right mt-2 mb-2">
+    <button class="btn btn-primary" (click)="ajoutDepartement()" >Ajouter un département</button>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="card p-3 container mt-2 shadow border-0">
+
+      <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
+        {{ errorMessage }}
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="thead-light">
+          <tr>
+            <th>Nom Departement</th>
+            <th>Responsable</th>
+            <th>Equipes</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let department of departmentData" (click)="viewDepartmentDetails(department.id_dep)">
+            <td><strong>{{ department.nomDep  }}</strong></td>
+            <td>
+              {{ department.responsable ? (department.responsable.firstname + ' ' + department.responsable.lastname) : 'Pas de responsable affecté pour le moment' | capitalizeFirst }}
+            </td>
+            <td>
+              <ul *ngIf="department.equipes.length > 0; else noTeams">
+                <li *ngFor="let equipe of department.equipes">
+                  <a [routerLink]="['/teamProfile', equipe.id_equipe]" class="team-link">{{ equipe.nom | capitalizeFirst }}</a>
+
+                  <button class="btn btn-link p-0 ms-2 text-danger" (click)="deleteTeam(equipe.id_equipe, $event)">
+                    <i class="bi bi-x"></i>
+
+                  </button>
+                </li>
+              </ul>
+              <ng-template #noTeams>
+                <span>Pas d'équipes dans ce département</span>
+              </ng-template>
+            </td>
+            <td>
+              <div class="text-center action-buttons">
+                <button class="btn btn-secondary border-0" (click)="modifierDepartement(department, $event)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-secondary border-0" (click)="deleteDepartment(department.id_dep, $event)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No Departments Found Message -->
+      <div *ngIf="departmentData.length === 0" class="alert alert-secondary text-center">
+        Aucun département trouvé.
+      </div>
+
+      <!-- Pagination (if needed) -->
+      <nav *ngIf="totalPages > 1" aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
+        <ul class="pagination">
+          <li class="page-item pointer" [ngClass]="currentPage === 0 ? 'disabled' : ''">
+            <a (click)="goToPreviousPage()" class="page-link">&laquo; Précédent</a>
+          </li>
+          <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item pointer" [ngClass]="i === currentPage ? 'active' : ''">
+            <a (click)="goToPage(i)" class="page-link">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item pointer" [ngClass]="currentPage === totalPages - 1 ? 'disabled' : ''">
+            <a (click)="goToNextPage()" class="page-link">Suivant &raquo;</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+

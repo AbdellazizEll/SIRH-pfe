@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <h2>Validation de Formation</h2>
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let request of requests">
+      <div>
+        <strong>Collaborateur:</strong> {{ request.employee.name }}<br>
+        <strong>Formation:</strong> {{ request.training.title }}
+      </div>
+      <div>
+        <button class="btn btn-success btn-sm" (click)="approveRequest(request)">Approuver</button>
+        <button class="btn btn-danger btn-sm" (click)="rejectRequest(request)">Rejeter</button>
+      </div>
+    </li>
+  </ul>
+</div>

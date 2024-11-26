@@ -1,0 +1,52 @@
+/* Breadcrumb styles */
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.breadcrumb-item a {
+  color: #007bff; /* Link color */
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline; /* Hover effect */
+}
+
+.breadcrumb-item.active {
+  color: #6c757d; /* Gray color for active breadcrumb */
+}
+
+.breadcrumb-item i {
+  margin-right: 5px; /* Space for icon */
+}
+
+/* Invalid Feedback for Form */
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 0.875rem;
+}
+
+/* Button Styling */
+.btn-primary{
+  background-color: #0F0D36 !important;
+  color: white !important;
+  border: none !important;
+}
+.btn-primary:hover {
+  background-color: #007bff !important; /* Couleur légèrement plus sombre au hover */
+  color: white !important; /* Optionnel : changer la couleur du texte au survol */
+}
+
+.btn-secondary{
+  background-color: transparent !important;
+  color: #0F0D36 !important;
+  border: 2px solid #0F0D36 !important;
+}
+.btn-secondary:hover {
+  background-color: transparent !important; /* Change le fond au hover */
+  color: #007bff !important; /* Change la couleur du texte au hover */
+  border: 2px solid #007bff !important; /* Garde la bordure au hover */
+}

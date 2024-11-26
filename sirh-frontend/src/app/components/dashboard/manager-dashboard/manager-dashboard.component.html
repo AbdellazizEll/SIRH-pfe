@@ -1,0 +1,53 @@
+<div class="competence-dashboard-container">
+  <h2>Tableau de bord des compétences</h2>
+
+  <!-- Collaborator Selection -->
+  <div class="collaborator-selection">
+    <label for="collaborator">Choisir un collaborateur:</label>
+    <select id="collaborator" (change)="onCollaboratorChange($event)">
+      <option [value]="''" disabled selected>Choisir un collaborateur</option>
+      <option *ngFor="let collaborator of team" [value]="collaborator.id">
+        {{ collaborator.firstname }} {{ collaborator.lastname }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section" *ngIf="selectedCollaborator">
+    <!-- Competence Coverage Chart -->
+    <div class="chart-container">
+      <h3>Couverture des compétences</h3>
+      <canvas id="competenceCoverageChart"></canvas>
+    </div>
+
+    <!-- Competence Gap Chart -->
+    <div class="chart-container">
+      <h3>Lacune de compétence</h3>
+      <canvas id="competenceGapChart"></canvas>
+    </div>
+
+    <!-- Training Completion Rate Chart -->
+    <div class="chart-container">
+      <h3>Taux de formation</h3>
+      <canvas id="trainingCompletionChart"></canvas>
+    </div>
+
+    <!-- Average Training Progress Chart -->
+    <div class="chart-container">
+      <h3>Progrès moyen des formations</h3>
+      <canvas id="averageTrainingProgressChart"></canvas>
+    </div>
+
+    <!-- Absenteeism Rate Chart -->
+    <div class="chart-container">
+      <h3>Taux d'absentéisme</h3>
+      <canvas id="absenteeismRateChart"></canvas>
+    </div>
+
+    <!-- Average Absence Duration Chart -->
+    <div class="chart-container">
+      <h3>Durée moyenne des absences</h3>
+      <canvas id="averageAbsenceChart"></canvas>
+    </div>
+  </div>
+</div>

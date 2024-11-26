@@ -1,0 +1,28 @@
+<div class="competence-dashboard-container">
+  <h2>Tableau de bord des compétences</h2>
+
+  <!-- Collaborator Selection -->
+  <div class="collaborator-selection">
+    <label for="collaborator">Choisir un collaborateur:</label>
+    <select id="collaborator" (change)="onCollaboratorChange($event)">
+      <option *ngFor="let collaborator of collaborators" [value]="collaborator.id">
+        {{ collaborator.email }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <!-- Competence Coverage Chart -->
+    <div class="chart-container">
+      <h3>Couverture des compétences</h3>
+      <canvas id="competenceCoverageChart"></canvas>
+    </div>
+
+    <!-- Competence Gap Chart -->
+    <div class="chart-container">
+      <h3>Lacune de compétence</h3>
+      <canvas id="competenceGapChart"></canvas>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.titlepage,
+.titleotherpage {
+  color: #b6b6b6; /* Default color */
+  cursor: pointer;
+  font-weight: 100;
+  text-align: center;
+}
+
+.border-cust {
+  transition: all 0.3s ease; /* Smooth transition for hover and active styles */
+}
+
+.border-cust:hover {
+  background-color: #f0f0f0; /* Light background when hovered */
+}
+
+.border-cust.active .titlepage,
+.border-cust.active .titleotherpage {
+  color: #0e309f; /* Active link color */
+  font-weight: 300;
+}

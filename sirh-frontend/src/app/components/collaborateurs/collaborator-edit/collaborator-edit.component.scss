@@ -1,0 +1,52 @@
+.center-container {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.card-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: 500;
+}
+
+.title {
+  color: #1E1A57 !important;
+}
+
+.btn-primary {
+  background-color: #0F0D36 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.btn-secondary {
+  background-color: transparent !important;
+  color: #0F0D36 !important;
+  border: 2px solid #0F0D36 !important;
+}
+
+.btn-secondary:hover {
+  background-color: transparent !important;
+  color: #007bff !important;
+  border: 2px solid #007bff !important;
+}
+

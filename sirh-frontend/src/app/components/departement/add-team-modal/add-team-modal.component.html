@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="addTeamModalLabel">Ajouter Equipe</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="equipeForm" (ngSubmit)="submitForm()">
+    <!-- Success and Error Messages -->
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Team Name Input -->
+    <div class="form-group">
+      <label for="teamName">Nom d'équipe</label>
+      <input type="text" class="form-control" id="teamName" formControlName="nom" required>
+      <div *ngIf="equipeForm.get('nom').invalid && equipeForm.get('nom').touched" class="invalid-feedback">
+        Veuillez saisir un nom d'équipe.
+      </div>
+    </div>
+
+    <!-- Manager Selection (Optional) -->
+    <div class="form-group">
+      <label for="manager">Manager d'équipe (Optionnel)</label>
+      <select class="form-control" id="manager" formControlName="manager">
+        <option value="">Aucun</option>
+        <option *ngFor="let manager of availableManagers" [value]="manager.id">
+          {{ manager.firstname }} {{ manager.lastname }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Department (readonly) -->
+    <div class="form-group">
+      <label for="department">Département</label>
+      <input type="text" class="form-control" id="department" [value]="departmentName" disabled>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Ajouter Equipe</button>
+  </form>
+</div>

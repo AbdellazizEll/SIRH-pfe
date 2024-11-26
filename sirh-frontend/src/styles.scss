@@ -1,0 +1,205 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$pfeFront-primary: mat.define-palette(mat.$deep-purple-palette);
+$pfeFront-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);
+$pfeFront-warn: mat.define-palette(mat.$red-palette);
+
+// The warn palette is optional (defaults to red).
+$pfeFront-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$pfeFront-theme: mat.define-light-theme((
+  color: (
+    primary: $pfeFront-primary,
+    accent: $pfeFront-accent,
+    warn: $pfeFront-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+// Apply theme to the app
+@include mat.all-component-themes($pfeFront-theme);
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import '~@angular/material/theming'; // Add material theme import
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-schedule/styles/material.css';
+// Global styles
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+}
+
+
+
+
+footer {
+  background-color: white;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.navbar {
+  background-color: white;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.nav-link, .dropdown-item {
+  color: white !important;
+}
+
+.nav-link:hover, .dropdown-item:hover {
+  color: #FFC107 !important;
+}
+
+.invalid-feedback {
+  color: #FFC107;
+}
+
+.btn-primary {
+  background-color: #1E1A57;
+  border-color: #1E1A57;
+}
+
+.btn-primary:hover {
+  background-color: #FFC107;
+  border-color: #FFC107;
+}
+
+.no-header-footer {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.no-header-footer .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+  background-color: white; /* Dark background matching the navbar */
+  color: white !important; /* Light text color for contrast */
+  border: 1px solid #343a40;
+  padding-top: 0 !important; /* Remove any extra padding */
+  padding-bottom: 0 !important; /* Remove any extra padding */
+  margin-top: 0 !important; /* Ensure no additional margin */
+  margin-bottom: 0 !important; /* Ensure no additional margin */
+  min-width: 10rem;
+  border-radius: 0 !important; /* Remove border-radius if it's causing issues */
+}
+
+/* Show dropdown on hover */
+.nav-item:hover > .dropdown-menu {
+  display: block;
+}
+
+/* Nested dropdown styling */
+.dropdown-menu .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+  background-color: white; /* Match submenu background with the main menu */
+  color: white !important;
+  border: 1px solid #343a40;
+}
+
+/* Ensure all dropdown items are visible by default */
+.dropdown-item {
+  color: white !important; /* Ensure text is visible by default */
+  background-color: #1E1A57 !important; /* Dark background for consistency */
+  border: none !important; /* Remove any borders that might cause white edges */
+}
+
+/* Show nested dropdown on hover */
+.dropdown-item:hover > .dropdown-menu {
+  display: block;
+}
+
+/* Hover effects */
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: #FFC107 !important; /* Highlight the text with the theme's accent color */
+  background-color: #343a40 !important; /* Slightly darker background on hover */
+}
+
+/* Special styles for active dropdown items */
+.navbar .dropdown-item.active,
+.navbar .dropdown-item:active {
+  background-color: #343a40 !important;
+  color: #FFC107 !important; /* Highlighted text for active items */
+}
+
+.navbar .dropdown-item:focus,
+.navbar .dropdown-toggle:focus,
+.navbar .dropdown-item:active,
+.navbar .dropdown-toggle:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background-color: inherit !important;
+}
+/* Correct positioning and shadow for dropdown menus */
+.dropdown-menu {
+  box-shadow: none !important; /* Remove shadow if it causes issues */
+}
+
+/* Fix for dropdown items inside nested dropdowns */
+.dropdown-menu .dropdown-item {
+  padding: 0.5rem 1.5rem;
+}
+
+/* Additional styling for nested menus */
+.dropdown-menu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+  padding: 0;
+  border-radius: 0.25rem;
+  border: 1px solid #343a40;
+}
+
+/* Hover effect for the dropdown toggle */
+.nav-item .dropdown-toggle:hover {
+  color: #FFC107 !important;
+}

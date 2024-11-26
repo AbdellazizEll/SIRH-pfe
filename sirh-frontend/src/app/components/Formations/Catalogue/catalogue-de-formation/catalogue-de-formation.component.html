@@ -1,0 +1,71 @@
+<div class="container d-flex justify-content-between align-items-center mt-3">
+  <div class="text-left">
+    <h4 class="title">Catalogue de formation</h4>
+  </div>
+  <nav class="text-right">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+      <li class="breadcrumb-item"><a href="GererCatalogue">Gérer les catalogues</a></li>
+    </ol>
+  </nav>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="card p-3 container mt-2 shadow border-0">
+      <!-- Form starts here -->
+      <form [formGroup]="catalogueForm" (ngSubmit)="createCatalogue()" class="form-content">
+
+        <!-- Success Message -->
+        <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+          {{ successMessage }}
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Titre du Catalogue -->
+        <div class="form-group mb-3">
+          <label for="title" class="font-weight-bold">Titre du Catalogue</label>
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            id="title"
+            formControlName="title"
+            placeholder="Saisir le titre du catalogue"
+            [ngClass]="{'is-invalid': catalogueForm.get('title').invalid && catalogueForm.get('title').touched}" />
+
+          <!-- Validation error message for title -->
+          <div *ngIf="catalogueForm.get('title').invalid && catalogueForm.get('title').touched" class="invalid-feedback d-block">
+            Le titre du catalogue est requis.
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group mb-4">
+          <label for="description" class="font-weight-bold">Description</label>
+          <textarea
+            class="form-control form-control-lg"
+            id="description"
+            formControlName="description"
+            rows="3"
+            placeholder="Saisir la description"
+            [ngClass]="{'is-invalid': catalogueForm.get('description').invalid && catalogueForm.get('description').touched}"></textarea>
+
+          <!-- Validation error message for description -->
+          <div *ngIf="catalogueForm.get('description').invalid && catalogueForm.get('description').touched" class="invalid-feedback d-block">
+            La description est requise.
+          </div>
+        </div>
+
+        <!-- Submit Button and Navigation Button -->
+        <div class="mt-4 d-flex justify-content-center">
+          <div class="d-flex">
+            <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Annuler</button>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>

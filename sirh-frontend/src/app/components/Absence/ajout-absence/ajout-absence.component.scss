@@ -1,0 +1,36 @@
+.center-container {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+
+.invalid-feedback {
+  display: block;
+  font-size: 0.85rem;
+  color: #dc3545;
+  margin-top: 5px;
+}
+.title{
+  color: #1E1A57 !important;
+}
+.btn-primary{
+  background-color: #0F0D36 !important;
+  color: white !important;
+  border: none !important;
+}
+.btn-primary:hover {
+  background-color: #007bff !important; /* Couleur légèrement plus sombre au hover */
+  color: white !important; /* Optionnel : changer la couleur du texte au survol */
+}
+
+.btn-secondary{
+  background-color: transparent !important;
+  color: #0F0D36 !important;
+  border: 2px solid #0F0D36 !important;
+}
+.btn-secondary:hover {
+  background-color: transparent !important; /* Change le fond au hover */
+  color: #007bff !important; /* Change la couleur du texte au hover */
+  border: 2px solid #007bff !important; /* Garde la bordure au hover */
+}

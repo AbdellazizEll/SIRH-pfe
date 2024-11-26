@@ -1,0 +1,63 @@
+<div class="container d-flex justify-content-between align-items-center mt-3">
+  <div class="text-left">
+    <h4 class="title">Historique des formations</h4>
+  </div>
+  <nav class="text-right">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+      <li class="breadcrumb-item"><a href="#">Liste des formations</a></li>
+    </ol>
+  </nav>
+</div>
+
+<div class="d-flex justify-content-center">
+  <div class="card p-3 container mt-2 shadow border-0">
+    <!-- Success/Error Message -->
+    <div *ngIf="successMessage" class="alert alert-success text-center">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+
+    <!-- No Courses Found -->
+    <div *ngIf="approvedTrainings?.length === 0" class="alert alert-secondary text-center">
+      Vous n'avez aucune formation approuvée pour le moment.
+    </div>
+
+    <!-- Display Approved Courses as Full-Width Cards -->
+    <div class="row">
+      <div class="col-12 mb-4" *ngFor="let training of approvedTrainings; let i = index">
+        <div class="card shadow-sm h-100 border-0 rounded-lg full-width-card">
+          <div class="row g-0">
+            <div class="col-md-8">
+              <div class="card-body p-1">
+                <h5 class="card-title">{{ training.formationDTO.title }}</h5>
+                <p class="text-muted mb-1">{{ training.formationDTO.description }}</p>
+
+                <ul class="list-unstyled mb-3">
+                  <li><strong>Manager :</strong> {{ training.collaboratorDTO.firstname }} {{ training.collaboratorDTO.lastname }}</li>
+                  <li><strong>Date de début :</strong> {{ training.formationDTO.startingAt |  date:'MMM d, yyyy' }}</li>
+                  <li><strong>Date de fin :</strong> {{ training.formationDTO.finishingAt |  date:'MMM d, yyyy' }}</li>
+                </ul>
+
+                <div class="d-flex justify-content-start">
+                  <button class="btn btn-outline-info btn-sm me-2" (click)="viewCourse(training)">Voir le cours</button>
+                  <button class="btn btn-primary btn-sm" *ngIf="training.progress < 100" (click)="continueCourse(training)">
+                    Continuer
+                  </button>
+                  <span class="text-warning ms-2" *ngIf="training.progress === 100 && !training.completed">En attente pour évaluation</span>
+                  <button class="btn btn-secondary btn-sm ms-2" *ngIf="training.completed" (click)="openCompetenceHistoryModal(training)">
+                    Voir historique compétence
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+              <div class="progress-circle" [style]="{'--progress': training.progress + '%'}">
+                <div class="progress-text">{{ training.progress }}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

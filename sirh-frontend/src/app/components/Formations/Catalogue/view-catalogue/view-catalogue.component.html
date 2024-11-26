@@ -1,0 +1,34 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center text-primary font-weight-bold">
+    {{ catalogueTitle }}
+  </h2>
+
+  <!-- Display trainings if available -->
+  <div *ngIf="trainings?.length; else noTrainings" class="card-container">
+    <div class="card" *ngFor="let training of trainings">
+      <img
+        [src]="training.imageUrl"
+        alt="Training Image"
+        class="card-img-top"
+      />
+      <h3 class="card-title">{{ training.title }}</h3>
+      <p class="card-text">{{ training.description }}</p>
+      <p>
+        <strong>Compétence Ciblé:</strong>
+        {{ training.targetCompetence?.name }}
+      </p>
+    </div>
+  </div>
+
+  <!-- No Trainings Template -->
+  <ng-template #noTrainings>
+    <div class="alert alert-info text-center">
+      <p>Aucune formation disponible pour ce catalogue.</p>
+    </div>
+  </ng-template>
+
+  <!-- Display error message -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+</div>

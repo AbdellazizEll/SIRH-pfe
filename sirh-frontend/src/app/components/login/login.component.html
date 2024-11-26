@@ -1,0 +1,39 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-card-left">
+      <img src="assets/anywr-branding.webp" alt="Anywr Branding">
+    </div>
+    <div class="login-card-right">
+      <h2>Bienvenue à SIRH-Anywr</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <!-- Error message block -->
+        <div *ngIf="isLoginFailed" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" formControlName="email" />
+          <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched" class="invalid-feedback">
+            Entrez une adresse email valide.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" class="form-control" id="password" formControlName="password" />
+          <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched" class="invalid-feedback">
+            Veuillez entrer votre mot de passe.
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Sign In</button>
+
+        <div class="login-options">
+          <a href="#" class="forgot-password">Mot de passe oublié?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

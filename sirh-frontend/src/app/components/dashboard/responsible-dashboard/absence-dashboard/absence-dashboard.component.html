@@ -1,0 +1,39 @@
+<div class="absence-dashboard-container">
+  <h2>Tableau de bord des absences</h2>
+
+  <div class="content-container">
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-overlay">
+      <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <!-- Total Absence Days Card -->
+    <div class="card-container">
+      <mat-card class="dashboard-card">
+        <mat-card-title>Total des jours d'absence</mat-card-title>
+        <mat-card-content>
+          <h1>{{ totalAbsenceDays }}</h1>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Absence Trends Chart -->
+    <div class="chart-container">
+      <h3>Tendances des absences</h3>
+      <canvas baseChart
+              [datasets]="absenceTrendChartData"
+              [labels]="absenceTrendChartLabels"
+              [options]="absenceTrendChartOptions"
+              [colors]="absenceTrendChartColors"
+              [legend]="true"
+              [chartType]="absenceTrendChartType">
+      </canvas>
+    </div>
+  </div>
+</div>

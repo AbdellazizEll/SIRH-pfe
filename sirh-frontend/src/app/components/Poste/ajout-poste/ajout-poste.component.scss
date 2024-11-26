@@ -1,0 +1,10 @@
+.collaborator-card {
+  width: 250px;
+  margin: 10px;
+}
+
+.collaborator-photo {
+  //background-image: url('path/to/default'); // Set a default photo path
+  background-size: cover;
+  border-radius: 50%;
+}

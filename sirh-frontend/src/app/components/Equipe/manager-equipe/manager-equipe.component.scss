@@ -1,0 +1,10 @@
+/* Custom border color for all cards */
+.border-custom {
+  border: 2px solid white; /* You can change this color to your preferred color */
+}
+
+.hoverable-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}

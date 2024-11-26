@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h5 class="modal-title">Historique de Compétence</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+  <!-- Success/Error Message -->
+  <div *ngIf="historySuccessMessage" class="alert alert-success">{{ historySuccessMessage }}</div>
+  <div *ngIf="historyErrorMessage" class="alert alert-danger">{{ historyErrorMessage }}</div>
+
+  <!-- Display Competence History -->
+  <div *ngIf="competenceHistory?.length > 0">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Compétence</th>
+            <th>Ancienne Évaluation</th>
+            <th>Nouvelle Évaluation</th>
+            <th>Date de Changement</th>
+            <th>Raison du Changement</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let history of competenceHistory">
+            <td>{{ history.competenceName }}</td>
+            <td>{{ history.oldEvaluation }}</td>
+            <td>{{ history.newEvaluation }}</td>
+            <td>{{ history.changeDate |  date:'MMM d, yyyy' }}</td>
+            <td>{{ history.changeReason }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- No History Found -->
+  <div *ngIf="competenceHistory?.length === 0" class="alert alert-secondary text-center">
+    Aucune donnée d'historique trouvée.
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="closeModal()">Fermer</button>
+</div>

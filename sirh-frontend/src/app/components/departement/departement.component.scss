@@ -1,0 +1,72 @@
+/* Breadcrumb styles */
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.breadcrumb-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: #6c757d;
+}
+
+/* General Container Styling */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Form Styling */
+.form-control {
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.form-control:focus {
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-color: #2980b9;
+}
+
+/* Button Styling */
+.btn-primary{
+  background-color: #0F0D36 !important;
+  color: white !important;
+  border: none !important;
+}
+.btn-primary:hover {
+  background-color: #007bff !important; /* Couleur légèrement plus sombre au hover */
+  color: white !important; /* Optionnel : changer la couleur du texte au survol */
+}
+
+.btn-secondary{
+  background-color: transparent !important;
+  color: #0F0D36 !important;
+  border: 2px solid #0F0D36 !important;
+}
+.btn-secondary:hover {
+  background-color: transparent !important; /* Change le fond au hover */
+  color: #007bff !important; /* Change la couleur du texte au hover */
+  border: 2px solid #007bff !important; /* Garde la bordure au hover */
+}
+
+/* Error and Success Message Styling */
+.invalid-feedback {
+  display: block;
+  color: #dc3545;
+  font-size: 0.875rem;
+}
+
+.alert {
+  border-radius: 5px;
+  font-size: 0.95rem;
+}

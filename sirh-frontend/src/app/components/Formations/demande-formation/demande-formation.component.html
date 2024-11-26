@@ -1,0 +1,149 @@
+
+<!-- Breadcrumb Navigation -->
+  <div class="container d-flex justify-content-between align-items-center mt-3">
+    <div class="text-left">
+      <h4 class="title">Liste des demandes de formations</h4>
+    </div>
+    <nav class="text-right">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+        <li class="breadcrumb-item"><a href="#">Demande Formation</a></li>
+      </ol>
+    </nav>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="card p-3 container mt-2 shadow border-0">
+
+
+      <div *ngIf="successMessage" class="alert alert-success text-center">
+        {{ successMessage }}
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger text-center">
+        {{ errorMessage }}
+      </div>
+
+      <form (ngSubmit)="submitRequest()" class="needs-validation" novalidate>
+        <!-- Custom Training Toggle -->
+        <div class="form-check form-switch mb-4">
+          <input class="form-check-input" type="checkbox" id="customTrainingToggle" [(ngModel)]="isCustomized" name="customTraining">
+          <label class="form-check-label" for="customTrainingToggle">Créer une formation personnalisée</label>
+        </div>
+
+        <!-- Collaborator Selection -->
+        <div class="form-group mb-4">
+          <label for="employeeSelect" class="font-weight-bold">Sélectionner un Collaborateur</label>
+          <select class="form-select form-control-lg" id="employeeSelect" [(ngModel)]="selectedEmployee" name="employee" required>
+            <option value="" disabled selected>Sélectionnez un collaborateur</option>
+            <option *ngFor="let employee of employees" [value]="employee.id">
+              {{ employee.name }}
+            </option>
+          </select>
+          <div class="invalid-feedback">Veuillez sélectionner un collaborateur.</div>
+        </div>
+
+        <!-- Custom Training Fields -->
+        <div *ngIf="isCustomized">
+          <!-- Title of the Formation -->
+          <div class="form-group mb-4">
+            <label for="trainingTitle" class="font-weight-bold">Titre de la Formation</label>
+            <input type="text" class="form-control form-control-lg" id="trainingTitle" [(ngModel)]="customTitle" name="trainingTitle" placeholder="Titre de la Formation" required>
+            <div class="invalid-feedback">Veuillez entrer le titre de la formation.</div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group mb-4">
+            <label for="description" class="font-weight-bold">Description</label>
+            <textarea class="form-control form-control-lg" id="description" rows="3" [(ngModel)]="customDescription" name="description" placeholder="Description" required></textarea>
+            <div class="invalid-feedback">Veuillez entrer une description.</div>
+          </div>
+
+          <!-- Target Competence -->
+          <div class="form-group mb-4">
+            <label for="competenceSelect" class="font-weight-bold">Sélectionner une Compétence Ciblée</label>
+            <select class="form-select form-control-lg" id="competenceSelect" [(ngModel)]="selectedTargetCompetence" name="competence" required>
+              <option value="" disabled selected>Sélectionnez une compétence</option>
+              <option *ngFor="let competence of competences" [value]="competence.id">
+                {{ competence.name }}
+              </option>
+            </select>
+            <div class="invalid-feedback">Veuillez sélectionner une compétence.</div>
+          </div>
+
+          <!-- Start and End Dates -->
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <label for="startDate" class="font-weight-bold">Date de Début</label>
+              <input type="date" class="form-control form-control-lg" id="startDate" [(ngModel)]="customStartDate" name="startDate" required>
+              <div class="invalid-feedback">Veuillez sélectionner une date de début.</div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <label for="endDate" class="font-weight-bold">Date de Fin</label>
+              <input type="date" class="form-control form-control-lg" id="endDate" [(ngModel)]="customEndDate" name="endDate" required>
+              <div class="invalid-feedback">Veuillez sélectionner une date de fin.</div>
+            </div>
+          </div>
+
+          <!-- Current and Target Levels -->
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <label for="currentLevel" class="font-weight-bold">Niveau Actuel</label>
+              <input type="number" class="form-control form-control-lg" id="currentLevel" [(ngModel)]="customCurrentLevel" name="currentLevel" required>
+              <div class="invalid-feedback">Veuillez entrer le niveau actuel.</div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <label for="targetLevel" class="font-weight-bold">Niveau Ciblé</label>
+              <input type="number" class="form-control form-control-lg" id="targetLevel" [(ngModel)]="customTargetLevel" name="targetLevel" required>
+              <div class="invalid-feedback">Veuillez entrer le niveau cible.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Predefined Training Fields -->
+        <div *ngIf="!isCustomized">
+          <!-- Catalogue Selection -->
+          <div class="form-group mb-4">
+            <label for="catalogueSelect" class="font-weight-bold">Sélectionner un Catalogue</label>
+            <select class="form-select form-control-lg" id="catalogueSelect" [(ngModel)]="selectedCatalogue" (change)="onCatalogueChange()" name="catalogue" required>
+              <option value="" disabled selected>Sélectionnez un catalogue</option>
+              <option *ngFor="let catalogue of catalogues" [value]="catalogue.id">
+                {{ catalogue.title }}
+              </option>
+            </select>
+            <div class="invalid-feedback">Veuillez sélectionner un catalogue.</div>
+          </div>
+
+          <!-- Training Selection -->
+          <div class="form-group mb-4">
+            <label for="trainingSelect" class="font-weight-bold">Sélectionner une Formation</label>
+            <select class="form-select form-control-lg" id="trainingSelect" [(ngModel)]="selectedTraining" name="training" required>
+              <option value="" disabled selected>Sélectionnez une formation</option>
+              <option *ngFor="let training of trainings" [value]="training.id">
+                {{ training.title }}
+              </option>
+            </select>
+            <div class="invalid-feedback">Veuillez sélectionner une formation.</div>
+          </div>
+        </div>
+
+        <!-- Justification -->
+        <div class="form-group mb-4">
+          <label for="justification" class="font-weight-bold">Justification</label>
+          <textarea class="form-control form-control-lg" id="justification" rows="3" [(ngModel)]="justification" name="justification" required></textarea>
+          <div class="invalid-feedback">Veuillez entrer une justification.</div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-4 d-flex justify-content-center">
+          <div class="d-flex">
+            <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Annuler</button>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Success Message -->

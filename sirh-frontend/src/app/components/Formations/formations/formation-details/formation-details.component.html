@@ -1,0 +1,82 @@
+<div class="container mt-5" *ngIf="training">
+  <!-- Training Header Section -->
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body d-flex align-items-center justify-content-between">
+      <div>
+        <h2 class="card-title text-primary font-weight-bold">{{ training?.title }}</h2>
+        <h5 class="text-muted">Target Competence: {{ training.targetCompetence?.name }}</h5>
+      </div>
+      <div class="date-icons d-flex">
+        <div class="date-item">
+          <img src="assets/calendar.svg" alt="calendar" class="icon mr-2">
+          <strong>Start:</strong> {{ training.startingAt | date:'MMM d, yyyy' }}
+        </div>
+        <div class="date-item ml-4">
+          <img src="assets/calendar.svg" alt="calendar" class="icon mr-2">
+          <strong>End:</strong> {{ training.finishingAt | date:'MMM d, yyyy' }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Information Section -->
+  <div class="row">
+    <div class="col-md-8">
+      <!-- Training Description Card -->
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+          <h4 class="font-weight-bold text-dark">Description</h4>
+          <p class="text-muted">{{ training.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <!-- Training Information -->
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+          <h5 class="font-weight-bold text-dark">Training Details</h5>
+          <ul class="list-unstyled">
+            <li><strong>Current Level:</strong> {{ training.currentLevel }}</li>
+            <li><strong>Target Level:</strong> {{ training.targetLevel }}</li>
+            <li><strong>Catalogue:</strong>
+              <span *ngIf="training.catalogue?.title; else noCatalogue">{{ training.catalogue.title }}</span>
+              <ng-template #noCatalogue><span class="badge bg-success">N/A</span></ng-template>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Call-to-Action Buttons -->
+      <div class="d-grid gap-2">
+      <button class="btn btn-primary btn-lg" (click)="openModal(assignCollaboratorModal)">Assigner un collaborateur</button>
+        <button class="btn btn-outline-secondary btn-lg" (click)="addToCalendar(training)">Ajouter au calendrier</button>
+        <button class="btn btn-outline-primary btn-lg" (click)="goBackToCatalogue()">Retour au catalogue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Collaborator Modal Template -->
+  <ng-template #assignCollaboratorModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Assign Collaborator</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (submit)="assignCollaborator()">
+        <div class="form-group">
+          <label for="collaboratorSelect">Select Collaborator</label>
+          <select class="form-control" id="collaboratorSelect" [(ngModel)]="selectedCollaborator" name="collaborator" required>
+            <option *ngFor="let collaborator of collaborators" [value]="collaborator.id">
+              {{ collaborator.firstname }} {{ collaborator.lastname }}
+            </option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="assignCollaborator(); modal.close()">Assign</button>
+    </div>
+  </ng-template>
+</div>

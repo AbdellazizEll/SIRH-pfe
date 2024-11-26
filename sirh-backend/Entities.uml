@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.example.anywrpfe.entities</OriginalElement>
+  <nodes>
+    <node x="550.7642276422764" y="2301.0">com.example.anywrpfe.entities.AccountVerifications</node>
+    <node x="916.5142276422764" y="1033.0">com.example.anywrpfe.entities.OffreEmploi</node>
+    <node x="271.26422764227635" y="2519.0">com.example.anywrpfe.entities.PosteCompetence</node>
+    <node x="914.0142276422764" y="1361.0">com.example.anywrpfe.entities.DemandeRecrutement</node>
+    <node x="746.5060975609756" y="738.0">com.example.anywrpfe.entities.Departement</node>
+    <node x="-164.7357723577236" y="2737.0">com.example.anywrpfe.entities.Competence</node>
+    <node x="691.7642276422764" y="1383.0">com.example.anywrpfe.entities.Role</node>
+    <node x="245.76422764227635" y="2290.0">com.example.anywrpfe.entities.Poste</node>
+    <node x="2300.25" y="-15.0">com.example.anywrpfe.entities.Enum</node>
+    <node x="2675.25" y="-15.0">com.example.anywrpfe.entities.CustomAuthorityDeserializer</node>
+    <node x="474.7642276422764" y="1317.0">com.example.anywrpfe.entities.Token</node>
+    <node x="950.25" y="2235.0">com.example.anywrpfe.entities.Entretien</node>
+    <node x="239.26422764227635" y="179.0">com.example.anywrpfe.entities.DemandeAbsence</node>
+    <node x="1262.25" y="2268.0">com.example.anywrpfe.entities.CollaboratorEvents</node>
+    <node x="220.26422764227635" y="7.0">com.example.anywrpfe.entities.Absence</node>
+    <node x="-94.67886178861795" y="749.0">com.example.anywrpfe.entities.Catalogue</node>
+    <node x="157.76422764227635" y="1328.0">com.example.anywrpfe.entities.DemandeFormation</node>
+    <node x="799.7418699186992" y="-15.0">com.example.anywrpfe.entities.Equipe</node>
+    <node x="368.7642276422764" y="705.0">com.example.anywrpfe.entities.Inscription</node>
+    <node x="2100.25" y="-15.0">com.example.anywrpfe.entities.Feedback</node>
+    <node x="1884.25" y="-15.0">com.example.anywrpfe.entities.Entreprise</node>
+    <node x="387.7642276422764" y="1589.0">com.example.anywrpfe.entities.Collaborateur</node>
+    <node x="-150.5" y="1339.0">com.example.anywrpfe.entities.CollaborateurCompetence</node>
+    <node x="-104.67886178861795" y="967.0">com.example.anywrpfe.entities.Formation</node>
+    <node x="1504.25" y="-15.0">com.example.anywrpfe.entities.CompetenceComparisonResult</node>
+    <node x="206.51422764227635" y="2975.0">com.example.anywrpfe.entities.CompetenceHistory</node>
+    <node x="1288.75" y="1831.0">com.example.anywrpfe.entities.Events</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.anywrpfe.entities.Equipe" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_MANY">
+      <point x="0.0" y="71.0" />
+      <point x="918.2418699186992" y="158.0" />
+      <point x="1143.5142276422764" y="158.0" />
+      <point x="1143.5142276422764" y="1547.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="0.0" y="-291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.CompetenceHistory" target="com.example.anywrpfe.entities.Competence" relationship="TO_ONE">
+      <point x="0.0" y="-93.0" />
+      <point x="302.0142276422764" y="2949.0" />
+      <point x="20.76422764227641" y="2949.0" />
+      <point x="0.0" y="93.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Formation" target="com.example.anywrpfe.entities.Competence" relationship="TO_ONE">
+      <point x="0.0" y="148.0" />
+      <point x="5.321138211382049" y="1290.0" />
+      <point x="-161.0" y="1290.0" />
+      <point x="-161.0" y="2710.0" />
+      <point x="20.76422764227641" y="2710.0" />
+      <point x="0.0" y="-93.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.DemandeRecrutement" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="60.0" />
+      <point x="1012.5142276422764" y="1567.0" />
+      <point x="573.2642276422764" y="1567.0" />
+      <point x="0.0" y="-291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.DemandeFormation" target="com.example.anywrpfe.entities.Formation" relationship="TO_ONE">
+      <point x="0.0" y="-93.0" />
+      <point x="247.76422764227635" y="1290.0" />
+      <point x="5.321138211382049" y="1290.0" />
+      <point x="0.0" y="148.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.CollaborateurCompetence" target="com.example.anywrpfe.entities.Competence" relationship="TO_ONE">
+      <point x="0.0" y="82.0" />
+      <point x="-33.5" y="2710.0" />
+      <point x="20.76422764227641" y="2710.0" />
+      <point x="0.0" y="-93.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Competence" target="com.example.anywrpfe.entities.CollaborateurCompetence" relationship="TO_MANY">
+      <point x="0.0" y="-93.0" />
+      <point x="20.76422764227641" y="2710.0" />
+      <point x="-33.5" y="2710.0" />
+      <point x="0.0" y="82.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Collaborateur" target="com.example.anywrpfe.entities.Equipe" relationship="TO_ONE">
+      <point x="0.0" y="-291.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="1143.5142276422764" y="1547.0" />
+      <point x="1143.5142276422764" y="158.0" />
+      <point x="918.2418699186992" y="158.0" />
+      <point x="0.0" y="71.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Collaborateur" target="com.example.anywrpfe.entities.DemandeFormation" relationship="TO_MANY">
+      <point x="0.0" y="-291.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="247.76422764227635" y="1547.0" />
+      <point x="0.0" y="93.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Collaborateur" target="com.example.anywrpfe.entities.Token" relationship="TO_MANY">
+      <point x="0.0" y="-291.0" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.DemandeFormation" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="93.0" />
+      <point x="247.76422764227635" y="1547.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="0.0" y="-291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Entretien" target="com.example.anywrpfe.entities.DemandeRecrutement" relationship="TO_ONE">
+      <point x="0.0" y="-115.0" />
+      <point x="1096.25" y="1557.0" />
+      <point x="1012.5142276422764" y="1557.0" />
+      <point x="0.0" y="60.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.CollaboratorEvents" target="com.example.anywrpfe.entities.Events" relationship="TO_ONE">
+      <point x="0.0" y="-82.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.AccountVerifications" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="-49.0" />
+      <point x="649.2642276422764" y="2213.0" />
+      <point x="573.2642276422764" y="2213.0" />
+      <point x="0.0" y="291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Collaborateur" target="com.example.anywrpfe.entities.Role" relationship="TO_MANY">
+      <point x="0.0" y="-291.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="748.7642276422764" y="1547.0" />
+      <point x="0.0" y="38.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Formation" target="com.example.anywrpfe.entities.Catalogue" relationship="TO_ONE">
+      <point x="0.0" y="-148.0" />
+      <point x="0.0" y="60.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Catalogue" target="com.example.anywrpfe.entities.Formation" relationship="TO_MANY">
+      <point x="0.0" y="60.0" />
+      <point x="0.0" y="-148.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.DemandeAbsence" target="com.example.anywrpfe.entities.Departement" relationship="TO_ONE">
+      <point x="0.0" y="236.0" />
+      <point x="358.2642276422764" y="678.0" />
+      <point x="889.0060975609756" y="678.0" />
+      <point x="0.0" y="-71.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.CollaborateurCompetence" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="82.0" />
+      <point x="-33.5" y="1557.0" />
+      <point x="573.2642276422764" y="1557.0" />
+      <point x="0.0" y="-291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Token" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="104.0" />
+      <point x="0.0" y="-291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.OffreEmploi" target="com.example.anywrpfe.entities.Departement" relationship="TO_ONE">
+      <point x="0.0" y="-82.0" />
+      <point x="1012.5142276422764" y="940.0" />
+      <point x="889.0060975609756" y="940.0" />
+      <point x="0.0" y="71.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Competence" target="com.example.anywrpfe.entities.PosteCompetence" relationship="TO_MANY">
+      <point x="0.0" y="-93.0" />
+      <point x="20.76422764227641" y="2710.0" />
+      <point x="388.2642276422764" y="2710.0" />
+      <point x="0.0" y="82.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Formation" target="com.example.anywrpfe.entities.Inscription" relationship="TO_MANY">
+      <point x="0.0" y="-148.0" />
+      <point x="5.321138211382049" y="940.0" />
+      <point x="464.2642276422764" y="940.0" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.PosteCompetence" target="com.example.anywrpfe.entities.Competence" relationship="TO_ONE">
+      <point x="0.0" y="82.0" />
+      <point x="388.2642276422764" y="2710.0" />
+      <point x="20.76422764227641" y="2710.0" />
+      <point x="0.0" y="-93.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.DemandeAbsence" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="236.0" />
+      <point x="358.2642276422764" y="1547.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="0.0" y="-291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Equipe" target="com.example.anywrpfe.entities.Departement" relationship="TO_ONE">
+      <point x="0.0" y="71.0" />
+      <point x="918.2418699186992" y="158.0" />
+      <point x="889.0060975609756" y="158.0" />
+      <point x="0.0" y="-71.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.CollaboratorEvents" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="-82.0" />
+      <point x="1360.75" y="2193.0" />
+      <point x="573.2642276422764" y="2193.0" />
+      <point x="0.0" y="291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Poste" target="com.example.anywrpfe.entities.PosteCompetence" relationship="TO_MANY">
+      <point x="0.0" y="60.0" />
+      <point x="0.0" y="-82.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Inscription" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="104.0" />
+      <point x="464.2642276422764" y="1547.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="0.0" y="-291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Poste" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_MANY">
+      <point x="5.6843418860808015E-14" y="-60.0" />
+      <point x="388.2642276422764" y="2213.0" />
+      <point x="573.2642276422764" y="2213.0" />
+      <point x="0.0" y="291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Absence" target="com.example.anywrpfe.entities.DemandeAbsence" relationship="TO_MANY">
+      <point x="0.0" y="49.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Inscription" target="com.example.anywrpfe.entities.Formation" relationship="TO_ONE">
+      <point x="0.0" y="104.0" />
+      <point x="464.2642276422764" y="940.0" />
+      <point x="5.321138211382049" y="940.0" />
+      <point x="0.0" y="-148.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Departement" target="com.example.anywrpfe.entities.Equipe" relationship="TO_MANY">
+      <point x="0.0" y="-71.0" />
+      <point x="889.0060975609756" y="158.0" />
+      <point x="918.2418699186992" y="158.0" />
+      <point x="0.0" y="71.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.DemandeAbsence" target="com.example.anywrpfe.entities.Absence" relationship="TO_ONE">
+      <point x="0.0" y="-236.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Collaborateur" target="com.example.anywrpfe.entities.DemandeRecrutement" relationship="TO_MANY">
+      <point x="0.0" y="-291.0" />
+      <point x="573.2642276422764" y="1567.0" />
+      <point x="1012.5142276422764" y="1567.0" />
+      <point x="0.0" y="60.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Collaborateur" target="com.example.anywrpfe.entities.CollaborateurCompetence" relationship="TO_MANY">
+      <point x="0.0" y="-291.0" />
+      <point x="573.2642276422764" y="1557.0" />
+      <point x="-33.5" y="1557.0" />
+      <point x="0.0" y="82.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Entretien" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="-115.0" />
+      <point x="1096.25" y="2203.0" />
+      <point x="573.2642276422764" y="2203.0" />
+      <point x="0.0" y="291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Departement" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="71.0" />
+      <point x="889.0060975609756" y="940.0" />
+      <point x="816.2642276422764" y="940.0" />
+      <point x="816.2642276422764" y="1547.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="0.0" y="-291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Collaborateur" target="com.example.anywrpfe.entities.Departement" relationship="TO_ONE">
+      <point x="0.0" y="-291.0" />
+      <point x="573.2642276422764" y="1547.0" />
+      <point x="816.2642276422764" y="1547.0" />
+      <point x="816.2642276422764" y="940.0" />
+      <point x="889.0060975609756" y="940.0" />
+      <point x="0.0" y="71.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.DemandeAbsence" target="com.example.anywrpfe.entities.Equipe" relationship="TO_ONE">
+      <point x="0.0" y="-236.0" />
+      <point x="358.2642276422764" y="148.0" />
+      <point x="918.2418699186992" y="148.0" />
+      <point x="0.0" y="71.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.CompetenceHistory" target="com.example.anywrpfe.entities.Collaborateur" relationship="TO_ONE">
+      <point x="0.0" y="-93.0" />
+      <point x="302.0142276422764" y="2949.0" />
+      <point x="758.2642276422764" y="2949.0" />
+      <point x="758.2642276422764" y="2213.0" />
+      <point x="573.2642276422764" y="2213.0" />
+      <point x="0.0" y="291.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Departement" target="com.example.anywrpfe.entities.DemandeAbsence" relationship="TO_MANY">
+      <point x="0.0" y="-71.0" />
+      <point x="889.0060975609756" y="678.0" />
+      <point x="358.2642276422764" y="678.0" />
+      <point x="0.0" y="236.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.DemandeRecrutement" target="com.example.anywrpfe.entities.OffreEmploi" relationship="TO_ONE">
+      <point x="0.0" y="-60.0" />
+      <point x="0.0" y="82.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.PosteCompetence" target="com.example.anywrpfe.entities.Poste" relationship="TO_ONE">
+      <point x="0.0" y="-82.0" />
+      <point x="0.0" y="60.0" />
+    </edge>
+    <edge source="com.example.anywrpfe.entities.Collaborateur" target="com.example.anywrpfe.entities.Poste" relationship="TO_ONE">
+      <point x="0.0" y="291.0" />
+      <point x="573.2642276422764" y="2213.0" />
+      <point x="388.2642276422764" y="2213.0" />
+      <point x="5.6843418860808015E-14" y="-60.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.134217728" showDependencies="true" x="2624.4634971618652" y="1183.8050346374512" />
+  <SelectedNodes>
+    <node>com.example.anywrpfe.entities.Role</node>
+    <node>com.example.anywrpfe.entities.CollaboratorEvents</node>
+    <node>com.example.anywrpfe.entities.DemandeAbsence</node>
+    <node>com.example.anywrpfe.entities.Poste</node>
+    <node>com.example.anywrpfe.entities.DemandeRecrutement</node>
+    <node>com.example.anywrpfe.entities.PosteCompetence</node>
+    <node>com.example.anywrpfe.entities.Inscription</node>
+    <node>com.example.anywrpfe.entities.CollaborateurCompetence</node>
+    <node>com.example.anywrpfe.entities.OffreEmploi</node>
+    <node>com.example.anywrpfe.entities.Token</node>
+    <node>com.example.anywrpfe.entities.Departement</node>
+    <node>com.example.anywrpfe.entities.Competence</node>
+    <node>com.example.anywrpfe.entities.Formation</node>
+    <node>com.example.anywrpfe.entities.Events</node>
+    <node>com.example.anywrpfe.entities.Equipe</node>
+    <node>com.example.anywrpfe.entities.Catalogue</node>
+    <node>com.example.anywrpfe.entities.AccountVerifications</node>
+    <node>com.example.anywrpfe.entities.Collaborateur</node>
+    <node>com.example.anywrpfe.entities.CompetenceHistory</node>
+    <node>com.example.anywrpfe.entities.Absence</node>
+    <node>com.example.anywrpfe.entities.DemandeFormation</node>
+    <node>com.example.anywrpfe.entities.Entretien</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

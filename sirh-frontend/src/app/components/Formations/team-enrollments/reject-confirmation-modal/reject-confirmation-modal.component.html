@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ message }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
+</div>
+<div class="modal-body">
+  <p>{{ message }}</p>
+  <ng-container *ngIf="isRejection">
+    <label for="rejectionReason">Rejection Reason:</label>
+    <textarea id="rejectionReason" class="form-control" [(ngModel)]="rejectionReason" placeholder="Provide a reason..."></textarea>
+  </ng-container>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="cancel()">{{ cancelButtonText }}</button>
+  <button type="button" class="btn btn-primary" (click)="confirm()">{{ confirmButtonText }}</button>
+</div>

@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  <!-- Success and Error Messages -->
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div class="row">
+    <!-- User Profile Sidebar -->
+    <div class="col-xl-3 col-lg-4 col-md-12 mb-3">
+      <div class="card">
+        <div class="card-body text-center">
+          <div *ngIf="currentUser; else loggedOut">
+            <div class="user-profile">
+              <div class="user-avatar mb-3">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="User Avatar" class="rounded-circle" width="120">
+              </div>
+              <h5 class="user-name"><strong>{{ currentUser.firstname }} {{ currentUser.lastname }}</strong></h5>
+              <p class="text-muted">{{ currentUser.email }}</p>
+            </div>
+            <div class="about mt-4">
+              <h6>About</h6>
+              <p>I'm a Full Stack Designer. I enjoy creating user-centric, delightful, and human experiences.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Details Form -->
+    <div class="col-xl-9 col-lg-8 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="mb-4 text-primary">Personal Details</h6>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input [(ngModel)]="currentUser.firstname" type="text" class="form-control" id="firstname" placeholder="Enter first name">
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input [(ngModel)]="currentUser.lastname" type="text" class="form-control" id="lastname" placeholder="Enter last name">
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input [(ngModel)]="currentUser.email" type="email" class="form-control" id="email" placeholder="Enter email address">
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input [(ngModel)]="currentUser.phone" type="text" class="form-control" id="phone" placeholder="Enter phone number">
+              </div>
+            </div>
+          </div>
+
+          <!-- Update Button -->
+          <div class="text-right">
+            <button type="button" (click)="updateUser()" class="btn btn-primary">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loggedOut>
+  <div class="alert alert-warning text-center" role="alert">
+    Please log in to view your profile.
+  </div>
+</ng-template>

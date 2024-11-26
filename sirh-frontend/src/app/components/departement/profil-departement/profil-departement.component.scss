@@ -1,0 +1,213 @@
+/* General Container Styling */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Breadcrumb Styles */
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.breadcrumb-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: #6c757d;
+}
+
+.breadcrumb-item i {
+  margin-right: 5px;
+}
+
+/* Header Styling */
+h1.display-4,
+h3.text-center,
+h4.text-center {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+p.lead {
+  font-size: 1.25rem;
+  color: #7f8c8d;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 12px;
+  border: none;
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card:hover {
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+/* Card Title and Text Styling */
+.card-title {
+  font-size: 1.25rem;
+  color: #2980b9;
+  font-weight: 600;
+}
+
+.text-secondary {
+  color: #6c757d;
+}
+
+.text-muted {
+  color: #95a5a6 !important;
+}
+
+/* Button Styling */
+.btn {
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary {
+  color: #2980b9;
+  border-color: #2980b9;
+}
+
+.btn-outline-primary:hover {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.btn-outline-info {
+  color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-info:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+}
+
+/* Align buttons horizontally */
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* No Members Message */
+.text-center {
+  text-align: center;
+}
+
+/* Adjustments for Responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+  }
+}
+
+/* Divider Line */
+.divider {
+  height: 100%;
+  width: 1px;
+  background-color: #ddd;
+}
+
+/* Avatar Styling */
+.avatar-img,
+.team-avatar-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.team-avatar-img {
+  width: 100px;
+  height: 100px;
+}
+
+/* Placeholder Avatar */
+.placeholder-avatar {
+  width: 120px;
+  height: 120px;
+  background-color: #6c757d;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Team and Department Specific Styles */
+h4.text-secondary,
+h5.card-title {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+h6.text-secondary {
+  font-weight: 500;
+  color: #6c757d;
+}
+
+p.lead,
+p {
+  color: #7f8c8d;
+}
+
+.card-body h5:hover,
+.card-body h6:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+.row.justify-content-center {
+  margin-bottom: 1.5rem;
+}
+
+/* Team Card Styling */
+.team-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Add some spacing between cards on mobile */
+@media (max-width: 576px) {
+  .team-card {
+    margin-bottom: 1rem;
+  }
+}

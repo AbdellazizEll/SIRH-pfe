@@ -1,0 +1,29 @@
+<div class="container mt-4">
+  <div class="card mb-3 shadow-sm">
+    <div class="row g-0">
+      <div class="col-md-4 d-flex justify-content-center align-items-center bg-light">
+        <!-- Placeholder for profile image -->
+        <!-- <img src="path/to/profile/image" class="img-fluid rounded-start" alt="{{collaborator?.firstname}}"> -->
+        <div class="profile-placeholder rounded-circle d-flex justify-content-center align-items-center bg-secondary text-white" style="width: 100px; height: 100px; font-size: 36px;">
+          <span>{{ collaborator?.firstname.charAt(0)  | capitalizeFirst}}{{ collaborator?.lastname.charAt(0) | capitalizeFirst}}</span>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title mb-1">{{ collaborator?.firstname | capitalizeFirst}} {{ collaborator?.lastname | capitalizeFirst }}</h5>
+          <p class="card-text text-muted mb-2">{{ collaborator?.email | capitalizeFirst}}</p>
+          <p class="card-text mb-3">{{ collaborator?.phone }}</p>
+          <!-- Additional collaborator details here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-4">
+    <app-radar-chart [collaborator]="collaborator" [competences]="competences"></app-radar-chart>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <button mat-raised-button color="warn" (click)="closePopup()">Close</button>
+  </div>
+</div>

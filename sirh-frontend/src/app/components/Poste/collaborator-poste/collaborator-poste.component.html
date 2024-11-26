@@ -1,0 +1,19 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let collaborator of collaborators">
+      <div class="card mb-4 shadow-sm" (click)="openCollaboratorInfo(collaborator.id)">
+        <div class="card-body text-center">
+          <img src="https://via.placeholder.com/100" alt="Collaborator" class="rounded-circle mb-3">
+          <h5 class="card-title">{{ collaborator.firstname | capitalizeFirst }} {{ collaborator.lastname | capitalizeFirst }}</h5>
+          <p class="card-text"><strong> {{ collaborator.posteOccupe?.titre | capitalizeFirst }} </strong></p>
+
+          <div class="d-flex justify-content-center mt-3">
+            <a href="#" class="btn btn-outline-primary btn-sm mx-1"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="btn btn-outline-secondary btn-sm mx-1"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="btn btn-outline-info btn-sm mx-1"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

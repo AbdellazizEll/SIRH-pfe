@@ -1,0 +1,54 @@
+/* Full-width card styling */
+.full-width-card {
+  width: 100%; /* Ensures the card takes full row width */
+  padding: 1rem; /* Adds padding for spacing */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Progress Circle Styling */
+.progress-circle {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: conic-gradient(#007bff var(--progress), #e9ecef 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #0F0D36;
+  position: relative;
+  margin: 0 auto;
+  transition: background 0.3s ease;
+
+  .progress-text {
+    position: absolute;
+    font-size: 0.75rem;
+    color: #0F0D36;
+  }
+}
+
+/* Button Hover and Transition */
+.btn-primary, .btn-outline-info, .btn-secondary {
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3 !important;
+}
+
+.btn-outline-info:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  color: #007bff;
+  text-decoration: underline;
+}

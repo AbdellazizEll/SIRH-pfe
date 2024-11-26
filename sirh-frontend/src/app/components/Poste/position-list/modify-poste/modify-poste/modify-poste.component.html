@@ -1,0 +1,88 @@
+<div class="form-wrapper d-flex align-items-center justify-content-center">
+  <div class="container form-container">
+    <h3 class="text-center mb-4 font-weight-bold text-dark">{{ data.poste.titre }}</h3>
+
+    <!-- Success and Error Messages -->
+    <div *ngIf="successMessage" class="alert alert-success text-center show" role="alert">
+      <i class="fas fa-check-circle"></i> {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger text-center show" role="alert">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
+
+    <!-- Form Starts Here -->
+    <form [formGroup]="posteForm" (ngSubmit)="onSubmit()">
+      <!-- Basic Info Fields -->
+      <mat-divider></mat-divider>
+      <div class="form-group row">
+        <div class="col-md-12">
+          <mat-form-field class="full-width">
+            <mat-label>Nom du Poste</mat-label>
+            <input formControlName="titre" matInput>
+            <mat-error *ngIf="posteForm.get('titre')?.invalid && posteForm.get('titre')?.touched">
+              Le titre est obligatoire
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Competence Assignment Fields -->
+      <mat-divider></mat-divider>
+      <div formArrayName="requiredCompetence">
+        <div *ngFor="let competence of competenceArray.controls; let i = index" [formGroupName]="i" class="form-group row mb-3">
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <mat-label>Compétence </mat-label>
+              <input formControlName="name" matInput [disabled]="true">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <mat-label>Évaluation</mat-label>
+              <mat-select formControlName="evaluation">
+                <mat-option *ngFor="let value of competence.get('possibleValues').value" [value]="value">
+                  {{ mapEvaluationValue(value) }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="competence.get('evaluation')?.invalid && competence.get('evaluation')?.touched">
+                L'évaluation est obligatoire
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-divider></mat-divider>
+      <h4 class="text-center mb-3 font-weight-bold text-dark">Collaborateurs Assignés</h4>
+
+      <div *ngIf="assignedCollaborators.controls.length > 0" class="assigned-collaborators-list">
+        <mat-list>
+          <mat-list-item *ngFor="let collaborator of assignedCollaborators.controls; let i = index">
+            <div class="collaborator-item d-flex align-items-center justify-content-between w-100">
+        <span>
+          <strong>{{ collaborator.get('firstname').value }} {{ collaborator.get('lastname').value }}</strong>
+          <br>
+          <small class="text-muted">{{ collaborator.get('email').value }}</small>
+        </span>
+              <button mat-icon-button color="warn" (click)="removeCollaborator(i)" class="remove-btn">
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div *ngIf="assignedCollaborators.controls.length === 0" class="text-center text-muted">
+        Aucun collaborateur assigné
+      </div>
+
+
+      <!-- Submit and Close Buttons -->
+      <mat-divider></mat-divider>
+      <div mat-dialog-actions class="d-flex justify-content-between mt-4">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!posteForm.valid">Enregistrer</button>
+        <button mat-raised-button color="warn" (click)="closepopup()">Fermer</button>
+      </div>
+    </form>
+  </div>
+</div>

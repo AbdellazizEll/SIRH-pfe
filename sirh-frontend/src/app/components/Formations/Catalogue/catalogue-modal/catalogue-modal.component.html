@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ isEditMode ? 'Modifier le Catalogue' : 'Créer un Nouveau Catalogue' }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="submitForm()">
+    <div class="mb-3">
+      <label for="catalogueTitle" class="form-label">Titre du Catalogue</label>
+      <input type="text" class="form-control" [(ngModel)]="catalogueTitle" name="catalogueTitle" required>
+    </div>
+    <div class="mb-3">
+      <label for="catalogueDescription" class="form-label">Description</label>
+      <textarea class="form-control" [(ngModel)]="catalogueDescription" name="catalogueDescription" rows="3" required></textarea>
+    </div>
+
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Modifier' : 'Créer' }}</button>
+    </div>
+  </form>
+</div>

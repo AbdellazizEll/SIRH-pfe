@@ -1,0 +1,43 @@
+.nav-link {
+  font-size: 1.25rem;
+  color: #b6b6b6; /* Inactive link color */
+  font-weight: 100;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background-color: #e0e0e0; /* Slightly darker background on hover */
+  color: #333; /* Ensure the text color remains dark on hover */
+}
+
+.nav-link.active {
+  color: #0e309f; /* Active link color */
+  font-weight: 300;
+}
+
+.nav-item {
+  margin-bottom: 10px;
+}
+
+.nav-link.disabled {
+  color: rgba(0, 0, 0, 0.5); /* Darker gray for disabled state */
+  background-color: #f5f5f5;
+}
+
+.nav-link:not(.active) {
+  color: #333 !important; /* Ensure text color is dark when not active */
+}
+
+.titlepage,
+.titleotherpage {
+  color: #b6b6b6; /* Default color */
+  cursor: pointer;
+  font-weight: 100;
+}
+
+.border-cust.active .titlepage,
+.border-cust.active .titleotherpage {
+  color: #0e309f; /* Active link color */
+  font-weight: 300;
+}

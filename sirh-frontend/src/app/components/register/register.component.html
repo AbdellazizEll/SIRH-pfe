@@ -1,0 +1,142 @@
+<div class="container d-flex justify-content-between align-items-center mt-3">
+  <div class="text-left">
+    <h4 class="title">Ajouter un collaborateur</h4>
+  </div>
+  <nav class="text-right">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+      <li class="breadcrumb-item"><a href="collaborateurs">Collaborateurs</a></li>
+      <li class="breadcrumb-item active">Ajouter un collobarateur</li>
+    </ol>
+  </nav>
+</div>
+<div class="d-flex justify-content-center">
+      <div class="card p-3 container mt-2 shadow border-0">
+        <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="form-content">
+          <!-- Success and Error Messages -->
+          <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Firstname and Lastname -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstname" class="font-weight-bold">Nom</label>
+                <input type="text" class="form-control" id="firstname" formControlName="firstname" placeholder="Votre nom" />
+                <div *ngIf="registerForm.get('firstname').invalid && registerForm.get('firstname').touched" class="invalid-feedback d-block">
+                  Veuillez saisir le nom.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastname" class="font-weight-bold">Prénom</label>
+                <input type="text" class="form-control" id="lastname" formControlName="lastname" placeholder="Votre prénom" />
+                <div *ngIf="registerForm.get('lastname').invalid && registerForm.get('lastname').touched" class="invalid-feedback d-block">
+                  Veuillez saisir le prénom.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email and Phone -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email" class="font-weight-bold">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Votre adresse email" autocomplete="new-email" />
+                <div *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched" class="invalid-feedback d-block">
+                  Veuillez saisir une adresse email valide.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phone" class="font-weight-bold">Téléphone</label>
+                <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Votre numéro de téléphone" />
+                <div *ngIf="registerForm.get('phone').invalid && registerForm.get('phone').touched" class="invalid-feedback d-block">
+                  Le numéro de téléphone doit commencer par +216 et contenir 8 chiffres.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Password and Confirm Password -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="password" class="font-weight-bold">Mot de passe</label>
+                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Votre mot de passe" autocomplete="new-password" />
+                <div *ngIf="registerForm.get('password').invalid && registerForm.get('password').touched" class="invalid-feedback d-block">
+                  Le mot de passe doit contenir au moins 6 caractères.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="confirmPassword" class="font-weight-bold">Confirmer le mot de passe</label>
+                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirmez le mot de passe" />
+                <div *ngIf="registerForm.get('confirmPassword').hasError('required') && registerForm.get('confirmPassword').touched" class="invalid-feedback d-block">
+                  Veuillez confirmer votre mot de passe.
+                </div>
+                <div *ngIf="registerForm.get('confirmPassword').hasError('passwordMismatch') && registerForm.get('confirmPassword').touched" class="invalid-feedback d-block">
+                  Les mots de passe ne correspondent pas.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role Selection -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="role" class="font-weight-bold">Rôle</label>
+                <select class="form-control" id="role" formControlName="role" (change)="onRoleChange($event)">
+                  <option *ngFor="let role of roles" [value]="role.name">{{ role.displayName }}</option>
+                </select>
+                <div *ngIf="registerForm.get('role').invalid && registerForm.get('role').touched" class="invalid-feedback d-block">
+                  Veuillez sélectionner un rôle.
+                </div>
+              </div>
+            </div>
+
+            <!-- Optional Team Selection -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="equipe" class="font-weight-bold">Équipe (Optionnel)</label>
+                <select class="form-control" id="equipe" formControlName="equipe">
+                  <option value="">Aucune équipe</option>
+                  <option *ngFor="let equipe of equipes" [value]="equipe.id_equipe">{{ equipe.nom }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3" *ngIf="isManagerRoleSelected">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="managerType" class="font-weight-bold">Type de Manager</label>
+                <select class="form-control" id="managerType" formControlName="managerType">
+                  <option value="">Sélectionner le type de manager</option>
+                  <option value="EQUIPE_MANAGER">Manager d'équipe</option>
+                  <option value="DEPARTMENT_RESPONSIBLE">Responsable de département</option>
+                </select>
+                <div *ngIf="registerForm.get('managerType').invalid && registerForm.get('managerType').touched" class="invalid-feedback d-block">
+                  Veuillez sélectionner un type de manager.
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Submit and Home Buttons -->
+          <div class="d-flex justify-content-center mt-4">
+            <div class="d-flex">
+              <button type="button" class="btn btn-secondary me-2" (click)="navigateHome()">Annuler</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Enregistrer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>

@@ -1,0 +1,65 @@
+.scheduler-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+
+  .e-schedule .e-toolbar-items .e-toolbar-item {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  .e-schedule .e-event-save,
+  .e-schedule .e-event-cancel,
+  .e-schedule .e-event-delete {
+    margin-right: 10px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .e-schedule .e-event-window {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    position: absolute !important;
+    z-index: 10000 !important;
+    width: auto;
+    max-width: 600px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .e-schedule .e-schedule-table td .e-input,
+  .e-schedule .e-event-save,
+  .e-schedule .e-event-cancel,
+  .e-schedule .e-event-delete {
+    font-size: 14px;
+    padding: 6px 12px;
+    margin: 4px 0;
+    box-sizing: border-box;
+  }
+
+  .e-schedule .e-event-window .e-input {
+    box-shadow: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .e-schedule .e-event-window .e-btn {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+
+  .e-schedule .e-footer-content {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .e-schedule .e-footer-content .e-btn {
+    min-width: 80px;
+    padding: 6px 12px;
+  }
+}

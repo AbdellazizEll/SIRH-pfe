@@ -1,0 +1,31 @@
+
+services:
+  app:
+    image: abdellazizell/projet-pfe:1.0.0
+    ports:
+      - 8085:8085
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/Projetpfe
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD:
+
+    depends_on:
+      - db
+      - maildev
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      DATABASE_HOST: docker-projetpfe
+      DATABASE_PORT: 3306
+      MYSQL_DATABASE: Projetpfe
+      MYSQL_USER: admin
+      MYSQL_ALLOW_EMPTY_PASSWORD:
+
+
+  maildev:
+    image: maildev/maildev
+    ports:
+      - 1080:80
+      - 1025:25

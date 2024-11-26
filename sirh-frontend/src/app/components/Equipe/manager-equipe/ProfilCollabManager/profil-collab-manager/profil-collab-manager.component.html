@@ -1,0 +1,132 @@
+<div *ngIf="collaborator" class="profile-container">
+  <!-- Breadcrumb -->
+  <div class="container d-flex justify-content-between align-items-center mt-2">
+    <div class="breadcrumb-title">
+      <h4>Profil Collaborateur </h4>
+    </div>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/']"><i class="bi bi-house-door"></i></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Profil collaborateur</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Main Profile Section -->
+  <div class="container d-flex justify-content-center">
+    <div class="card p-3 container mt-5 shadow border-0 profile-card">
+      <!-- Avatar Section -->
+      <div class="avatar-section text-center">
+        <img
+          [ngSrc]="generateAvatarUrl(collaborator.firstname, collaborator.lastname)"
+          width="70"
+          height="70"
+          alt="Avatar"
+          class="avatar-img mt-5"
+          priority
+        />
+        <h4 class="collab-name">{{ collaborator.firstname | capitalizeFirst }} {{ collaborator.lastname | capitalizeFirst }}</h4>
+        <p class="collab-info"><strong>Email:</strong> {{ collaborator.email | lowercase }}</p>
+        <p class="collab-info"><strong>Position Occupée:</strong> {{ collaborator.posteOccupe?.titre || 'Non assigné' }}</p>
+        <p class="collab-info"><strong>Téléphone:</strong> {{ collaborator.phone }}</p>
+      </div>
+
+      <!-- Combined Competencies Table -->
+      <div *ngIf="combinedCompetences.length > 0" class="competencies-table">
+        <div class="competence-header row">
+          <div class="col-md-4 competence-column">Compétence</div>
+          <div class="col-md-4 competence-column">Évaluation Actuelle</div>
+          <div class="col-md-4 competence-column">Évaluation Requise</div>
+        </div>
+        <div *ngFor="let competence of combinedCompetences; let i = index" class="competence-row row">
+          <!-- Competence Name -->
+          <div class="col-md-4 competence-name">
+            {{ competence.name | capitalizeFirst }}
+          </div>
+          <!-- Collaborator's Evaluation -->
+          <div class="col-md-4 competence-evaluation">
+            <ng-container [ngSwitch]="competence.collaboratorScaleType">
+              <!-- STARS -->
+              <ng-container *ngSwitchCase="'STARS'">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-select [(value)]="competence.collaboratorEvaluation"
+                              (selectionChange)="onCollaboratorEvaluationChange(competence, $event.value)"
+                              [disabled]="!isEvaluationEditable">
+                    <mat-option *ngFor="let value of competence.possibleValues" [value]="value">
+                      {{ mapEvaluationValue(value) }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+              <!-- NUMERIC -->
+              <ng-container *ngSwitchCase="'NUMERIC'">
+                <mat-form-field appearance="outline" class="full-width">
+                  <input
+                    matInput
+                    type="number"
+                    [(ngModel)]="competence.collaboratorEvaluation"
+                    (ngModelChange)="onCollaboratorEvaluationChange(competence, $event)"
+                    [disabled]="!isEvaluationEditable"
+                    min="0"
+                    max="5"
+                  />
+                </mat-form-field>
+              </ng-container>
+              <!-- DESCRIPTIF -->
+              <ng-container *ngSwitchCase="'DESCRIPTIF'">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-select [(value)]="competence.collaboratorEvaluation"
+                              (selectionChange)="onCollaboratorEvaluationChange(competence, $event.value)"
+                              [disabled]="!isEvaluationEditable">
+                    <mat-option *ngFor="let value of competence.possibleValues" [value]="value">
+                      {{ mapEvaluationValue(value) }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+              <!-- Default -->
+              <ng-container *ngSwitchDefault>
+                <span>{{ mapEvaluationValue(competence.collaboratorEvaluation) }}</span>
+              </ng-container>
+            </ng-container>
+          </div>          <!-- Poste's Required Evaluation -->
+          <div class="col-md-4 competence-evaluation">
+            <ng-container [ngSwitch]="competence.posteScaleType">
+              <!-- STARS -->
+              <ng-container *ngSwitchCase="'STARS'">
+                <ng-container *ngFor="let star of getStarsArray(competence.posteEvaluation)">
+                  <mat-icon class="star-icon">star</mat-icon>
+                </ng-container>
+              </ng-container>
+              <!-- NUMERIC -->
+              <ng-container *ngSwitchCase="'NUMERIC'">
+                <mat-progress-bar mode="determinate" [value]="getNumericValue(competence.posteEvaluation)"></mat-progress-bar>
+              </ng-container>
+              <!-- DESCRIPTIF -->
+              <ng-container *ngSwitchCase="'DESCRIPTIF'">
+                <span class="descriptive-label">{{ mapEvaluationValue(competence.posteEvaluation) }}</span>
+              </ng-container>
+              <!-- Default -->
+              <ng-container *ngSwitchDefault>
+                <span>{{ mapEvaluationValue(competence.posteEvaluation) }}</span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radar Chart Section -->
+      <div class="chart-container mt-2" *ngIf="poste">
+        <app-comparison-chart [collaborator]="collaborator" [competences]="collaborator.competenceAcquise" [poste]="poste"></app-comparison-chart>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!collaborator">
+  <div class="modal-body text-center">
+    <p class="text-muted">Collaborator data is not available.</p>
+  </div>
+</div>

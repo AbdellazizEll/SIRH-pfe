@@ -1,0 +1,31 @@
+<div *ngIf="collaboratorDashboardData; else loadingTemplate" class="dashboard">
+
+  <!-- Leave Balance Section -->
+  <div class="dashboard-section leave-balance">
+    <h2>Solde des Congés</h2>
+    <div class="chart-container">
+      <canvas id="leaveBalanceChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Competency Gaps Section -->
+  <div class="dashboard-section competency-gap">
+    <h2>Écarts de Compétence</h2>
+    <div class="chart-container">
+      <canvas id="competencyGapChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Training Overview Section -->
+  <div class="dashboard-section training-overview">
+    <h2>Vue d'Ensemble des Formations</h2>
+    <div class="chart-container">
+      <canvas id="trainingOverviewChart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #loadingTemplate>
+  <p>Chargement des données du tableau de bord...</p>
+</ng-template>

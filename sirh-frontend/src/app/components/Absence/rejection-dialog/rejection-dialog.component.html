@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Raison du refus</h2>
+<div mat-dialog-content>
+  <p>Veuillez indiquer la raison du refus :</p>
+  <textarea [(ngModel)]="rejectionReason" rows="4" class="form-control"></textarea>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-button color="primary" (click)="onConfirm()">Confirmer</button>
+</div>

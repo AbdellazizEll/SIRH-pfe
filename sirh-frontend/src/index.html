@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PfeFront</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<app-root></app-root>
+
+<!-- Ensure the required JS scripts are included after the content -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Select all dropdown items that should not be clickable
+    var dropdowns = document.querySelectorAll('.dropdown-item.dropdown-toggle');
+
+    dropdowns.forEach(function(dropdown) {
+      dropdown.addEventListener('mouseenter', function() {
+        var subMenu = this.querySelector('.dropdown-menu');
+        if (subMenu) {
+          subMenu.classList.add('show');
+        }
+      });
+
+      dropdown.addEventListener('mouseleave', function() {
+        var subMenu = this.querySelector('.dropdown-menu');
+        if (subMenu) {
+          subMenu.classList.remove('show');
+        }
+      });
+
+      // Prevent the dropdown item from being clickable
+      dropdown.addEventListener('click', function(event) {
+        event.preventDefault();
+      });
+    });
+  });
+</script>
+</body>
+</html>

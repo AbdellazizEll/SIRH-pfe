@@ -1,0 +1,62 @@
+<div class="formation-dashboard-container">
+  <h2>Tableau de bord des formations</h2>
+
+  <!-- Team Selection -->
+  <div class="team-selection">
+    <label for="team">Choisir une équipe:</label>
+    <select id="team" (change)="onTeamChange($event)">
+      <option *ngFor="let team of teams" [value]="team.id_equipe">
+        {{ team.nom }}
+      </option>
+    </select>
+  </div>
+
+  <div class="content-container">
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-overlay">
+      <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <!-- Training Completion Rate Card -->
+    <div class="card-container">
+      <mat-card class="dashboard-card">
+        <mat-card-title>Taux de complétion des formations</mat-card-title>
+        <mat-card-content>
+          <h1>{{ trainingCompletionRate }}%</h1>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Enrollment Count Chart -->
+    <div class="chart-container">
+      <h3>Nombre d'inscriptions par département</h3>
+      <canvas baseChart
+              [datasets]="enrollmentChartData"
+              [labels]="enrollmentChartLabels"
+              [options]="enrollmentChartOptions"
+              [colors]="enrollmentChartColors"
+              [legend]="true"
+              [chartType]="enrollmentChartType">
+      </canvas>
+    </div>
+
+    <!-- Competence Improvement Rates Chart -->
+    <div class="chart-container">
+      <h3>Taux d'amélioration des compétences</h3>
+      <canvas baseChart
+              [datasets]="competenceImprovementChartData"
+              [labels]="competenceImprovementChartLabels"
+              [options]="competenceImprovementChartOptions"
+              [colors]="competenceImprovementChartColors"
+              [legend]="true"
+              [chartType]="competenceImprovementChartType">
+      </canvas>
+    </div>
+  </div>
+</div>

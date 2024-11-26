@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "file",
+      "type": "com.example.anywrpfe.config.FileUploadProperties",
+      "sourceType": "com.example.anywrpfe.config.FileUploadProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "file.upload-dir",
+      "type": "java.lang.String",
+      "sourceType": "com.example.anywrpfe.config.FileUploadProperties"
+    }
+  ],
+  "hints": []
+}

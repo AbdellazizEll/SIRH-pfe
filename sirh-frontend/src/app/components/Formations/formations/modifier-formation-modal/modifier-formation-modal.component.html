@@ -1,0 +1,89 @@
+<h2 class="mb-4">{{ isEditMode ? 'Modifier la formation' : 'Ajouter une nouvelle formation' }}</h2>
+
+<!-- Display Success and Error Messages -->
+<div *ngIf="successMessage" class="alert alert-success" role="alert">
+  {{ successMessage }}
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+  {{ errorMessage }}
+</div>
+
+<form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <!-- Title Input -->
+    <div class="col-md-6">
+      <div class="form-group mb-2">
+        <label for="trainingTitle">Titre de la Formation</label>
+        <input type="text" id="trainingTitle" formControlName="title" class="form-control" placeholder="Titre" required>
+      </div>
+    </div>
+
+    <!-- Competence Input -->
+    <div class="col-md-6">
+      <div class="form-group mb-2">
+        <label for="targetCompetence">Compétence Ciblée</label>
+        <select id="targetCompetence" formControlName="targetCompetence" class="form-control" required>
+          <option *ngFor="let competence of competenceList; trackBy: trackByCompetence" [value]="competence.id">
+            {{ mapCompetenceName(competence.name) }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Description Input -->
+  <div class="form-group mb-2">
+    <label for="description">Description</label>
+    <textarea id="description" formControlName="description" class="form-control" rows="3" placeholder="Description"></textarea>
+  </div>
+
+  <div class="row">
+    <!-- Current Level Input -->
+    <div class="col-md-3">
+      <div class="form-group mb-2">
+        <label for="currentLevel">Niveau Actuel</label>
+        <input type="number" id="currentLevel" formControlName="currentLevel" class="form-control" min="1" max="5" required>
+      </div>
+    </div>
+
+    <!-- Target Level Input -->
+    <div class="col-md-3">
+      <div class="form-group mb-2">
+        <label for="targetLevel">Niveau Ciblé</label>
+        <input type="number" id="targetLevel" formControlName="targetLevel" class="form-control" min="1" max="5" required>
+      </div>
+    </div>
+
+    <!-- Start Date Input -->
+    <div class="col-md-3">
+      <div class="form-group mb-2">
+        <label for="startDate">Date de Début</label>
+        <input type="date" id="startDate" formControlName="startingAt" class="form-control" required>
+      </div>
+    </div>
+
+    <!-- End Date Input -->
+    <div class="col-md-3">
+      <div class="form-group mb-2">
+        <label for="endDate">Date de Fin</label>
+        <input type="date" id="endDate" formControlName="finishingAt" class="form-control" required>
+      </div>
+    </div>
+  </div>
+
+  <!-- Catalogue Selection -->
+  <div class="form-group mb-3">
+    <label for="catalogue">Catalogue</label>
+    <select id="catalogue" formControlName="catalogue" class="form-control" required>
+      <option *ngFor="let catalogue of catalogueList" [value]="catalogue.id">
+        {{ catalogue.title }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Buttons -->
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+    <button type="button" class="btn btn-secondary" (click)="close()">Annuler</button>
+  </div>
+</form>

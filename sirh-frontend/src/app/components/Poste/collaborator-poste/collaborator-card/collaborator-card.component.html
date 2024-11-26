@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ collaborator.firstname | capitalizeFirst }} {{ collaborator.lastname | capitalizeFirst }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="close()">&times;</button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <!-- Collaborator Info -->
+    <div class="col-md-6">
+      <h4 class="card-title">{{ collaborator.firstname | capitalizeFirst }} {{ collaborator.lastname | capitalizeFirst }}</h4>
+      <p class="card-text"><strong>Email:</strong> {{ collaborator.email | capitalizeFirst }}</p>
+      <p class="card-text"><strong>Téléphone:</strong> {{ collaborator.phone }}</p>
+      <h5 class="card-title">Compétences</h5>
+<!--      <ul class="competencies-list">-->
+<!--        <li *ngFor="let competence of collaborator.collaborateurCompetences">-->
+<!--          {{ mapCompetenceName(competence.competence.name) | capitalizeFirst }}: {{ mapEvaluationValue(competence.evaluation, competence.scaleType) | capitalizeFirst }}-->
+<!--        </li>-->
+<!--      </ul>-->
+    </div>
+    <!-- Divider -->
+    <div class="col-md-1 d-flex justify-content-center">
+      <div class="divider"></div>
+    </div>
+    <!-- Poste Info -->
+    <div class="col-md-5">
+      <h4 class="card-title">Poste: {{ poste?.titre | capitalizeFirst }}</h4>
+      <h5 class="card-title">Compétences Requises</h5>
+      <ul class="competencies-list">
+        <li *ngFor="let competence of poste?.requiredCompetence">
+          {{ mapCompetenceName(competence.competence.name) | capitalizeFirst }}: {{ mapEvaluationValue(competence.evaluation, competence.scaleType) }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="chart-container mt-4">
+    <app-comparison-chart [collaborator]="collaborator" [competences]="collaborator.collaborateurCompetences" [poste]="poste"></app-comparison-chart>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="close()">Fermer</button>
+</div>

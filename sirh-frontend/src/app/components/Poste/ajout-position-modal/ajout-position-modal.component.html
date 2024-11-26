@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Add Position</h1>
+<div mat-dialog-content>
+  <form [formGroup]="positionForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+      <mat-label>Position Name</mat-label>
+      <input matInput formControlName="titre" required>
+    </mat-form-field>
+
+    <div formArrayName="competences">
+      <div *ngFor="let competence of competencesArray.controls; let i = index" [formGroupName]="i" class="form-group row align-items-end">
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <mat-label>Competence</mat-label>
+            <mat-select formControlName="competenceId" (selectionChange)="onCompetenceChange(i)" required>
+              <mat-option *ngFor="let comp of availableCompetences" [value]="comp.id">
+                {{ mapCompetenceName(comp.name) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field class="full-width">
+            <mat-label>Evaluation</mat-label>
+            <mat-select formControlName="evaluation" required>
+              <mat-option *ngFor="let value of competence.get('possibleValues').value" [value]="value">
+                {{ mapEvaluationValue(value) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2 text-center">
+          <button mat-icon-button color="warn" (click)="removeCompetence(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-3">
+      <button mat-button type="button" (click)="addCompetence()" [disabled]="competencesArray.length >= availableCompetences.length">Add Competence</button>
+    </div>
+
+    <div mat-dialog-actions class="justify-content-end mt-3">
+      <button mat-raised-button color="primary" type="submit">Save</button>
+      <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

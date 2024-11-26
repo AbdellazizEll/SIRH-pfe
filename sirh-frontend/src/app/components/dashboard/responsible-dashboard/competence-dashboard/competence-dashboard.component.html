@@ -1,0 +1,65 @@
+<div class="competence-dashboard-container">
+  <h2>Tableau de bord des compétences</h2>
+
+  <!-- Collaborator Selection -->
+  <div class="collaborator-selection">
+    <label for="collaborator">Choisir une équipe:</label>
+    <select id="collaborator" (change)="onCollaboratorChange($event)">
+      <option *ngFor="let team of teams" [value]="team.id_equipe">
+        {{ team.nom }}
+      </option>
+    </select>
+  </div>
+
+  <div class="content-container">
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-overlay">
+      <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <mat-icon color="warn">error</mat-icon>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <!-- Competence Coverage Chart by Team -->
+    <div class="chart-container">
+      <h3>Couverture des compétences par équipe</h3>
+      <canvas baseChart
+              [datasets]="[{ data: competenceCoverageChartData, label: 'Coverage (%)' }]"
+              [labels]="competenceCoverageChartLabels"
+              [options]="competenceCoverageChartOptions"
+              [colors]="competenceCoverageChartColors"
+              [legend]="true"
+              [chartType]="competenceCoverageChartType">
+      </canvas>
+    </div>
+
+    <!-- Competence Improvement Rates Chart -->
+    <div class="chart-container">
+      <h3>Amélioration des compétences</h3>
+      <canvas baseChart
+              [datasets]="[{ data: competenceImprovementChartData, label: 'Improvement Rate (%)' }]"
+              [labels]="competenceImprovementChartLabels"
+              [options]="competenceImprovementChartOptions"
+              [colors]="competenceImprovementChartColors"
+              [legend]="true"
+              [chartType]="competenceImprovementChartType">
+      </canvas>
+    </div>
+
+    <!-- Competence Gaps Chart by Team -->
+    <div class="chart-container">
+      <h3>Lacunes des compétences par équipe</h3>
+      <canvas baseChart
+              [datasets]="competenceGapChartData"
+              [labels]="competenceGapChartLabels"
+              [options]="competenceGapChartOptions"
+              [colors]="competenceGapChartColors"
+              [legend]="true"
+              [chartType]="competenceGapChartType">
+      </canvas>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="container d-flex justify-content-between align-items-center mt-3">
+  <div class="text-left">
+    <h4 class="title">Ajout d'une competence</h4>
+  </div>
+  <nav class="text-right">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+      <li class="breadcrumb-item"><a href="GererDetailCompetence">Gérer details compétence</a></li>
+      <li class="breadcrumb-item active">Ajouter une competence</li>
+    </ol>
+  </nav>
+</div>
+
+  <!-- Add Competence Form -->
+<div class="d-flex justify-content-center">
+  <div class="card p-3 container mt-2 shadow border-0">
+
+    <form [formGroup]="competenceForm" (ngSubmit)="submitForm()">
+
+      <!-- Success and Error Messages -->
+      <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Nom de compétence -->
+      <div class="form-group">
+        <label for="name" class="text-secondary">Nom de compétence</label>
+        <input type="text" id="name" class="form-control" formControlName="name" required>
+        <div *ngIf="competenceForm.get('name').invalid && competenceForm.get('name').touched" class="invalid-feedback">
+          Veuillez donner un nom.
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description" class="text-secondary">Description</label>
+        <input type="text" id="description" class="form-control" formControlName="description" required>
+        <div *ngIf="competenceForm.get('description').invalid && competenceForm.get('description').touched" class="invalid-feedback">
+          Veuillez saisir une description pour la compétence requise.
+        </div>
+      </div>
+
+      <!-- Type d'evaluation -->
+      <div class="form-group">
+        <label for="scaleType" class="text-secondary">Type d'évaluation</label>
+        <select id="scaleType" class="form-control" formControlName="scaleType" required>
+          <option *ngFor="let type of scaleTypes" [value]="type.display">{{ getMappedTypeScale(type.display) }}</option>
+        </select>
+        <div *ngIf="competenceForm.get('scaleType').invalid && competenceForm.get('scaleType').touched" class="invalid-feedback">
+          Veuillez sélectionner le type d'évaluation.
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-4 d-flex justify-content-center">
+        <div class="d-flex">
+          <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

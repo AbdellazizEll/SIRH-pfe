@@ -1,0 +1,106 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-title {
+  font-size: 2rem;
+}
+
+.date-icons {
+  display: flex;
+  align-items: center;
+}
+
+.date-item {
+  display: flex;
+  align-items: center;
+}
+
+.date-item .icon {
+  width: 20px;
+  height: 20px;
+}
+
+h2, h4, h5 {
+  margin-bottom: 0.75rem;
+}
+
+.text-muted {
+  font-size: 1.1rem;
+}
+
+.date-item strong {
+  margin-right: 5px;
+}
+
+ul.list-unstyled {
+  padding-left: 0;
+}
+
+ul.list-unstyled li {
+  margin-bottom: 0.5rem;
+}
+
+.d-grid {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+button.btn-lg {
+  border-radius: 5px;
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+button.btn-outline-primary, button.btn-outline-secondary {
+  border: 1px solid;
+  color: #007bff;
+}
+
+button.btn-outline-secondary {
+  color: #6c757d;
+}
+
+button.btn-outline-primary:hover, button.btn-outline-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #007bff;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+
+.modal-header {
+  background-color: #007bff;
+  color: white;
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+}
