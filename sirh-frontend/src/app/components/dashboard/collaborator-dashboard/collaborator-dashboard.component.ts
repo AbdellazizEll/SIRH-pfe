@@ -19,6 +19,8 @@ export class CollaboratorDashboardComponent implements OnInit, OnDestroy {
 
   private charts: Chart[] = [];
 
+  competencyGapsAvailable: boolean = false;
+  trainingOverviewAvailable: boolean = false;
   constructor(
     private competenceService: CompetenceService,
     private formationService: FormationsServiceService,
@@ -81,6 +83,8 @@ export class CollaboratorDashboardComponent implements OnInit, OnDestroy {
       console.log('Competency Gaps Response:', competencyGaps);
 
       if (competencyGaps?.matchingCompetencies?.length > 0) {
+        this.competencyGapsAvailable = true;
+
         // Filter competencies that have a gap between collaborator and position evaluations
         const gaps = competencyGaps.matchingCompetencies.filter((competency: any) => {
           const collaboratorEval = this.convertEvaluationToNumeric(competency.collaboratorEvaluation, competency.scaleType);
@@ -112,31 +116,31 @@ export class CollaboratorDashboardComponent implements OnInit, OnDestroy {
               backgroundColor: backgroundColors,
               borderColor: backgroundColors.map((color: any) => color.replace('0.8', '1')),
               borderWidth: 2,
-              barThickness: 60, // Increase bar thickness for better visibility
+              barThickness: 60
             }]
           }, {
             responsive: true,
             scales: {
               y: {
                 beginAtZero: false,
-                min: 0.5, // Start Y-axis just below 1 to ensure small values are more noticeable
-                grace: '20%', // Adds extra space to make sure the bars stand out more clearly
+                min: 0.5,
+                grace: '20%',
                 title: {
                   display: true,
                   text: 'Niveau d\'Écart'
                 },
                 ticks: {
                   callback: function (value: any) {
-                    return value.toFixed(0); // Display tick values as integers (1, 2, 3, 4)
+                    return value.toFixed(0);
                   },
-                  stepSize: 1, // Ensure each level is represented with an integer value
-                  padding: 10 // Adds more space between the y-axis labels and grid lines for better readability
+                  stepSize: 1,
+                  padding: 10
                 }
               },
               x: {
                 ticks: {
-                  autoSkip: false, // Show all labels to avoid skipping
-                  maxRotation: 45, // Rotate labels for better readability
+                  autoSkip: false,
+                  maxRotation: 45,
                   minRotation: 0
                 }
               }
@@ -155,17 +159,16 @@ export class CollaboratorDashboardComponent implements OnInit, OnDestroy {
               }
             }
           });
-        } else {
-          console.warn('No competency gaps found after filtering.');
         }
       } else {
-        console.error('No matching competencies found.');
+        this.competencyGapsAvailable = false;
+        console.warn('No competency gaps found after filtering.');
       }
     }, error => {
+      this.competencyGapsAvailable = false;
       console.error('Error loading competency gaps:', error);
     });
   }
-
 // Helper method to convert evaluation scales to numeric values
   convertEvaluationToNumeric(evaluation: string, scaleType: string): number {
     switch (scaleType) {
@@ -193,21 +196,37 @@ export class CollaboratorDashboardComponent implements OnInit, OnDestroy {
 
 
   loadTrainingOverview() {
-    this.formationService.getTrainingOverview().subscribe(trainingOverview => {
-      this.collaboratorDashboardData.trainingOverview = trainingOverview;
-      this.createChart('trainingOverviewChart', 'pie', {
-        labels: ['Formations Terminées', 'Formations en Cours'],
-        datasets: [{
-          data: [trainingOverview.completedTrainings, trainingOverview.inProgressTrainings],
-          backgroundColor: ['#36A2EB', '#FFCE56']
-        }]
-      }, {
-        responsive: true,
-        plugins: {
-          legend: { display: true },
-          title: { display: true, text: 'Vue d\'Ensemble des Formations' }
+    this.formationService.getTrainingOverview().subscribe(
+      trainingOverview => {
+        if (trainingOverview && (trainingOverview.completedTrainings > 0 || trainingOverview.inProgressTrainings > 0)) {
+          this.trainingOverviewAvailable = true;
+          this.collaboratorDashboardData.trainingOverview = trainingOverview;
+        } else {
+          console.warn('No training overview data found.');
+          this.trainingOverviewAvailable = false;
+          this.collaboratorDashboardData.trainingOverview = { completedTrainings: 0, inProgressTrainings: 0 };
         }
-      });
-    });
-  }
-}
+
+        this.createChart('trainingOverviewChart', 'pie', {
+          labels: ['Formations Terminées', 'Formations en Cours'],
+          datasets: [{
+            data: [
+              this.collaboratorDashboardData.trainingOverview.completedTrainings,
+              this.collaboratorDashboardData.trainingOverview.inProgressTrainings
+            ],
+            backgroundColor: ['#36A2EB', '#FFCE56']
+          }]
+        }, {
+          responsive: true,
+          plugins: {
+            legend: { display: true },
+            title: { display: true, text: 'Vue d\'Ensemble des Formations' }
+          }
+        });
+      },
+      error => {
+        this.trainingOverviewAvailable = false;
+        console.error('Error loading training overview:', error);
+      }
+    );
+  }}

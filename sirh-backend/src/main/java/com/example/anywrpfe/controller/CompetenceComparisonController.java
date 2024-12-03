@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/comparison")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CompetenceComparisonController {
 
     private static final Logger log = LoggerFactory.getLogger(CompetenceComparisonController.class);

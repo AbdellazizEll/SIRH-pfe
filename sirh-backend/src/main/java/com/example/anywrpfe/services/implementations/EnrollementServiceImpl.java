@@ -29,19 +29,18 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class EnrollementServiceImpl implements EnrollementService {
+    private static final String NULL_STRING = "NOT FOUND";
+
     private final CompetenceRepository competenceRepository;
     private final CollaborateurRepository collaborateurRepository;
     private final DepartementRepository departementRepository;
-
-    private final static  String NULL_STRING = "NOT FOUND";
-
     private final CompetenceHistoryRepository competenceHistoryRepository;
     private final CollaborateurCompetenceRepository collaborateurCompetenceRepository;
     private final DemandeFormationRepository demandeFormationRepository;
     private final EnrollementRepository enrollementRepository;
+
     @Qualifier("implEmailService")
     private final EmailService emailService;
-
 
 
     @Override

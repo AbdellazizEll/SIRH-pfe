@@ -2,9 +2,7 @@ package com.example.anywrpfe.controller.kpis;
 
 import com.example.anywrpfe.dto.*;
 import com.example.anywrpfe.entities.Collaborateur;
-import com.example.anywrpfe.entities.Inscription;
 import com.example.anywrpfe.services.CollaborateurCompetenceService;
-import com.example.anywrpfe.services.CompetenceService;
 import com.example.anywrpfe.services.EnrollementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/training-kpis")

@@ -77,9 +77,8 @@ public class CompetenceServiceImpl implements CompetenceService {
         Page<Competence> competencePage = competenceRepository.findAllByNameContaining(name, PageRequest.of(page, size));
 
         // Convert each Competence to CompetenceDTO using map function
-        Page<CompetenceDTO> dtoPage = competencePage.map(CompetenceDTO::fromEntity);
+       return competencePage.map(CompetenceDTO::fromEntity);
 
-        return dtoPage;
     }
 
     @Override

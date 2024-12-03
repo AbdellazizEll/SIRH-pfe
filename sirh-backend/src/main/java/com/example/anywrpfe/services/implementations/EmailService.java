@@ -83,7 +83,6 @@ public class EmailService {
 
     public void sendPasswordChangeConfirmationEmail(String to, String fullName) throws MessagingException {
         String subject = "Password Change Confirmation";
-        String activationLink = ""; // Not needed for password change
         sendEmail(to, fullName, null, subject, buildPasswordChangeEmailContent(fullName));
     }
 

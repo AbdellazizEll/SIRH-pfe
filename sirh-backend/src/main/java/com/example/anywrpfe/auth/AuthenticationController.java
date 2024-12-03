@@ -26,7 +26,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class AuthenticationController {
 
@@ -46,7 +46,7 @@ public class AuthenticationController {
 
     // Register a new user
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(service.register(request));
     }
 
@@ -68,7 +68,7 @@ public class AuthenticationController {
             AuthenticationResponse response = service.authenticate(request);
 
             // Check if the user needs to change their password
-            if (collaborateur.getNeedsPasswordChange()) {
+            if (Boolean.TRUE.equals(collaborateur.getNeedsPasswordChange())) {
                 response.setNeedsPasswordChange(true);
                 response.setMessage("Password change required. Please change your password.");
             }

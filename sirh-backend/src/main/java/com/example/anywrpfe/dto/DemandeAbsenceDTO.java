@@ -13,7 +13,6 @@ import java.util.Date;
 @Data
 @Slf4j
 public class DemandeAbsenceDTO {
-
     private Long id;
     private Date dateDebut;
 

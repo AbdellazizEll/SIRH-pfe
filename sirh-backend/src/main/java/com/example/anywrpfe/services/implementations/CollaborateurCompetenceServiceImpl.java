@@ -4,6 +4,7 @@ import com.example.anywrpfe.dto.*;
 import com.example.anywrpfe.entities.*;
 import com.example.anywrpfe.entities.Enum.TypeEval;
 import com.example.anywrpfe.entities.Enum.typeCompetence;
+import com.example.anywrpfe.exception.ApiException;
 import com.example.anywrpfe.repositories.*;
 import com.example.anywrpfe.services.CollaborateurCompetenceService;
 import jakarta.persistence.EntityNotFoundException;
@@ -45,7 +46,7 @@ public class CollaborateurCompetenceServiceImpl implements CollaborateurCompeten
         logger.info("Evaluation provided: {}", evaluation);
         // Validate evaluation
         if (!competence.getPossibleValues().contains(evaluation)) {
-            throw new RuntimeException("Invalid evaluation for the given competence");
+            throw new ApiException("Invalid evaluation for the given competence");
         }
 
 
@@ -53,7 +54,7 @@ public class CollaborateurCompetenceServiceImpl implements CollaborateurCompeten
                 .anyMatch(cc -> cc.getCompetence().getId().equals(competenceId));
         if( competenceExists)
         {
-            throw new RuntimeException("Cannot add the same competence to same collaborator");
+            throw new ApiException("Cannot add the same competence to same collaborator");
         }
 
         CollaborateurCompetence collaborateurCompetence = new CollaborateurCompetence();
@@ -74,15 +75,15 @@ public class CollaborateurCompetenceServiceImpl implements CollaborateurCompeten
     public CollaborateurCompetenceDTO updateCompetenceEvaluation(Long collaborateurId, Long competenceId, String newEvaluation, TypeEval newScaleType) {
         CollaborateurCompetence collaborateurCompetence = collaborateurCompetenceRepository
                 .findByCollaborateurIdAndCompetenceId(collaborateurId, competenceId)
-                .orElseThrow(() -> new RuntimeException("Competence not found for this Collaborateur"));
+                .orElseThrow(() -> new ApiException("Competence not found for this Collaborateur"));
 
         Competence competence = competenceRepository.findById(competenceId)
-                .orElseThrow(() -> new RuntimeException("Competence not found"));
+                .orElseThrow(() -> new ApiException("Competence not found"));
 
         List<String> possibleValues = competence.getPossibleValues().stream().toList();
 
         if (!possibleValues.contains(newEvaluation)) {
-            throw new RuntimeException("Invalid evaluation value for the given competence and scale type");
+            throw new ApiException("Invalid evaluation value for the given competence and scale type");
         }
 
         logger.info("Possible values for competence {}: {}", competenceId, possibleValues);
@@ -150,9 +151,9 @@ public class CollaborateurCompetenceServiceImpl implements CollaborateurCompeten
         // Filter out competences that the user already has
         List<Competence> filteredCompetences = allAvailableCompetences.stream()
                 .filter(competence -> !currentCompetenceIds.contains(competence.getId()))
-                .collect(Collectors.toList());
+                .toList();
 
-        logger.info("filtered competences",filteredCompetences );
+        log.info("filtered competences",filteredCompetences );
 
 
         return filteredCompetences;
@@ -163,9 +164,8 @@ public class CollaborateurCompetenceServiceImpl implements CollaborateurCompeten
         Collaborateur user = collaborateurRepository.findById(userId).orElseThrow(null);
 
         // GET THE COMPETENCE ALREADY ASSIGNED TO THE COLLABORATOR
-        Set<CollaborateurCompetence> assignedCompetence = user.getCollaborateurCompetences();
+        return user.getCollaborateurCompetences();
 
-        return assignedCompetence ;
     }
 
     @Override
@@ -363,63 +363,62 @@ public class CollaborateurCompetenceServiceImpl implements CollaborateurCompeten
     public List<DepartmentCompetenceGapDTO> calculateCompetenceGapForAllDepartments() {
         // Fetch all departments
         List<Departement> allDepartments = departementRepository.findAll();
-
         List<DepartmentCompetenceGapDTO> departmentCompetenceGaps = new ArrayList<>();
 
         // Iterate over all departments to calculate competence gaps
         for (Departement department : allDepartments) {
-            // Fetch all collaborators in the department
             List<Collaborateur> collaborators = collaborateurRepository.findCollaboratorsByDepartmentId(department.getId_dep());
-
-            Map<Long, CompetenceGapDTO> competenceGapMap = new HashMap<>();
-
-            // Iterate through all collaborators in the department
-            for (Collaborateur collaborator : collaborators) {
-                // Fetch the position of the collaborator
-                Poste poste = collaborator.getPosteOccupe();
-                if (poste != null) {
-                    Set<PosteCompetence> requiredCompetences = poste.getPosteCompetences();
-
-                    // Calculate the gap for each required competence
-                    for (PosteCompetence posteCompetence : requiredCompetences) {
-                        Competence competence = posteCompetence.getCompetence();
-                        String requiredLevel = posteCompetence.getEvaluation();
-
-                        // Find the collaborator's current level of the competence
-                        Optional<CollaborateurCompetence> optionalCollaborateurCompetence = collaborator.getCollaborateurCompetences().stream()
-                                .filter(cc -> cc.getCompetence().getId().equals(competence.getId()))
-                                .findFirst();
-
-                        String currentLevel = null;
-                        if (optionalCollaborateurCompetence.isPresent()) {
-                            currentLevel = optionalCollaborateurCompetence.get().getEvaluation();
-                        }
-
-                        // Create or update a CompetenceGapDTO to represent this competence gap
-                        CompetenceGapDTO gapDTO = competenceGapMap.getOrDefault(competence.getId(),
-                                new CompetenceGapDTO(competence.getId(), competence.getName(), requiredLevel, currentLevel));
-
-                        // Calculate the gap using the Competence entity for evaluation conversions
-                        gapDTO.calculateGap(competence);
-
-                        // If there is a gap (i.e., current level is less than required level)
-                        if (gapDTO.getGap() > 0) {
-                            // Increment the count of collaborators with a gap
-                            gapDTO.incrementNumberOfCollaborators();
-
-                            // Add the gap for aggregation purposes
-                            competenceGapMap.put(competence.getId(), gapDTO);
-                        }
-                    }
-                }
-            }
-
-            // Convert map values to list and add to department gap DTO
-            List<CompetenceGapDTO> competenceGaps = new ArrayList<>(competenceGapMap.values());
+            List<CompetenceGapDTO> competenceGaps = calculateDepartmentCompetenceGaps(collaborators);
             departmentCompetenceGaps.add(new DepartmentCompetenceGapDTO(department.getId_dep(), department.getNomDep(), competenceGaps));
         }
 
         return departmentCompetenceGaps;
+    }
+
+    // Extracted Method 1: Calculate competence gaps for a department
+    private List<CompetenceGapDTO> calculateDepartmentCompetenceGaps(List<Collaborateur> collaborators) {
+        Map<Long, CompetenceGapDTO> competenceGapMap = new HashMap<>();
+
+        for (Collaborateur collaborator : collaborators) {
+            Poste poste = collaborator.getPosteOccupe();
+            if (poste != null) {
+                calculateCollaboratorCompetenceGaps(collaborator, poste.getPosteCompetences(), competenceGapMap);
+            }
+        }
+
+        return new ArrayList<>(competenceGapMap.values());
+    }
+
+    // Extracted Method 2: Calculate competence gaps for a collaborator
+    private void calculateCollaboratorCompetenceGaps(Collaborateur collaborator, Set<PosteCompetence> requiredCompetences, Map<Long, CompetenceGapDTO> competenceGapMap) {
+        for (PosteCompetence posteCompetence : requiredCompetences) {
+            Competence competence = posteCompetence.getCompetence();
+            String requiredLevel = posteCompetence.getEvaluation();
+
+            // Find the collaborator's current level of the competence
+            String currentLevel = collaborator.getCollaborateurCompetences().stream()
+                    .filter(cc -> cc.getCompetence().getId().equals(competence.getId()))
+                    .map(CollaborateurCompetence::getEvaluation)
+                    .findFirst()
+                    .orElse(null);
+
+            // Update or create the gap entry
+            updateCompetenceGap(competenceGapMap, competence, requiredLevel, currentLevel);
+        }
+    }
+
+    // Extracted Method 3: Update competence gap in the map
+    private void updateCompetenceGap(Map<Long, CompetenceGapDTO> competenceGapMap, Competence competence, String requiredLevel, String currentLevel) {
+        CompetenceGapDTO gapDTO = competenceGapMap.getOrDefault(competence.getId(),
+                new CompetenceGapDTO(competence.getId(), competence.getName(), requiredLevel, currentLevel));
+
+        gapDTO.calculateGap(competence);
+
+        // Add or update if there's a gap
+        if (gapDTO.getGap() > 0) {
+            gapDTO.incrementNumberOfCollaborators();
+            competenceGapMap.put(competence.getId(), gapDTO);
+        }
     }
 
 

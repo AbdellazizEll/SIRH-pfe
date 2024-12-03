@@ -34,7 +34,7 @@ import static javax.security.auth.callback.ConfirmationCallback.OK;
 @RestController
 @RequestMapping("/demandeAbsence")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class DemandeAbsenceController {
     private final CollaborateurRepository collaborateurRepository;
@@ -42,6 +42,8 @@ public class DemandeAbsenceController {
     private final AbsenceService absenceService;
 
     private final DemandeAbsenceService demandeAbsenceService;
+
+    private static final String ABSENCE_REQUEST="ABSENCE REQUESTS RETRIEVED";
 
 
     private static final String ACCEPTED = "ACCEPTED";
@@ -182,7 +184,7 @@ public class DemandeAbsenceController {
                 HttpResponse.builder()
                         .timestamp(now().toString())
                         .data(Map.of("", demandeAbsenceService.ListDemandeAbsence(page, size)))
-                        .message("Absence Requests retrieved")
+                        .message(ABSENCE_REQUEST)
                         .status(HttpStatus.OK)
                         .statusCode(OK)
                         .build());
@@ -208,7 +210,7 @@ public class DemandeAbsenceController {
                 HttpResponse.builder()
                         .timestamp(now().toString())
                         .data(Map.of("", allAbsences))
-                        .message("Absence Requests retrieved")
+                        .message(ABSENCE_REQUEST)
                         .status(HttpStatus.OK)
                         .statusCode(OK)
                         .build());
@@ -240,7 +242,7 @@ public class DemandeAbsenceController {
                 HttpResponse.builder()
                         .timestamp(now().toString())
                         .data(Map.of("page", absencePage))
-                        .message("Absence Requests retrieved for RH")
+                        .message(ABSENCE_REQUEST)
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
                         .build()
@@ -277,7 +279,7 @@ public class DemandeAbsenceController {
                 HttpResponse.builder()
                         .timestamp(now().toString())
                         .data(Map.of("page", absencePage))
-                        .message("Absence Requests retrieved for manager")
+                        .message(ABSENCE_REQUEST)
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
                         .build()
@@ -295,7 +297,7 @@ public class DemandeAbsenceController {
                 HttpResponse.builder()
                         .timestamp(LocalDateTime.now().toString())
                         .data(Map.of("page", absenceRequests))
-                        .message("Absence Requests retrieved")
+                        .message(ABSENCE_REQUEST)
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
                         .build());
@@ -316,7 +318,7 @@ public class DemandeAbsenceController {
                 HttpResponse.builder()
                         .timestamp(now().toString())
                         .data(Map.of("page", absencePage))
-                        .message("Absence Requests retrieved for Department {} "+departmentId)
+                        .message(ABSENCE_REQUEST)
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
                         .build());
@@ -340,7 +342,7 @@ public class DemandeAbsenceController {
                 HttpResponse.builder()
                         .timestamp(now().toString())
                         .data(Map.of("page", absencePage))
-                        .message("Absence Requests retrieved for responsible")
+                        .message(ABSENCE_REQUEST)
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
                         .build()
@@ -365,40 +367,6 @@ public class DemandeAbsenceController {
         return ResponseEntity.ok().body(rejectedDemande);
     }
 
-
-//    @GetMapping("/absence-requests-department-status/{responsibleId}")
-//    public ResponseEntity<HttpResponse> getAbsencesResponsible(
-//            @PathVariable Long responsibleId,
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size,
-//            @RequestParam(required = false) String status) {
-//
-//        Page<LightDemandeAbsenceDTO> absencePage;
-//
-//        if (status == null || status.isEmpty()) {
-//            // No status filter, fetch all requests for the department
-//            absencePage = demandeAbsenceService.getAbsencesResponsible(responsibleId,status, page, size);
-//        } else if (status.equalsIgnoreCase(PENDING)) {
-//            absencePage = demandeAbsenceService.getAbsencesResponsible(responsibleId,status, page, size);
-//        } else if (status.equalsIgnoreCase(ACCEPTED)) {
-//            absencePage = demandeAbsenceService.getAbsencesResponsible(responsibleId, status,page, size);
-//        } else if (status.equalsIgnoreCase(REJECTED)) {
-//            absencePage = demandeAbsenceService.getAbsencesResponsible(responsibleId,status, page, size);
-//        } else {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid status parameter");
-//        }
-//
-//        log.info("Fetching absence requests with status '{}', page {} of size {}", status, page, size);
-//
-//        return ResponseEntity.ok().body(
-//                HttpResponse.builder()
-//                        .timestamp(now().toString())
-//                        .data(Map.of("page", absencePage))
-//                        .message(String.format("%s Absence Requests retrieved for Responsible", status != null ? status : "All"))
-//                        .status(HttpStatus.OK)
-//                        .statusCode(HttpStatus.OK.value())
-//                        .build());
-//    }
 
 
     @DeleteMapping("delete/{idDemande}")

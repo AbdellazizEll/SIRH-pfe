@@ -8,6 +8,7 @@ import com.example.anywrpfe.entities.Collaborateur;
 import com.example.anywrpfe.entities.Departement;
 import com.example.anywrpfe.entities.Enum.ManagerType;
 import com.example.anywrpfe.entities.Equipe;
+import com.example.anywrpfe.exception.ApiException;
 import com.example.anywrpfe.repositories.CollaborateurRepository;
 import com.example.anywrpfe.repositories.DepartementRepository;
 import com.example.anywrpfe.repositories.EquipeRepository;
@@ -96,7 +97,7 @@ public class EquipeServiceImpl implements EquipeService {
         // Check if a team with the same name already exists in the department
         if (equipeRepository.existsByNom(equipeDTO.getNom())) {
             log.error("Equipe with name '{}' already exists in department with id {}", equipeDTO.getNom(), depId);
-            throw new RuntimeException("A team with the same name already exists in this department");
+            throw new ApiException("A team with the same name already exists in this department");
         }
 
         // Convert the DTO to an Equipe entity
@@ -252,7 +253,7 @@ public class EquipeServiceImpl implements EquipeService {
         //check of Collaborators without a team
         List<Collaborateur> collaboratorWithoutTeam = collaborator.stream()
                 .filter(collaborateur -> collaborateur.getEquipe() == null)
-                .collect(Collectors.toList());
+                .toList();
 
         if(collaboratorWithoutTeam.isEmpty()){
             throw  new IllegalArgumentException("All Provided collaborators are already in a team.");
@@ -265,22 +266,19 @@ public class EquipeServiceImpl implements EquipeService {
     @Override
     @Transactional
     public void setManagerToEquipe(Long collaboratorId, Long equipeId) {
-
-
         Collaborateur collaborator = collaborateurRepository.findById(collaboratorId)
-                .orElseThrow(() -> new EntityNotFoundException("Collaborator not found with id " + collaboratorId));
+                .orElseThrow(() -> new EntityNotFoundException(COLLABORATOR_NOT_FOUND + collaboratorId));
         Equipe equipe = equipeRepository.findById(equipeId)
-                .orElseThrow(() -> new EntityNotFoundException("equipe not found with id " + equipeId));
+                .orElseThrow(() -> new EntityNotFoundException(EQUIPE_NOT_FOUND+ equipeId));
 
-        if(collaborator.getIsManager() || collaborator.getRoles().contains(ROLE_MANAGER)) {
+        // Use Boolean.TRUE.equals to avoid null issues with boxed Boolean
+        if (Boolean.TRUE.equals(collaborator.getIsManager()) || collaborator.getRoles().contains(ROLE_MANAGER)) {
             equipe.setManagerEquipe(collaborator);
             collaborateurRepository.save(collaborator);
             equipeRepository.save(equipe);
-        }else
-        {
-            throw  new EntityNotFoundException("Collaborator doesn't have the authority to be Responsible" + collaboratorId);
+        } else {
+            throw new EntityNotFoundException("Collaborator doesn't have the authority to be Responsible with ID: " + collaboratorId);
         }
-
     }
 
     @Override

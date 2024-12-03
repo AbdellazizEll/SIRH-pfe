@@ -5,26 +5,23 @@ import com.example.anywrpfe.dto.CatalogueDTO;
 import com.example.anywrpfe.entities.Catalogue;
 import com.example.anywrpfe.repositories.CatalogueRepository;
 import com.example.anywrpfe.services.CatalogueService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class CatalogueServiceImpl implements CatalogueService {
 
-
     private final CatalogueRepository catalogueRepository;
 
     @Override
     public List<CatalogueDTO> getAllCatalogues() {
         List<Catalogue> catalogueList = catalogueRepository.findAll();
-        return catalogueList.stream().map(CatalogueDTO::fromEntity).collect(Collectors.toList());
+        return catalogueList.stream().map(CatalogueDTO::fromEntity).toList();
     }
 
     @Override

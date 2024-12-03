@@ -209,7 +209,7 @@ public class AuthenticationService {
                 .roles(roles)
                 .build();
 
-        if (user.getNeedsPasswordChange()) {
+        if (Boolean.TRUE.equals(user.getNeedsPasswordChange())) {
             response.setNeedsPasswordChange(true);
         }
 

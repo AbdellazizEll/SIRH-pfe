@@ -7,7 +7,6 @@ import com.example.anywrpfe.entities.Enum.TypeEval;
 import com.example.anywrpfe.repositories.*;
 import com.example.anywrpfe.services.PosteService;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
@@ -15,10 +14,12 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 @RequiredArgsConstructor
 @Service
 public class PosteServiceImpl implements PosteService {
 
+    private static final String POSTE_NOT_FOUND ="POSTE NOT FOUND" ;
     private final PosteRepository posteRepository;
     private final CollaborateurRepository collaborateurRepository;
     private final FormationRepository formationRepository;
@@ -27,17 +28,16 @@ public class PosteServiceImpl implements PosteService {
 
     @Override
     public Poste createPoste(PosteDTO posteDTO) {
+        // Validate that the title does not already exist in the repository
+        if (posteRepository.existsByTitre(posteDTO.getTitre())) {
+            throw new FormationException("Cannot add a poste with the same title.");
+        }
 
+        // Create a new Poste object
         Poste poste = new Poste();
         poste.setTitre(posteDTO.getTitre());
 
-        List<Poste> postesList = posteRepository.findAll();
-
-        boolean posteExistant = postesList.stream().anyMatch(pp -> pp.getIdPoste().equals(poste.getTitre()));
-        if (posteExistant) {
-            throw new FormationException("Cannot add the same poste ");
-        }
-
+        // Save and return the new Poste
         return posteRepository.save(poste);
     }
 
@@ -59,11 +59,10 @@ public class PosteServiceImpl implements PosteService {
             Poste posteToUpdate = existingPoste.get();
 
             // Check if the title is changed and ensure it's unique
-            if (!posteToUpdate.getTitre().equals(posteDTO.getTitre())) {
-                if (posteRepository.existsByTitre(posteDTO.getTitre())) {
+            if (!posteToUpdate.getTitre().equals(posteDTO.getTitre()) && posteRepository.existsByTitre(posteDTO.getTitre())) {
                     throw new FormationException("Veuillez changer le titre s'il vous plait, titre existe déjà");
                 }
-            }
+
 
             // Update the title only
             posteToUpdate.setTitre(posteDTO.getTitre());
@@ -75,7 +74,7 @@ public class PosteServiceImpl implements PosteService {
             return PosteDTO.fromEntity(posteToUpdate);
 
         } else {
-            throw new FormationException("Poste not found");
+            throw new FormationException(POSTE_NOT_FOUND);
         }
     }
     @Override
@@ -91,7 +90,7 @@ public class PosteServiceImpl implements PosteService {
 
         return poste.stream()
                 .map(PosteDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
 
     }
 
@@ -101,7 +100,7 @@ public class PosteServiceImpl implements PosteService {
         Collaborateur collaborateur = collaborateurRepository.findById(collaborateurId)
                 .orElseThrow(() -> new RuntimeException("Collaborateur not found"));
         Poste poste = posteRepository.findById(posteId)
-                .orElseThrow(() -> new RuntimeException("Poste not found"));
+                .orElseThrow(() -> new RuntimeException(POSTE_NOT_FOUND));
 
         Map<Long, CollaborateurCompetence> collaborateurCompetences = collaborateur.getCollaborateurCompetences()
                 .stream()
@@ -199,7 +198,7 @@ public class PosteServiceImpl implements PosteService {
         Collaborateur collaborateur = collaborateurRepository.findById(collaborateurId)
                 .orElseThrow(() -> new RuntimeException("Collaborateur not found"));
         Poste poste = posteRepository.findById(posteId)
-                .orElseThrow(() -> new RuntimeException("Poste not found"));
+                .orElseThrow(() -> new RuntimeException(POSTE_NOT_FOUND));
 
         // Fetch all competencies of the collaborator mapped by competenceId
         Map<Long, CollaborateurCompetence> collaborateurCompetences = collaborateur.getCollaborateurCompetences()
@@ -254,8 +253,7 @@ public class PosteServiceImpl implements PosteService {
 
     @Override
     public void unassignCollaboratorFromPoste(Long posteId, Long collaboratorId) {
-        Poste poste = posteRepository.findById(posteId)
-                .orElseThrow(() -> new EntityNotFoundException("Poste not found"));
+
         Collaborateur collaborator = collaborateurRepository.findById(collaboratorId)
                 .orElseThrow(() -> new EntityNotFoundException("Collaborator not found"));
 

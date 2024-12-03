@@ -26,7 +26,7 @@ public class Token  implements Serializable {
     @Builder.Default
     public TokenType tokenType = TokenType.BEARER;
 
-    public boolean revoked;
+    private boolean revoked;
 
     public boolean expired;
 

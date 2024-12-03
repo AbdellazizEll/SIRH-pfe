@@ -4,6 +4,7 @@ import com.example.anywrpfe.dto.CompetenceDetailDTO;
 import com.example.anywrpfe.dto.FormationDetailDTO;
 import com.example.anywrpfe.entities.*;
 import com.example.anywrpfe.entities.Enum.TypeEval;
+import com.example.anywrpfe.exception.ApiException;
 import com.example.anywrpfe.repositories.CollaborateurRepository;
 import com.example.anywrpfe.repositories.FormationRepository;
 import com.example.anywrpfe.services.CompetenceComparisonService;
@@ -28,12 +29,12 @@ public class CompetenceComparisonImpl implements CompetenceComparisonService {
     public CompetenceComparisonResult compareCollaboratorWithCurrentPoste(Long collaborateurId) {
         // Get the collaborator
         Collaborateur collaborateur = collaborateurRepository.findById(collaborateurId)
-                .orElseThrow(() -> new RuntimeException("Collaborateur not found"));
+                .orElseThrow(() -> new ApiException("Collaborateur not found"));
 
         // Get the position assigned to the collaborator
         Poste poste = collaborateur.getPosteOccupe();
         if (poste == null) {
-            throw new RuntimeException("Collaborator does not have an assigned position.");
+            throw new ApiException("Collaborator does not have an assigned position.");
         }
 
         // Use the existing comparison method logic

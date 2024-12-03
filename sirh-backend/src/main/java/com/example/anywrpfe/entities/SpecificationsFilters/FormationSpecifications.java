@@ -5,6 +5,9 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class FormationSpecifications {
 
+    private FormationSpecifications() {
+        throw new UnsupportedOperationException("Utility class");
+    }
     public static Specification<Formation> titleContains(String query) {
         return (root, queryCriteria, criteriaBuilder) ->
                 criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + query.toLowerCase() + "%");

@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class CompetenceDetailDTO {
-
-
     private Long competenceId;
     private String competenceName;
     private String positionEvaluation;

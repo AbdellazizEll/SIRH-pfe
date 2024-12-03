@@ -49,11 +49,11 @@ public class CollaboratorDTO {
                 .managerEquipe(LightEquipeDTO.fromEntity(collaborateur.getManagerEquipe()))
                 .solde(collaborateur.getSolde())
                 .roles(collaborateur.getRoles().stream()
-                        .map(role -> role.getName())
+                        .map(Role::getName)
                         .collect(Collectors.toSet()))
                .competenceAcquise(collaborateur.getCollaborateurCompetences().stream()
                        .map(CollaborateurCompetenceDTO::fromEntity)
-                       .collect(Collectors.toList()))
+                       .toList())
                 .posteOccupe(PosteDTO.fromEntity(collaborateur.getPosteOccupe()))
                 .managerType(collaborateur.getManagerType()) // NEW mapping
 

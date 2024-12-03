@@ -103,31 +103,24 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void removeRoleFromCollaborator(Long userId, Long roleId) {
-
         // Find the user by userId
         Collaborateur collaborator = collaborateurRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
 
-        // Find the role by roleName
+        // Find the role by roleId
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new EntityNotFoundException("Role not found with ID: " + roleId));
 
-        if (role == null) {
-            throw new EntityNotFoundException("Role not found with name: " + role.getName());
-        }
-
+        // Check if the user has the specified role
         if (!userHasRole(userId, role.getName())) {
             throw new EntityNotFoundException("This UserID : " + userId + " does not have the specified role");
-        } else {
-            // Remove the role from the collaborator's roles
-            collaborator.getRoles().remove(role);
-
-            // Save the updated collaborator
-            collaborateurRepository.save(collaborator);
-
-            // Optionally, you can return the updated collaborator DTO here if needed.
-
         }
+
+        // Remove the role from the collaborator's roles
+        collaborator.getRoles().remove(role);
+
+        // Save the updated collaborator
+        collaborateurRepository.save(collaborator);
     }
         private boolean userHasRole(Long userId, String roleName) {
 
@@ -163,31 +156,12 @@ public class RoleServiceImpl implements RoleService {
         // Calculate the available roles by filtering out already assigned roles
         return allRoles.stream()
                 .filter(role -> !assignedRoles.contains(role))
-                .collect(Collectors.toList());
+                .toList();
 
 
 
     }
 
-    public List<Competence> fetchAvailableCompetence(Long userId)
-    {
-        Collaborateur user = collaborateurRepository.findById(userId).orElseThrow(null);
-
-        // GET THE COMPETENCE THAT ALREADY ASSIGNED
-
-        Set<CollaborateurCompetence> assignedCompetence = user.getCollaborateurCompetences().stream()
-                .collect(Collectors.toSet());
-
-        // FETCH ALL THE COMPETENCE FROM THE DATABASE
-
-        List<Competence> availableCompetence = competenceRepository.findAll();
-
-        //CALCULATE THE AVAILABLE COMPETENCE BY FILTERING OUT
-
-        return availableCompetence.stream()
-            .filter(competence -> !assignedCompetence.contains(competence))
-            .collect(Collectors.toList());
-    }
 
     @Override
     public Set<Role> fetchUserAvailableRole(Long userId) {

@@ -50,16 +50,19 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(email, password).subscribe({
       next: (data) => {
-        const needsPasswordChange = data.needsPasswordChange; // Check if the user must change their password
+        console.log('Authentication response: ', data);  // Debugging line to check response
+        this.user = data;  // Set user data here
 
-        if (needsPasswordChange) {
+        if (this.user.needsPasswordChange) {
           // Redirect to password change page if needed
-          this.router.navigate(['/changePassword']);
+          this.router.navigate(['/changePassword'], {
+            queryParams: { message: 'Veuillez changer votre mot de passe pour continuer.' }
+          });
           return;
         }
 
         // Existing redirection logic based on roles
-        const roles = data.roles;
+        const roles = this.user.roles;
         if (roles.includes('ROLE_RH') || (roles.includes('ROLE_COLLABORATOR') && roles.includes('ROLE_MANAGER'))) {
           this.router.navigate(['/main-dashboard']);
         } else if (roles.includes('ROLE_COLLABORATOR')) {
@@ -93,9 +96,9 @@ export class LoginComponent implements OnInit {
         if (err.status === 401) {
           this.errorMessage = 'Mot de passe ou email incorrect.';
         } else if (err.status === 400) {
-          this.errorMessage = 'Bad request. Please check your input.';
+          this.errorMessage = 'Veuillez vérifier vos informations.';
         } else {
-          this.errorMessage = 'An unexpected error occurred. Please try again later.';
+          this.errorMessage = 'Mot de passe ou email incorrect, veuillez vérifier vos informations';
         }
         this.isLoginFailed = true;
       }

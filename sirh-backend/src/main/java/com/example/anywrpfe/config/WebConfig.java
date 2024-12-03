@@ -19,13 +19,14 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:C:/uploads/");
     }
 
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        registry.addMapping("/**") // Allow all paths
+                .allowedOrigins("http://localhost:3000") // Allow requests from your frontend origin
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow these methods
                 .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
+                .allowCredentials(true) // Allow cookies if needed
+                .maxAge(3600); // Cache preflight response for 1 hour
     }
 }

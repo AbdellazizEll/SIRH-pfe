@@ -1,6 +1,5 @@
 package com.example.anywrpfe.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

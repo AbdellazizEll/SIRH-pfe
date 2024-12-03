@@ -4,7 +4,104 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95aa29a3-0200-44b9-9a89-11aa0de73b57" name="Changes" comment="User Registration success" />
+    <list default="true" id="95aa29a3-0200-44b9-9a89-11aa0de73b57" name="Changes" comment="User Registration success">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/auth/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/auth/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/auth/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/auth/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/auth/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/auth/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/config/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/config/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CatalogueController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CatalogueController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CollaboratorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CollaboratorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CompetenceComparisonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CompetenceComparisonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CompetenceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CompetenceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/DemandeAbsenceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/DemandeAbsenceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/DemandeFormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/DemandeFormationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/DemoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/DemoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/EquipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/EquipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/FormationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/FormationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/PosteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/PosteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/kpis/CompetenceKPIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/kpis/CompetenceKPIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/kpis/FormationKPIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/kpis/FormationKPIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/AbsenteeismByTeamDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/AbsenteeismByTeamDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/AverageAbsenceDurationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/AverageAbsenceDurationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CatalogueDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CatalogueDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CollaboratorDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CollaboratorDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CompetenceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CompetenceDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CompetenceDetailDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CompetenceDetailDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CustomDemandeFormationRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CustomDemandeFormationRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CustomizedRequestFormationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/CustomizedRequestFormationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/DemandeAbsenceDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/DemandeAbsenceDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/DemandeFormationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/DemandeFormationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/DepartementDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/dto/DepartementDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Competence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Competence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/CustomAuthorityDeserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/CustomAuthorityDeserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Inscription.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Inscription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Poste.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Poste.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/PosteCompetence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/PosteCompetence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/SpecificationsFilters/DemandeFormationSpecifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/SpecificationsFilters/DemandeFormationSpecifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/SpecificationsFilters/FormationSpecifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/SpecificationsFilters/FormationSpecifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/repositories/CollaborateurRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/repositories/CollaborateurRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/repositories/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/repositories/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/AbsenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/AbsenceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/CollaborateurCompetenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/CollaborateurCompetenceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/CollaborateurService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/CollaborateurService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/RoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/TokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/AbsenceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/AbsenceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CatalogueServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CatalogueServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CollaborateurCompetenceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CollaborateurCompetenceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CollaborateurServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CollaborateurServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CompetenceComparisonImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CompetenceComparisonImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CompetenceHistoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CompetenceHistoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CompetenceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/CompetenceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/DemandeAbsenceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/DemandeAbsenceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/DemandeFormationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/DemandeFormationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/EnrollementServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/EnrollementServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/EquipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/EquipeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/PosteCompetenceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/PosteCompetenceServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/PosteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/PosteServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/RoleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/RoleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/TokenServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/services/implementations/TokenServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Anywrpfe-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Anywrpfe-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Anywrpfe-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/Anywrpfe-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/spring-configuration-metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/auth/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/auth/AuthenticationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/config/SecurityConfig$WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/config/SecurityConfig$WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/config/WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/CatalogueController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/CatalogueController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/CollaboratorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/CollaboratorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/CompetenceComparisonController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/CompetenceComparisonController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/CompetenceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/CompetenceController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/DemandeAbsenceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/DemandeAbsenceController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/DemandeFormationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/DemandeFormationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/DemoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/DemoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/EquipeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/EquipeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/FormationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/FormationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/PosteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/controller/PosteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/src/app/components/collaborateurs/collab-dashboard-module/collab-dashboard-module.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/src/app/components/collaborateurs/collab-dashboard-module/collab-dashboard-module.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/src/app/components/collaborateurs/collab-dashboard-module/collab-dashboard-module.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/src/app/components/collaborateurs/collab-dashboard-module/collab-dashboard-module.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/src/app/components/dashboard/collaborator-dashboard/collaborator-dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/src/app/components/dashboard/collaborator-dashboard/collaborator-dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/src/app/components/dashboard/collaborator-dashboard/collaborator-dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/src/app/components/dashboard/collaborator-dashboard/collaborator-dashboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/src/app/components/dashboard/responsible-dashboard/competence-dashboard/competence-dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/src/app/components/dashboard/responsible-dashboard/competence-dashboard/competence-dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/src/app/components/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sirh-frontend/src/environments/environment.prod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../sirh-frontend/src/environments/environment.prod.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +128,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/example/anywrpfe/controller/CatalogueController.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/com/example/anywrpfe/entities/Absence.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="JpbToolWindowState">
@@ -96,6 +194,10 @@
       <recent name="com.example.anywrpfe.entities.SpecificationsFilters" />
       <recent name="com.example.Anywrpfe.Entities.Enum" />
       <recent name="com.example.Anywrpfe.DTO" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\DELL\Desktop\PFE\Final\sirh-backend" />
+      <recent name="C:\Users\DELL\Desktop\PFE\Final\sirh-backend\Docker\Backend" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.AnywrpfeApplication">
@@ -264,6 +366,11 @@
       <workItem from="1732532096355" duration="9279000" />
       <workItem from="1732653118348" duration="375000" />
       <workItem from="1732653710552" duration="628000" />
+      <workItem from="1732655750780" duration="11122000" />
+      <workItem from="1732881548319" duration="1816000" />
+      <workItem from="1733081143919" duration="1858000" />
+      <workItem from="1733155799172" duration="196000" />
+      <workItem from="1733156447269" duration="1530000" />
     </task>
     <servers />
   </component>

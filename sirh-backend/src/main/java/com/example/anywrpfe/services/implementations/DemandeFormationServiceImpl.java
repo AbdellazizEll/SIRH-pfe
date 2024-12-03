@@ -210,25 +210,26 @@ public  class DemandeFormationServiceImpl implements DemandeFormationService {
 
     @Override
     public void approveRequest(Long id) {
-
-
         DemandeFormation request = demandeFormationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("DemandeFormation with this id is not available"));
+                .orElseThrow(() -> new RuntimeException("DemandeFormation with this ID is not available"));
 
-        if (ACCEPTED.equals(request.getStatus()) || REJECTED.equals(request.getStatus())) {
+        if (request.getStatus() != StatusType.PENDING) { // Simplify by checking only for PENDING
             throw new FormationException("This request has already been processed.");
         }
 
+        // Update the status to ACCEPTED
         request.setStatus(StatusType.ACCEPTED);
         demandeFormationRepository.save(request);
 
+        // Handle enrollment addition
         try {
-            enrollementService.addEnrollementToCollaborator(id); // Pass the demandeFormationId
+            enrollementService.addEnrollementToCollaborator(id);
         } catch (FormationException e) {
             log.error("Enrollment failed: {}", e.getMessage());
             throw new FormationException("Enrollment failed: " + e.getMessage());
         }
     }
+
 
 
 
@@ -239,12 +240,11 @@ public  class DemandeFormationServiceImpl implements DemandeFormationService {
         DemandeFormation request = demandeFormationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("DemandeFormation with this id is not available"));
 
-        if (ACCEPTED.equals(request.getStatus()) || REJECTED.equals(request.getStatus())) {
+        if (request.getStatus() != StatusType.PENDING) { // Simplify by checking only for PENDING
             throw new FormationException("This request has already been processed.");
         }
-
+        // Update the status to ACCEPTED
         request.setStatus(StatusType.REJECTED);
-        request.setRejectionReason(rejectionReason); // Save the rejection reason
         demandeFormationRepository.save(request);
 
     }

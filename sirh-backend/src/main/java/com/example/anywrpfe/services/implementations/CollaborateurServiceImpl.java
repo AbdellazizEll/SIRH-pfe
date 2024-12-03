@@ -37,20 +37,24 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CollaborateurServiceImpl implements CollaborateurService {
+
+
+    private static final String EMAIL_ALREADY_IN_USE = "Email already in use. Please use a different email.";
+    private static final String COLLABORATOR_NOT_FOUND = "Collaborator not found with ID: ";
+    private static final String POSTE_NOT_FOUND = "Poste not found with ID: ";
+    private static final String ROLE_MANAGER = "ROLE_MANAGER";
+    private static final String ROLE_COLLABORATOR = "ROLE_COLLABORATOR";
+    private static final String TEAM_NOT_FOUND = "Team not found with ID: ";
+    private static final String INVALID_RESULT_FORMAT = "Invalid result format from findCollaboratorWithHighestTrainingCompletion.";
+    private static final String NO_COLLABORATOR_WITH_TRAININGS = "No collaborator found with training completions.";
+
     private final DepartementRepository departementRepository;
-
     private final PosteRepository posteRepository;
-
     private final EquipeRepository equipeRepository;
-
     private final TokenRepository tokenRepository;
-
-    private final  CollaborateurRepository collaborateurRepository;
-
+    private final CollaborateurRepository collaborateurRepository;
     private final PasswordEncoder encoder;
-
     private final RoleRepository roleRepository;
-
 
     @Qualifier("implEmailService")
     private final EmailService emailService;
@@ -58,7 +62,7 @@ public class CollaborateurServiceImpl implements CollaborateurService {
     public Collaborateur create(Collaborateur data) {
         //check the unique email
         Integer emailCount = collaborateurRepository.getCollaborateurByEmail(data.getEmail());
-        if(emailCount > 0 ) throw new ApiException("Email already in use. PLease use a different email and try again");
+        if(emailCount > 0 ) throw new ApiException(EMAIL_ALREADY_IN_USE);
         //save collaborator User
         //saving user with default password
         Collaborateur collab = new Collaborateur();
@@ -71,20 +75,17 @@ public class CollaborateurServiceImpl implements CollaborateurService {
         Set<Role> roles = data.getRoles();
         if (roles == null || roles.isEmpty()) {
             roles = new HashSet<>();
-            roles.add(roleRepository.findByName("ROLE_COLLABORATOR"));
+            roles.add(roleRepository.findByName(ROLE_COLLABORATOR));
         }
         collab.setRoles(roles);
         //add Role to the User (depends on the role listed)
 
 
 
-        //send email to collaborator with verification URL
-        // emailService.sendVerificationURL(collab.getFirstname(), collab.getEmail(), verificationURL, ACCOUNT);
         //return the new created collaborator
 
-        Collaborateur savedCollab = collaborateurRepository.save(collab);
+        return collaborateurRepository.save(collab);
 
-        return savedCollab;
 
         // if any errors , throw exception with proper message
     }
@@ -92,12 +93,11 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
 
     public  String getVerificationURL(String token ){
-        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
+        return ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/v1/auth/verifyEmail")
                 .queryParam("token",token)
                 .toUriString();
 
-        return url;
     }
 
 
@@ -176,9 +176,8 @@ public class CollaborateurServiceImpl implements CollaborateurService {
             _collab.setLastname(collaborateur.getLastname());
             _collab.setPhone(collaborateur.getPhone());
             _collab.setAge(collaborateur.getAge());
-            Collaborateur updatedCollab = collaborateurRepository.save(_collab);
+           return collaborateurRepository.save(_collab);
 
-            return updatedCollab;
         } else {
             return null;
         }
@@ -189,7 +188,7 @@ public class CollaborateurServiceImpl implements CollaborateurService {
         List<Collaborateur> collaborateurs = collaborateurRepository.findByManagerType(ManagerType.EQUIPE_MANAGER);
         return collaborateurs.stream()
                 .map(CollaboratorDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -197,14 +196,14 @@ public class CollaborateurServiceImpl implements CollaborateurService {
         List<Collaborateur> collaborateurs = collaborateurRepository.findByManagerTypeAndManagerEquipeIsNull(ManagerType.EQUIPE_MANAGER);
         return collaborateurs.stream()
                 .map(LightCollaboratorDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Transactional
     @Override
     public void unAssignManagerFromEquipe(Long equipeId, Long collaboratorId) {
         Equipe equipe = equipeRepository.findById(equipeId)
-                .orElseThrow(() -> new EntityNotFoundException("Poste not found"));
+                .orElseThrow(() -> new EntityNotFoundException(POSTE_NOT_FOUND));
         Collaborateur collaborator = collaborateurRepository.findById(collaboratorId)
                 .orElseThrow(() -> new EntityNotFoundException("Collaborator not found"));
 
@@ -218,7 +217,7 @@ public class CollaborateurServiceImpl implements CollaborateurService {
         List<Collaborateur> collaborateurs = collaborateurRepository.findByManagerType(ManagerType.DEPARTMENT_RESPONSIBLE);
         return collaborateurs.stream()
                 .map(CollaboratorDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
     @Transactional
     @Override
@@ -238,7 +237,7 @@ public class CollaborateurServiceImpl implements CollaborateurService {
         List<Collaborateur> collaborateurs = collaborateurRepository.findByManagerType(ManagerType.DEPARTMENT_RESPONSIBLE);
         return collaborateurs.stream()
                 .map(CollaboratorDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -247,7 +246,7 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
         return collaborateurs.stream()
                 .map(LightCollaboratorDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -256,7 +255,7 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
         return collaborateurs.stream()
                 .map(LightCollaboratorDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -279,17 +278,7 @@ public class CollaborateurServiceImpl implements CollaborateurService {
         }).orElse(false);
     }
 
-//    @Override
-//    @Transactional
-//    public void assignCollaboratorToDepartment(Long collaboratorId, Long departmentId) {
-//        Collaborateur collaborator = collaborateurRepository.findById(collaboratorId)
-//                .orElseThrow(() -> new EntityNotFoundException("Collaborator not found with id " + collaboratorId));
-//        Departement department = departementRepository.findById(departmentId)
-//                .orElseThrow(() -> new EntityNotFoundException("Department not found with id " + departmentId));
-//
-//        collaborator.setDepartment(department);
-//        collaborateurRepository.save(collaborator);
-//    }
+
 
 
     @Override
@@ -309,10 +298,10 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
         List<Collaborateur> filteredCollaborators = allCollaborators.stream()
                 .filter(collaborateur -> collaborateur.getRoles().stream()
-                        .anyMatch(role -> role.getName().equals("ROLE_MANAGER")) && // Check if they have the "ROLE_MANAGER" role
+                        .anyMatch(role -> role.getName().equals(ROLE_MANAGER)) && // Check if they have the "ROLE_MANAGER" role
                         collaborateur.getManagerEquipe() == null && // Ensure they are not managing any team
                         collaborateur.getDepartment() == null) // Ensure they are not assigned to any department
-                .collect(Collectors.toList());
+                .toList();
 
         int start = Math.min((int) PageRequest.of(page, size).getOffset(), filteredCollaborators.size());
         int end = Math.min((start + size), filteredCollaborators.size());
@@ -331,9 +320,9 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
         List<Collaborateur> filteredCollaborators = allCollaborators.stream()
                 .filter(collaborateur -> collaborateur.getRoles().size() == 1 &&
-                        collaborateur.getRoles().iterator().next().getName().equals("ROLE_MANAGER") &&
+                        collaborateur.getRoles().iterator().next().getName().equals(ROLE_MANAGER) &&
                         collaborateur.getManagerEquipe() == null && collaborateur.getDepartment()  == null)
-                .collect(Collectors.toList());
+                .toList();
 
         int start = Math.min((int) PageRequest.of(page, size).getOffset(), filteredCollaborators.size());
         int end = Math.min((start + size), filteredCollaborators.size());
@@ -351,9 +340,9 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
         List<Collaborateur> filteredCollaborators = allCollaborators.stream()
                 .filter(collaborateur -> collaborateur.getRoles().size() == 1 &&
-                        collaborateur.getRoles().iterator().next().getName().equals("ROLE_COLLABORATOR") &&
+                        collaborateur.getRoles().iterator().next().getName().equals(ROLE_COLLABORATOR) &&
                         collaborateur.getManagerEquipe() == null && collaborateur.getDepartment()  == null && collaborateur.getEquipe() == null)
-                .collect(Collectors.toList());
+                .toList();
 
         int start = Math.min((int) PageRequest.of(page, size).getOffset(), filteredCollaborators.size());
         int end = Math.min((start + size), filteredCollaborators.size());
@@ -370,8 +359,8 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
         List<Collaborateur> filteredCollaborators = allCollaborators.stream()
                 .filter(collaborateur -> collaborateur.getRoles().size() == 1 &&
-                        collaborateur.getRoles().iterator().next().getName().equals("ROLE_COLLABORATOR"))
-                .collect(Collectors.toList());
+                        collaborateur.getRoles().iterator().next().getName().equals(ROLE_COLLABORATOR))
+                .toList();
 
         int start = Math.min((int) PageRequest.of(page, size).getOffset(), filteredCollaborators.size());
         int end = Math.min((start + size), filteredCollaborators.size());
@@ -390,14 +379,13 @@ public class CollaborateurServiceImpl implements CollaborateurService {
                 .orElseThrow(() -> new RuntimeException("Poste not found"));
 
         if(collaborateur.getPosteOccupe() != null ) {
-            new EntityNotFoundException("Cannot Add post to this collaborator");
+            throw new ApiException("Cannot Add post to this collaborator");
         }
 
             collaborateur.setPosteOccupe(poste);
              collaborateurRepository.save(collaborateur);
 
-             CollaboratorDTO dto= CollaboratorDTO.fromEntity(collaborateur);
-             return dto;
+             return CollaboratorDTO.fromEntity(collaborateur);
 
     }
 
@@ -409,15 +397,14 @@ public class CollaborateurServiceImpl implements CollaborateurService {
 
         collaborateur.setPosteOccupe(null);
          collaborateurRepository.save(collaborateur);
-         CollaboratorDTO dto = CollaboratorDTO.fromEntity(collaborateur);
-         return dto ;
+         return CollaboratorDTO.fromEntity(collaborateur);
     }
 
     @Override
     public List<LightCollaboratorDTO> findCollaboratorsByTeam(Long idEquipe) {
         // Fetch the team by ID, throwing an exception if the team is not found
         Equipe equipe = equipeRepository.findById(idEquipe)
-                .orElseThrow(() -> new RuntimeException("Team not found with ID: " + idEquipe));
+                .orElseThrow(() -> new RuntimeException(TEAM_NOT_FOUND + idEquipe));
 
         // Fetch the collaborators that are part of the given team
         List<Collaborateur> collaborateurs = collaborateurRepository.findByEquipe(equipe);
@@ -425,7 +412,7 @@ public class CollaborateurServiceImpl implements CollaborateurService {
         // Convert the list of Collaborateur entities to CollaboratorDTOs and return the list
         return collaborateurs.stream()
                 .map(LightCollaboratorDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
@@ -433,26 +420,20 @@ public class CollaborateurServiceImpl implements CollaborateurService {
     /// KPI
 
 
-
-//    @Override
-//    public Collaborateur getCollaboratorWithMostTrainingProgress() {
-//        List<Object[]> result = enrollementRepository.findCollaboratorWithMostTrainingProgress(PageRequest.of(0, 1));
-//        return (Collaborateur) result.get(0)[0]; // Get the collaborator with the highest progress
-//    }
 @Override
 public CollaboratorTrainingStatsDTO getCollaboratorWithHighestTrainingCompletion() {
     List<Object[]> result = collaborateurRepository.findCollaboratorWithHighestTrainingCompletion(PageRequest.of(0, 1));
 
     // Validate result
     if (result == null || result.isEmpty()) {
-        throw new RuntimeException("No collaborator found with training completions.");
+        throw new ApiException(NO_COLLABORATOR_WITH_TRAININGS);
     }
 
     Object[] resultData = result.get(0);
 
     // Ensure proper data format
     if (resultData.length < 2 || resultData[0] == null || resultData[1] == null) {
-        throw new RuntimeException("Invalid result format from findCollaboratorWithHighestTrainingCompletion.");
+        throw new ApiException(INVALID_RESULT_FORMAT);
     }
 
     // Extract collaborator and training completion count

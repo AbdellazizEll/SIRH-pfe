@@ -64,7 +64,6 @@ public interface CollaborateurService {
  Boolean remove(@PathVariable Long id);
 
 
-//    void assignCollaboratorToDepartment(Long collaboratorId, Long departmentId);
 
 
 

@@ -17,7 +17,6 @@ public class CompetenceDTO {
     private String description;
     private TypeEval scaleType;
     private List<String> possibleValues;
-
     public static CompetenceDTO fromEntity(Competence competence) {
         if (competence == null) {
             return null;

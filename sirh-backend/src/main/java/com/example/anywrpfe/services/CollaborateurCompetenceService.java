@@ -37,15 +37,15 @@ public interface CollaborateurCompetenceService {
      ///MANAGER VIEW
     List<CompetenceCoverageDTO> calculateCompetenceCoverage(Long collaborateurId);
     List<CompetenceGapDTO> getCompetenceGap(Long collaborateurId);
-    public List<CompetenceGapDTO> getCompetenceGapsForTeam(Long teamId);
+     List<CompetenceGapDTO> getCompetenceGapsForTeam(Long teamId);
     /// RH VIEW
-    public List<CompetenceCoverageDTO> calculateCompetenceCoverageByResponsible(Long departmentId);
+     List<CompetenceCoverageDTO> calculateCompetenceCoverageByResponsible(Long departmentId);
      List<CompetenceCoverageDTO> calculateCompetenceCoverageByDepartment(Long departmentId);
 
      List<CompetenceImprovementRateDTO> calculateCompetenceImprovementRateForAllDepartments() ;
      List<EnrollmentCountDTO> calculateEnrollmentCountForAllDepartments();
 
-    public List<DepartmentCompetenceGapDTO> calculateCompetenceGapForAllDepartments();
+     List<DepartmentCompetenceGapDTO> calculateCompetenceGapForAllDepartments();
 
 
     List<CompetenceCoverageDTO> calculateCompetenceCoverageByTeam(Long teamId);

@@ -9,7 +9,6 @@ import java.util.Set;
 
 public interface RoleService {
 
-
     Role save(Role dto);
 
     Role findById(Long id);

@@ -20,7 +20,7 @@ import static javax.security.auth.callback.ConfirmationCallback.OK;
 @RequestMapping("/catalogue")
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class CatalogueController {
 

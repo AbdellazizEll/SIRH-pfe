@@ -11,8 +11,10 @@ com\example\anywrpfe\repositories\DepartementRepository.class
 com\example\anywrpfe\services\implementations\EnrollementServiceImpl$1.class
 com\example\anywrpfe\services\implementations\CatalogueServiceImpl.class
 com\example\anywrpfe\controller\DemandeFormationController.class
+com\example\anywrpfe\services\implementations\CompetenceComparisonImpl.class
 com\example\anywrpfe\dto\DemandeFormationDTO.class
 com\example\anywrpfe\repositories\PosteRepository.class
+com\example\anywrpfe\services\CompetenceComparisonService.class
 com\example\anywrpfe\dto\CollaboratorSuggestTrainingsDTO.class
 com\example\anywrpfe\repositories\DemandeFormationRepository.class
 com\example\anywrpfe\entities\Events.class
@@ -46,6 +48,7 @@ com\example\anywrpfe\config\JwtAuthFilter.class
 com\example\anywrpfe\config\SecurityConfig$WebConfig.class
 com\example\anywrpfe\entities\Competence.class
 com\example\anywrpfe\auth\response\MessageResponse.class
+com\example\anywrpfe\dto\TrainingOverviewDTO.class
 com\example\anywrpfe\dto\AbsenteeismByDepartmentDTO.class
 com\example\anywrpfe\services\PosteCompetenceService.class
 com\example\anywrpfe\config\FileUploadProperties.class
@@ -61,11 +64,14 @@ com\example\anywrpfe\services\implementations\DepartementServiceImpl.class
 com\example\anywrpfe\controller\CollaboratorController.class
 com\example\anywrpfe\entities\Enum\ManagerType.class
 com\example\anywrpfe\events\Listener\RegistrationCompleteListener.class
+com\example\anywrpfe\dto\CompetencyLevelDTO.class
+com\example\anywrpfe\dto\AbsenceReasonDTO.class
 com\example\anywrpfe\dto\CompetenceDetailDTO.class
 com\example\anywrpfe\entities\PosteCompetence.class
 com\example\anywrpfe\repositories\CatalogueRepository.class
 com\example\anywrpfe\auth\RegisterRequest.class
 com\example\anywrpfe\dto\CompetenceCoverageByDepartmentDTO.class
+com\example\anywrpfe\auth\exception\WrongPasswordException.class
 com\example\anywrpfe\entities\Catalogue$CatalogueBuilder.class
 com\example\anywrpfe\entities\Enum\typeCompetence.class
 com\example\anywrpfe\entities\Formation$FormationBuilder.class
@@ -91,6 +97,7 @@ com\example\anywrpfe\dto\CustomDemandeFormationRequestDTO.class
 com\example\anywrpfe\dto\CustomizedRequestFormationDTO.class
 com\example\anywrpfe\services\implementations\DemandeFormationServiceImpl.class
 com\example\anywrpfe\entities\Inscription.class
+com\example\anywrpfe\dto\AssignedTrainingDTO.class
 com\example\anywrpfe\dto\LightCatalogueDTO$LightCatalogueDTOBuilder.class
 com\example\anywrpfe\services\EquipeService.class
 com\example\anywrpfe\auth\AuthenticationRequest.class
@@ -116,8 +123,10 @@ com\example\anywrpfe\dto\FormationDTO.class
 com\example\anywrpfe\config\AppConfig.class
 com\example\anywrpfe\dto\CompetenceDetailDTO$CompetenceDetailDTOBuilder.class
 com\example\anywrpfe\services\implementations\DemandeAbsenceServiceImpl.class
+com\example\anywrpfe\dto\LeaveBalanceDTO.class
 com\example\anywrpfe\repositories\EventsRepository.class
 META-INF\spring-configuration-metadata.json
+com\example\anywrpfe\services\implementations\CompetenceComparisonImpl$1.class
 com\example\anywrpfe\dto\CompetenceCoverageDTO.class
 com\example\anywrpfe\dto\FormationDetailDTO$FormationDetailDTOBuilder.class
 com\example\anywrpfe\requests\DemandeAbsenceRequest$DemandeAbsenceRequestBuilder.class
@@ -146,6 +155,7 @@ com\example\anywrpfe\dto\AssignCollaboratorRequest.class
 com\example\anywrpfe\dto\TopReasonsForAbsenceDTO.class
 com\example\anywrpfe\entities\Equipe.class
 com\example\anywrpfe\dto\PosteDTO.class
+com\example\anywrpfe\dto\AbsenteeismByTeamDTO.class
 com\example\anywrpfe\entities\Inscription$InscriptionBuilder.class
 com\example\anywrpfe\dto\CompetenceHistoryDTO$CompetenceHistoryDTOBuilder.class
 com\example\anywrpfe\dto\CollaboratorCompetenceGrowthDTO.class
@@ -163,6 +173,7 @@ com\example\anywrpfe\services\implementations\PosteServiceImpl.class
 com\example\anywrpfe\auth\ChangePasswordRequest.class
 com\example\anywrpfe\services\implementations\FormationServiceImpl.class
 com\example\anywrpfe\auth\AuthenticationResponse.class
+com\example\anywrpfe\dto\CompetenceImprovementRateResponsibleDTO.class
 com\example\anywrpfe\entities\CompetenceComparisonResult.class
 com\example\anywrpfe\repositories\EnrollementRepository.class
 com\example\anywrpfe\auth\AuthenticationRequest$AuthenticationRequestBuilder.class
@@ -187,6 +198,7 @@ com\example\anywrpfe\controller\CatalogueController.class
 com\example\anywrpfe\entities\Role$RoleBuilder.class
 com\example\anywrpfe\entities\Enum\Permission.class
 com\example\anywrpfe\services\implementations\DemandeAbsenceServiceImpl$1.class
+com\example\anywrpfe\auth\exception\PasswordMismatchException.class
 com\example\anywrpfe\auth\exception\formationExceptions\FormationException.class
 com\example\anywrpfe\dto\DemandeFormationDTO$DemandeFormationDTOBuilder.class
 com\example\anywrpfe\exception\ApiException.class
@@ -199,6 +211,7 @@ com\example\anywrpfe\entities\Enum\TypeEval.class
 com\example\anywrpfe\services\implementations\EmailService.class
 com\example\anywrpfe\controller\CompetenceComparisonController.class
 com\example\anywrpfe\services\implementations\PosteServiceImpl$1.class
+com\example\anywrpfe\dto\AbsenceTrendDTO.class
 com\example\anywrpfe\controller\DemandeAbsenceController.class
 com\example\anywrpfe\dto\LightDemandeAbsenceDTO$LightDemandeAbsenceDTOBuilder.class
 com\example\anywrpfe\dto\LightCollaboratorDTO$LightCollaboratorDTOBuilder.class

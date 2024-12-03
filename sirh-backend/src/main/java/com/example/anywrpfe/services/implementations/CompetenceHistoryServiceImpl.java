@@ -6,7 +6,6 @@ import com.example.anywrpfe.entities.Collaborateur;
 import com.example.anywrpfe.entities.CompetenceHistory;
 import com.example.anywrpfe.repositories.CompetenceHistoryRepository;
 import com.example.anywrpfe.services.CompetenceHistoryService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -47,6 +45,6 @@ public class CompetenceHistoryServiceImpl implements CompetenceHistoryService {
         return growthMap.entrySet().stream()
                 .map(entry -> new CollaboratorCompetenceGrowthDTO(LightCollaboratorDTO.fromEntity(entry.getKey()), entry.getValue()))
                 .sorted(Comparator.comparingInt(CollaboratorCompetenceGrowthDTO::getGrowth).reversed())
-                .collect(Collectors.toList());
+                .toList();
     }
 }

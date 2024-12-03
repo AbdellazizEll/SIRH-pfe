@@ -6,12 +6,16 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class DemandeFormationSpecifications {
 
+    // Private constructor to prevent instantiation
+    private DemandeFormationSpecifications() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     public static Specification<DemandeFormation> hasStatus(StatusType status) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(root.get("status"), status);
     }
 
-    // Specification to filter by targetCompetence
     public static Specification<DemandeFormation> hasTargetCompetence(Long competenceId) {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(root.get("formation").get("targetCompetence").get("id"), competenceId);

@@ -13,15 +13,11 @@ import java.util.Date;
 @Setter
 public class DemandeFormationDTO {
 
-
     private Long id;
-
     private FormationDTO formation;
     private LightCollaboratorDTO employee;
     private LightCollaboratorDTO manager;   // The manager who made the request
-
     private Date createdAt;
-
     private String justification;
     private StatusType status = StatusType.PENDING; // e.g., PENDING, APPROVED, REJECTED
     private String rejectionReason; // New field to store the rejection reason

@@ -7,6 +7,6 @@ public interface AbsenceService {
 
      Absence saveAbsence(Absence absence);
 
-     void deleteAbsence(Absence absence);
 
+     void deleteAbsence(Absence absence);
 }

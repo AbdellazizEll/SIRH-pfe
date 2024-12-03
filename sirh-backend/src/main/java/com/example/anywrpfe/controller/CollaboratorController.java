@@ -27,7 +27,7 @@ import static javax.security.auth.callback.ConfirmationCallback.OK;
 @RestController
 @RequestMapping
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class CollaboratorController {
 
@@ -73,7 +73,7 @@ public class CollaboratorController {
     }
 
     @GetMapping("/collaborators/jobless")
-    public ResponseEntity<List<LightCollaboratorDTO>> JoblessCollaborators() {
+    public ResponseEntity<List<LightCollaboratorDTO>> joblessCollaborators() {
         List<LightCollaboratorDTO> managers = collaborateurService.findJoblessCollaborators();
 
         return ResponseEntity.ok(managers);
@@ -96,7 +96,7 @@ public class CollaboratorController {
 
 
     @GetMapping("/collaborators/teamless")
-    public ResponseEntity<List<LightCollaboratorDTO>> TeamlessCollaborators() {
+    public ResponseEntity<List<LightCollaboratorDTO>> teamlessCollaborators() {
         List<LightCollaboratorDTO> managers = collaborateurService.findTeamlessCollaborators();
 
         return ResponseEntity.ok(managers);
@@ -125,7 +125,7 @@ public class CollaboratorController {
     }
 
   @GetMapping("/currentUser")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Collaborateur profile(Principal principal){
         //Principal utilsateur username
         return collaborateurService.laodUserByUserName(principal.getName());

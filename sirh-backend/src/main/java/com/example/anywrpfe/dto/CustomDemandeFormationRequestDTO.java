@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class CustomDemandeFormationRequestDTO {
-
     private DemandeFormationDTO demandeFormationDTO;
     private FormationDTO formationDTO;
 }

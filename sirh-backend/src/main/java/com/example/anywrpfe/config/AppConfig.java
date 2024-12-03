@@ -21,7 +21,7 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> repository.findByEmail(username);}
+        return repository::findByEmail;}
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

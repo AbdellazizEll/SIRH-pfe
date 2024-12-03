@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -91,11 +90,6 @@ public class CompetenceKPIController {
 
     /// RESPONSIBLE KPIS
 
-    @GetMapping("/{departmentId}/competence-coverage-responsible")
-    public ResponseEntity<List<CompetenceCoverageDTO>> getCompetenceCoverageByDepartmentResponsible(@PathVariable Long departmentId) {
-        List<CompetenceCoverageDTO> competenceCoverage = competenceService.calculateCompetenceCoverageByDepartment(departmentId);
-        return ResponseEntity.ok(competenceCoverage);
-    }
 
 
     @GetMapping("/team/{teamId}/competence-gaps")

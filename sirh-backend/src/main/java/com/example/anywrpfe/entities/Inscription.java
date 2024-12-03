@@ -1,10 +1,10 @@
 package com.example.anywrpfe.entities;
 
 
-import com.example.anywrpfe.entities.Enum.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -13,7 +13,7 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Inscription {
+public class Inscription implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

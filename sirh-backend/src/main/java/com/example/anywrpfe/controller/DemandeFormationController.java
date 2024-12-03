@@ -22,7 +22,7 @@ import static javax.security.auth.callback.ConfirmationCallback.OK;
 @RestController
 @RequestMapping("/formations")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class DemandeFormationController {
 
@@ -31,6 +31,7 @@ public class DemandeFormationController {
 
 
     private static final String ACCEPTED = "ACCEPTED";
+
     private static final String PENDING = "PENDING";
     private static final String REJECTED = "REJECTED";
 

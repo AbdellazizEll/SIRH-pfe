@@ -34,8 +34,8 @@ public class CatalogueDTO {
                 .formations(catalogue.getFormations() != null ?
                         catalogue.getFormations().stream()
                                 .map(FormationDTO::fromEntity)
-                                .collect(Collectors.toList()) : null)
-                .build();
+                                .toList(): null).build();
+
     }
 
     public static Catalogue toEntity(CatalogueDTO catalogueDTO) {

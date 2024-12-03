@@ -11,17 +11,27 @@
   <!-- Competency Gaps Section -->
   <div class="dashboard-section competency-gap">
     <h2>Écarts de Compétence</h2>
-    <div class="chart-container">
-      <canvas id="competencyGapChart"></canvas>
+    <div *ngIf="competencyGapsAvailable; else noCompetencyGaps">
+      <div class="chart-container">
+        <canvas id="competencyGapChart"></canvas>
+      </div>
     </div>
+    <ng-template #noCompetencyGaps>
+      <p>Aucun écart de compétence trouvé. Félicitations ! Toutes vos compétences sont au niveau requis.</p>
+    </ng-template>
   </div>
 
   <!-- Training Overview Section -->
   <div class="dashboard-section training-overview">
     <h2>Vue d'Ensemble des Formations</h2>
-    <div class="chart-container">
-      <canvas id="trainingOverviewChart"></canvas>
+    <div *ngIf="trainingOverviewAvailable; else noTrainingOverview">
+      <div class="chart-container">
+        <canvas id="trainingOverviewChart"></canvas>
+      </div>
     </div>
+    <ng-template #noTrainingOverview>
+      <p>Aucune formation n'a encore été complétée. Commencez votre première formation aujourd'hui !</p>
+    </ng-template>
   </div>
 
 </div>

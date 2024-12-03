@@ -21,15 +21,13 @@ import static java.time.LocalTime.now;
 @RestController
 @RequestMapping("/formation")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class FormationController {
     ///FORMATION
     private final FormationService formationService;
 
-    private final CatalogueService catalogueService;
 
-    private final DemandeFormationService demandeFormationService;
 
     // FormationController.java
 

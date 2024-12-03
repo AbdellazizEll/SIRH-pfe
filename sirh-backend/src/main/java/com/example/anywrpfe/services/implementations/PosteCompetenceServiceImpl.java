@@ -5,6 +5,7 @@ import com.example.anywrpfe.auth.exception.formationExceptions.FormationExceptio
 import com.example.anywrpfe.dto.PosteCompetenceDTO;
 import com.example.anywrpfe.entities.*;
 import com.example.anywrpfe.entities.Enum.TypeEval;
+import com.example.anywrpfe.exception.ApiException;
 import com.example.anywrpfe.repositories.*;
 import com.example.anywrpfe.services.PosteCompetenceService;
 import jakarta.transaction.Transactional;
@@ -87,7 +88,7 @@ public class PosteCompetenceServiceImpl implements PosteCompetenceService {
         List<String> possibleValues = competence.getPossibleValues().stream().toList();
 
         if (!possibleValues.contains(newEvaluation)) {
-            throw new RuntimeException("Invalid evaluation value for the given competence and scale type");
+            throw new ApiException("Invalid evaluation value for the given competence and scale type");
         }
         log.info("Possible values for competence {}: {}", competenceId, possibleValues);
         log.info("Evaluation provided: {}", newEvaluation);

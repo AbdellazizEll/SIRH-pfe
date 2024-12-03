@@ -25,10 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -38,13 +35,20 @@ import java.util.stream.Collectors;
 public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
 
 
+    private static final String ABSENCE_NOT_FOUND = "Invalid absence type";
+    private static final String INVALID_STATUS_PROVIDED = "Invalid status provided";
+    private static final String INVALID_ABSENCE_TYPE = "Invalid absence type provided";
+    private static final String TEAM_NOT_FOUND = "Team not found with ID: ";
+    private static final String DEPARTMENT_NOT_FOUND = "Department not found.";
+    private static final String UNAUTHORIZED_APPROVAL = "You are not authorized to approve this absence request.";
+    private static final String INVALID_REQUEST_ID = "Invalid request ID";
+    private static final String OVERLAPPING_DATES = "Les dates sélectionnées chevauchent une demande existante.";
+    private static final String FILE_UPLOAD_ERROR = "File saving failed";
+
     private final DepartementRepository departementRepository;
     private final CollaborateurRepository collaborateurRepository;
-
     private final AbsenceRepository absenceRepository;
-
     private final DemandeAbsenceRepository demandeAbsenceRepository;
-
     private final FileUploadProperties fileUploadProperties;
     private final DepartementService departementService;
 
@@ -149,7 +153,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
         log.info("Received motif: {}", request.getMotif());
         Absence absence = absenceRepository.findByTypeAbs(request.getMotif());
         if (absence == null) {
-            throw new AbsenceExceptions("Invalid absence type");
+            throw new AbsenceExceptions(ABSENCE_NOT_FOUND);
         }
 
         // Log the absence type enum value
@@ -188,7 +192,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
             case STUDY_LEAVE -> 2;
             case PARENTAL_LEAVE -> 5;
             case MARRIAGE_LEAVE -> 7;
-            default -> throw new IllegalArgumentException("Invalid absence type");
+            default -> throw new IllegalArgumentException(ABSENCE_NOT_FOUND);
         };
 
         // Date parsing
@@ -200,7 +204,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
         boolean hasOverlappingAbsence = demandeAbsenceRepository.hasOverlappingAbsences(user.getId(), endDate, startDate);
         log.info("Has Overlap: {}", hasOverlappingAbsence);
         if (hasOverlappingAbsence) {
-            throw new AbsenceExceptions("Les dates sélectionnées chevauchent une demande existante.");
+            throw new AbsenceExceptions(OVERLAPPING_DATES);
         }
 
         // Calculate the total days already taken for this type of absence
@@ -297,7 +301,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
                 return "/uploads/justificatifs/" + sanitizedFilename; // Return the relative path for access
             } catch (IOException e) {
                 log.error("File saving failed for path: {}", filePath, e);
-                throw new IOException("File saving failed", e);
+                throw new IOException(FILE_UPLOAD_ERROR, e);
             }
         } else {
             log.warn("No justificatif file provided or file was empty.");
@@ -342,7 +346,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
         log.info("Fetching AbsenceRequests for Department {}, page {} of size {}", departmentId, page, size);
 
         Departement department = departementRepository.findById(departmentId)
-                .orElseThrow(() -> new IllegalStateException("Department not found."));
+                .orElseThrow(() -> new IllegalStateException(DEPARTMENT_NOT_FOUND));
 
         log.info("Fetching for Department: {} - {}", department.getId_dep(), department.getNomDep());
 
@@ -428,7 +432,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
                             email, Status.REJECTED, pageable)
                     .map(LightDemandeAbsenceDTO::fromEntity);
         } else {
-            throw new IllegalArgumentException("Invalid status provided");
+            throw new IllegalArgumentException(INVALID_STATUS_PROVIDED);
         }
 
     }
@@ -484,7 +488,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
         DemandeAbsence demandeAbsence = demandeAbsenceRepository.findById(demandeId).orElseThrow();
         if(isManager)
         {
-            if(demandeAbsence.getCollaborateur().getId() != user.getId()) {
+            if(!Objects.equals(demandeAbsence.getCollaborateur().getId(), user.getId())) {
                 demandeAbsence.setStatusDemande(Status.PENDING);
                 demandeAbsence.setApprovedByManager(Status.ACCEPTED_MANAGER);
 
@@ -496,7 +500,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
             throw new IllegalStateException("You are not authorized to approve your absences ");
         }
         }else{
-            throw new IllegalStateException("You are not authorized to approve this absence request.");
+            throw new IllegalStateException(UNAUTHORIZED_APPROVAL);
         }
 
 
@@ -527,7 +531,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
 
         // Get the collaborator making the request
         DemandeAbsence demandeAbsence = demandeAbsenceRepository.findById(requestId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid request ID"));
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_REQUEST_ID));
 
             demandeAbsence.setStatusDemande(Status.VALID);
             demandeAbsence.setApprovedByRh(Status.ACCEPTED_RH);
@@ -547,7 +551,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
     @Override
     public List<AbsenceDTO> getAllMotifs() {
         return absenceRepository.findAll().stream().map(AbsenceDTO::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
@@ -573,7 +577,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
             try {
                 status = Status.valueOf(statusStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Invalid status provided");
+                throw new IllegalArgumentException(INVALID_STATUS_PROVIDED);
             }
         }
 
@@ -583,7 +587,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
             try {
                 absenceType = Motif.valueOf(absenceTypeStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Invalid absence type provided");
+                throw new IllegalArgumentException(INVALID_ABSENCE_TYPE);
             }
         }
 
@@ -612,7 +616,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
             try {
                 status = Status.valueOf(statusStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Invalid status provided");
+                throw new IllegalArgumentException(INVALID_STATUS_PROVIDED);
             }
         }
 
@@ -622,7 +626,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
             try {
                 absenceType = Motif.valueOf(absenceTypeStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Invalid absence type provided");
+                throw new IllegalArgumentException(INVALID_ABSENCE_TYPE);
             }
         }
 
@@ -652,7 +656,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
             try {
                 status = Status.valueOf(statusStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Invalid status provided");
+                throw new IllegalArgumentException(INVALID_STATUS_PROVIDED);
             }
         }
 
@@ -662,7 +666,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
             try {
                 absenceType = Motif.valueOf(absenceTypeStr.toUpperCase());
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Invalid absence type provided");
+                throw new IllegalArgumentException(INVALID_ABSENCE_TYPE);
             }
         }
 
@@ -739,14 +743,30 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
 
     @Override
     public double calculateAbsenteeismRate(Long collaborateurId) {
+        // Fetch the list of approved absences
         List<DemandeAbsence> approvedAbsences = demandeAbsenceRepository.findApprovedAbsencesByCollaborateurId(collaborateurId);
+        if (approvedAbsences == null || approvedAbsences.isEmpty()) {
+            log.warn("No approved absences found for collaborator ID: {}", collaborateurId);
+            return 0.0;
+        }
+
+        // Calculate the total days absent
         int totalDaysAbsent = approvedAbsences.stream()
                 .mapToInt(DemandeAbsence::calculateRequestedDays)
                 .sum();
 
+        // Calculate the total working days
         int totalWorkingDays = calculateTotalWorkingDays(collaborateurId);
-        return totalWorkingDays == 0 ? 0 : (double) totalDaysAbsent / totalWorkingDays * 100;
+        if (totalWorkingDays <= 0) {
+            log.warn("Invalid total working days ({}), assuming 0 absenteeism for collaborator ID: {}", totalWorkingDays, collaborateurId);
+            return 0.0;
+        }
+
+        // Calculate and return the absenteeism rate
+        double absenteeismRate = (double) totalDaysAbsent / totalWorkingDays * 100;
+        return Math.round(absenteeismRate * 100.0) / 100.0; // Round to 2 decimal places
     }
+
     private int calculateTotalWorkingDays(Long collaborateurId) {
         // Placeholder implementation, assuming 260 working days in a year
         return 260;
@@ -773,7 +793,7 @@ public class DemandeAbsenceServiceImpl implements DemandeAbsenceService {
                 .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
                 .map(entry -> new AbsenceReasonDTO(entry.getKey().toString(), entry.getValue()))
                 .limit(3)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 

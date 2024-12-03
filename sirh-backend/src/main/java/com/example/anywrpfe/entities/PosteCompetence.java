@@ -8,13 +8,15 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class PosteCompetence {
+public class PosteCompetence implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

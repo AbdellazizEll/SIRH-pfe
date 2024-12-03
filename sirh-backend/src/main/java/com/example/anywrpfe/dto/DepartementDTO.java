@@ -16,7 +16,7 @@ public class  DepartementDTO {
 
     private Long id_dep;
     private String nomDep;
-    private List<LightEquipeDTO> Equipes;
+    private List<LightEquipeDTO> equipes;
     private LightCollaboratorDTO responsable;
 
     public static DepartementDTO fromEntity(Departement dep) {
@@ -28,11 +28,11 @@ public class  DepartementDTO {
                 .id_dep(dep.getId_dep())
                 .nomDep(dep.getNomDep())
                 .responsable(LightCollaboratorDTO.fromEntity(dep.getResponsible()))
-                .Equipes(
+                .equipes(
                         dep.getEquipeList() != null ?
                                 dep.getEquipeList().stream()
                                         .map(LightEquipeDTO::fromEntity)
-                                        .collect(Collectors.toList()) : null
+                                        .toList() : null
                 )
                 .build();
 
