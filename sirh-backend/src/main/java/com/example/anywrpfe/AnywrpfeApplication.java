@@ -24,17 +24,7 @@ public class AnywrpfeApplication {
 	}
 
 
-	@Value("${spring.mail.host}")
-	private String mailHost;
 
-	@Value("${spring.mail.port}")
-	private Integer mailPort;
-
-	@PostConstruct
-	public void checkMailConfig() {
-		System.out.println("Mail Host: " + mailHost);
-		System.out.println("Mail Port: " + mailPort);
-	}
 
 
 //	@Bean
