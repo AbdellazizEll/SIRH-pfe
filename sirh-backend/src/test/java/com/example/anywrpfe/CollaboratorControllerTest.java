@@ -1,53 +1,37 @@
 package com.example.anywrpfe;
 
-
 import com.example.anywrpfe.controller.CollaboratorController;
 import com.example.anywrpfe.dto.LightCollaboratorDTO;
 import com.example.anywrpfe.entities.Collaborateur;
 import com.example.anywrpfe.services.CollaborateurService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-@Slf4j
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(CollaboratorControllerTest.class)
+
+@WebMvcTest(CollaboratorController.class)
 public class CollaboratorControllerTest {
 
-    private  MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
+    @MockBean
+    private CollaborateurService collaborateurService;
 
     @MockBean
     private JavaMailSender mailSender;
-    @Mock
-    private  CollaborateurService collaborateurService;
-
-    @InjectMocks
-    private CollaboratorController collaboratorController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(collaboratorController).build();
-    }
 
     @Test
     void testGetUsers() throws Exception {
@@ -60,7 +44,7 @@ public class CollaboratorControllerTest {
         List<LightCollaboratorDTO> collaborators = List.of(LightCollaboratorDTO.fromEntity(collaboratorDTO));
 
         when(collaborateurService.ListCollaborators(anyString(), anyInt(), anyInt()))
-                .thenReturn((Page<LightCollaboratorDTO>) collaborators);
+                .thenReturn(new PageImpl<>(collaborators));
 
         // Act & Assert
         mockMvc.perform(get("/getAllCollaborators")
@@ -69,8 +53,8 @@ public class CollaboratorControllerTest {
                         .param("size", "10")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.page[0].firstname").value("John"))
-                .andExpect(jsonPath("$.data.page[0].lastname").value("Doe"));
+                .andExpect(jsonPath("$.data.page.content[0].firstname").value("John"))
+                .andExpect(jsonPath("$.data.page.content[0].lastname").value("Doe"));
 
         verify(collaborateurService, times(1)).ListCollaborators(anyString(), anyInt(), anyInt());
     }
