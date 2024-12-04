@@ -6,6 +6,11 @@ pipeline {
         DOCKERHUB_REPO = 'abdellazizell' // Remplacez par votre nom d'utilisateur Docker Hub
     }
 
+    tools {
+        maven 'Maven' // Utilisez le nom configuré dans Jenkins pour Maven
+        // Assurez-vous que "Maven" correspond au "Name" défini dans la configuration globale des outils
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -15,7 +20,7 @@ pipeline {
 
         stage('Build Backend') {
             steps {
-                dir('backend') {
+                dir('sirh-backend') { // Assurez-vous que le chemin est correct
                     bat 'mvn clean package' // Utilisez 'sh' si vous êtes sur Linux/macOS
                 }
             }
@@ -23,7 +28,7 @@ pipeline {
 
         stage('Build Frontend') {
             steps {
-                dir('frontend') {
+                dir('sirh-frontend') { // Assurez-vous que le chemin est correct
                     bat '''
                     npm install --legacy-peer-deps
                     npm run build
@@ -39,8 +44,8 @@ pipeline {
                     def frontendImage = "${DOCKERHUB_REPO}/frontend:${env.BUILD_NUMBER}"
 
                     bat """
-                    docker build -t ${backendImage} -f backend/Dockerfile backend
-                    docker build -t ${frontendImage} -f frontend/Dockerfile frontend
+                    docker build -t ${backendImage} -f sirh-backend/Dockerfile sirh-backend
+                    docker build -t ${frontendImage} -f sirh-frontend/Dockerfile sirh-frontend
                     """ // Utilisez 'sh' si vous êtes sur Linux/macOS
                 }
             }
@@ -49,7 +54,7 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 script {
-                    bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%' // Utilisez 'sh' pour les systèmes Unix
+                    bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%'
                     bat """
                     docker push ${backendImage}
                     docker push ${frontendImage}
