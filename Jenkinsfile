@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Assurez-vous d'avoir ce credential configuré
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Assurez-vous que ce credential est configuré dans Jenkins
         DOCKERHUB_REPO = 'abdellazizell' // Remplacez par votre nom d'utilisateur Docker Hub
     }
 
     tools {
-        maven 'Maven' // Utilisez le nom configuré dans Jenkins pour Maven
+        maven 'Maven' // Assurez-vous que 'Maven' est configuré dans Jenkins
     }
 
     stages {
@@ -55,10 +55,11 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    // Définir les variables d'environnement pour qu'elles soient accessibles globalement
+                    // Définir les variables d'environnement pour les images Docker
                     env.backendImage = "${DOCKERHUB_REPO}/backend:${env.BUILD_NUMBER}"
                     env.frontendImage = "${DOCKERHUB_REPO}/frontend:${env.BUILD_NUMBER}"
 
+                    // Construire les images Docker
                     bat """
                     docker build -t ${env.backendImage} -f sirh-backend/Dockerfile sirh-backend
                     docker build -t ${env.frontendImage} -f sirh-frontend/Dockerfile sirh-frontend
@@ -70,7 +71,10 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 script {
+                    // Se connecter à Docker Hub
                     bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%'
+
+                    // Pousser les images Docker
                     bat """
                     docker push ${env.backendImage}
                     docker push ${env.frontendImage}
@@ -80,17 +84,32 @@ pipeline {
         }
 
         stage('Deploy') {
-           steps {
-               script {
-                   bat """
-                   set BUILD_NUMBER=${env.BUILD_NUMBER}
-                   set DOCKERHUB_REPO=${env.DOCKERHUB_REPO}
-                   docker-compose pull
-                   docker-compose up -d
-                   """
-               }
-           }
-         }
+            steps {
+                script {
+                    // Option 1 : Utiliser les variables d'environnement directement
+                    bat """
+                    set DOCKERHUB_REPO=${env.DOCKERHUB_REPO}
+                    set BUILD_NUMBER=${env.BUILD_NUMBER}
+                    docker-compose pull
+                    docker-compose up -d
+                    """
+
+                    /*
+                    // Option 2 : Créer un fichier .env pour docker-compose
+                    writeFile file: '.env', text: """
+                    DOCKERHUB_REPO=${env.DOCKERHUB_REPO}
+                    BUILD_NUMBER=${env.BUILD_NUMBER}
+                    """
+                    bat """
+                    docker-compose pull
+                    docker-compose up -d
+                    """
+                    */
+                }
+            }
+        }
+    }
+
     post {
         always {
             echo 'Pipeline terminé.'

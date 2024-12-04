@@ -1,3 +1,4 @@
+version: '3.8'
 
 services:
   mysql-db:
@@ -22,6 +23,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 5s
+
   spring-app:
     image: ${DOCKERHUB_REPO}/backend:${BUILD_NUMBER}
     #container_name: spring-app
@@ -47,12 +49,12 @@ services:
       - uploads:/app/uploads/justificatifs
     networks:
       - app-network
-  frontend:
 
+  frontend:
     image: ${DOCKERHUB_REPO}/frontend:${BUILD_NUMBER}
-   # container_name: frontend
+    # container_name: frontend
     ports:
-      - "3000:80"                      # Map port 80 in the container to port 3000 on the host
+      - "3000:80" # Map port 80 in the container to port 3000 on the host
     depends_on:
       - spring-app
     networks:
