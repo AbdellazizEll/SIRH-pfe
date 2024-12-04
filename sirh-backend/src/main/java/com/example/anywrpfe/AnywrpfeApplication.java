@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -16,19 +17,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class AnywrpfeApplication {
 
 	@Autowired
-	private JavaMailSenderImpl mailSender;
+	private JavaMailSender mailSender;
 	public static void main(String[] args) {
 
 		SpringApplication.run(AnywrpfeApplication.class, args);
 	}
 
-	@PostConstruct
-	public void init() {
-		System.out.println("Current mail configuration: ");
-		System.out.println("Host: " + mailSender.getHost());
-		System.out.println("Port: " + mailSender.getPort());
-		System.out.println("Username: " + mailSender.getUsername());
-	}
 
 	@Value("${spring.mail.host}")
 	private String mailHost;
@@ -41,6 +35,7 @@ public class AnywrpfeApplication {
 		System.out.println("Mail Host: " + mailHost);
 		System.out.println("Mail Port: " + mailPort);
 	}
+
 
 //	@Bean
 //	public CommandLineRunner commandLineRunner(
