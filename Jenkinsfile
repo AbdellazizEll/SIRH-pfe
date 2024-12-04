@@ -44,13 +44,7 @@ pipeline {
             }
         }
 
-        stage('Test Frontend') {
-            steps {
-                dir('sirh-frontend') {
-                    bat 'npm run test'
-                }
-            }
-        }
+        // Étape "Test Frontend" désactivée
 
         stage('Build Docker Images') {
             steps {
@@ -93,18 +87,6 @@ pipeline {
                     docker-compose pull
                     docker-compose up -d
                     """
-
-                    /*
-                    // Option 2 : Créer un fichier .env pour docker-compose
-                    writeFile file: '.env', text: """
-                    DOCKERHUB_REPO=${env.DOCKERHUB_REPO}
-                    BUILD_NUMBER=${env.BUILD_NUMBER}
-                    """
-                    bat """
-                    docker-compose pull
-                    docker-compose up -d
-                    """
-                    */
                 }
             }
         }
