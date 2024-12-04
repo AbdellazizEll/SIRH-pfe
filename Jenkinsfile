@@ -80,17 +80,17 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                script {
-                    bat """
-                    docker-compose pull
-                    docker-compose up -d
-                    """
-                }
-            }
-        }
-    }
-
+           steps {
+               script {
+                   bat """
+                   set BUILD_NUMBER=${env.BUILD_NUMBER}
+                   set DOCKERHUB_REPO=${env.DOCKERHUB_REPO}
+                   docker-compose pull
+                   docker-compose up -d
+                   """
+               }
+           }
+         }
     post {
         always {
             echo 'Pipeline terminé.'
