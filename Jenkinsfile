@@ -25,6 +25,14 @@ pipeline {
             }
         }
 
+        stage('Test Backend') {
+            steps {
+                dir('sirh-backend') {
+                    bat 'mvn test'
+                }
+            }
+        }
+
         stage('Build Frontend') {
             steps {
                 dir('sirh-frontend') { // Assurez-vous que le chemin est correct
@@ -32,6 +40,14 @@ pipeline {
                     npm install --legacy-peer-deps
                     npm run build
                     ''' // Utilisez 'sh' si vous êtes sur Linux/macOS
+                }
+            }
+        }
+
+        stage('Test Frontend') {
+            steps {
+                dir('sirh-frontend') {
+                    bat 'npm run test'
                 }
             }
         }
@@ -46,7 +62,7 @@ pipeline {
                     bat """
                     docker build -t ${env.backendImage} -f sirh-backend/Dockerfile sirh-backend
                     docker build -t ${env.frontendImage} -f sirh-frontend/Dockerfile sirh-frontend
-                    """ // Utilisez 'sh' si vous êtes sur Linux/macOS
+                    """
                 }
             }
         }
@@ -58,7 +74,18 @@ pipeline {
                     bat """
                     docker push ${env.backendImage}
                     docker push ${env.frontendImage}
-                    """ // Utilisez 'sh' si vous êtes sur Linux/macOS
+                    """
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    bat """
+                    docker-compose pull
+                    docker-compose up -d
+                    """
                 }
             }
         }
@@ -69,10 +96,10 @@ pipeline {
             echo 'Pipeline terminé.'
         }
         success {
-            echo 'Build et push réussis!'
+            echo 'Build, test, et push réussis!'
         }
         failure {
-            echo 'Build ou push échoué.'
+            echo 'Build, test, ou push échoué.'
         }
     }
 }
