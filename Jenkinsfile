@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Assurez-vous d'avoir ce credential configuré
-        DOCKERHUB_REPO = 'votre-nom-utilisateur-dockerhub' // Remplacez par votre nom d'utilisateur Docker Hub
+        DOCKERHUB_REPO = 'abdellazizell' // Remplacez par votre nom d'utilisateur Docker Hub
     }
 
     stages {
