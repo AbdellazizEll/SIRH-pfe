@@ -16,8 +16,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableJpaAuditing
 public class AnywrpfeApplication {
 
-	@Autowired
-	private JavaMailSender mailSender;
 	public static void main(String[] args) {
 
 		SpringApplication.run(AnywrpfeApplication.class, args);

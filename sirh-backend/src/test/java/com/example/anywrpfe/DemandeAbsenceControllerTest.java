@@ -7,14 +7,17 @@ import com.example.anywrpfe.entities.Enum.Motif;
 import com.example.anywrpfe.requests.DemandeAbsenceRequest;
 import com.example.anywrpfe.services.AbsenceService;
 import com.example.anywrpfe.services.DemandeAbsenceService;
+import com.example.anywrpfe.config.JwtService; // Assurez-vous que JwtService est dans le bon package
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -26,6 +29,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(DemandeAbsenceController.class)
+@AutoConfigureMockMvc(addFilters = false) // Désactive les filtres de sécurité si nécessaire
+@TestPropertySource(properties = {
+        "spring.mail.host=localhost",
+        "spring.mail.port=25",
+        "spring.mail.username=username",
+        "spring.mail.password=password",
+        "spring.mail.properties.mail.smtp.auth=false",
+        "spring.mail.properties.mail.smtp.starttls.enable=false"
+})
 public class DemandeAbsenceControllerTest {
 
     @Autowired
@@ -39,6 +51,9 @@ public class DemandeAbsenceControllerTest {
 
     @MockBean
     private JavaMailSender mailSender;
+
+    @MockBean
+    private JwtService jwtService; // Mock de JwtService
 
     @Test
     void testGetAllMotifs() throws Exception {
