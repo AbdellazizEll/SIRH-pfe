@@ -3,7 +3,6 @@ version: '3.8'
 services:
   mysql-db:
     image: mysql:8.0
-    #container_name: mysql-db
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: ""
@@ -14,7 +13,6 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./db_init:/docker-entrypoint-initdb.d
-
     networks:
       - app-network
     healthcheck:
@@ -26,7 +24,6 @@ services:
 
   spring-app:
     image: ${DOCKERHUB_REPO}/backend:${BUILD_NUMBER}
-    #container_name: spring-app
     ports:
       - "8085:8085"
     depends_on:
@@ -35,14 +32,12 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/lastDB
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
-      # Email configuration
       SPRING_MAIL_HOST: sandbox.smtp.mailtrap.io
       SPRING_MAIL_PORT: 2525
       SPRING_MAIL_USERNAME: 2af9054796aa31
       SPRING_MAIL_PASSWORD: ad83f9b9e46281
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
-      # Other configurations
       ACTIVATION_URL: http://localhost:8085/api/v1/auth/activate-account
       TOKEN_EXPIRATION_MINUTES: 360
     volumes:
@@ -52,9 +47,8 @@ services:
 
   frontend:
     image: ${DOCKERHUB_REPO}/frontend:${BUILD_NUMBER}
-    # container_name: frontend
     ports:
-      - "3000:80" # Map port 80 in the container to port 3000 on the host
+      - "3000:80"
     depends_on:
       - spring-app
     networks:
