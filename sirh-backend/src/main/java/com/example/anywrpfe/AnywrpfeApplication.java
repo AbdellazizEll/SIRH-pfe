@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-@EnableJpaAuditing
 public class AnywrpfeApplication {
 
 	public static void main(String[] args) {

@@ -2,43 +2,61 @@ package com.example.anywrpfe;
 
 import com.example.anywrpfe.controller.CollaboratorController;
 import com.example.anywrpfe.dto.CollaboratorDTO;
-
+import com.example.anywrpfe.repositories.RoleRepository;
 import com.example.anywrpfe.services.CollaborateurService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.anywrpfe.services.RoleService;
+import com.example.anywrpfe.config.JwtService;
+import com.example.anywrpfe.repositories.TokenRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.web.servlet.MockMvc;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Optional;
-
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-// Annotation to initialize only the web layer
-@WebMvcTest(CollaboratorController.class)
+@WebMvcTest(
+        controllers = CollaboratorController.class,
+        excludeAutoConfiguration = {
+                HibernateJpaAutoConfiguration.class
+        }
+)
 public class CollaboratorControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private CollaborateurService collaborateurService;
+
+    @MockBean
+    private JwtService jwtService; // Mock JwtService
+
+    @MockBean
+    private TokenRepository tokenRepository; // Mock TokenRepository
+
+    @MockBean
+    private UserDetailsService userDetailsService; // Mock UserDetailsService
+
+    @MockBean
+    private RoleRepository roleRepository; // Mock RoleRepository
+
+    @MockBean
+    private RoleService roleService; // Mock RoleService
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @InjectMocks
-    private CollaboratorController collaboratorController;
 
     @BeforeEach
     void setUp() {
@@ -46,6 +64,7 @@ public class CollaboratorControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "testuser", roles = {"USER"})
     void testGetCollaboratorById_Found() throws Exception {
         // Arrange
         Long collaboratorId = 1L;
@@ -77,6 +96,7 @@ public class CollaboratorControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "testuser", roles = {"RH"})
     void testGetCollaboratorById_NotFound() throws Exception {
         // Arrange
         Long collaboratorId = 1L;

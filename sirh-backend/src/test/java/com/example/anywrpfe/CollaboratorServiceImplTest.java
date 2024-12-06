@@ -1,6 +1,5 @@
 package com.example.anywrpfe;
 
-
 import com.example.anywrpfe.dto.CollaboratorDTO;
 import com.example.anywrpfe.entities.Collaborateur;
 import com.example.anywrpfe.repositories.CollaborateurRepository;
@@ -47,7 +46,7 @@ public class CollaboratorServiceImplTest {
                 .age(28)
                 .build();
 
-        Mockito.when(collaborateurRepository.findById(collaboratorId)).thenReturn(Optional.of(collaborateur));
+        when(collaborateurRepository.findById(collaboratorId)).thenReturn(Optional.of(collaborateur));
 
         // Act
         Optional<CollaboratorDTO> result = collaborateurService.getById(collaboratorId);
@@ -82,4 +81,3 @@ public class CollaboratorServiceImplTest {
         verify(collaborateurRepository, times(1)).findById(collaboratorId);
     }
 }
-
