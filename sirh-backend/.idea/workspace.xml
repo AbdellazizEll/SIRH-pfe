@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95aa29a3-0200-44b9-9a89-11aa0de73b57" name="Changes" comment="User Registration success">
-      <change beforePath="$PROJECT_DIR$/../Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/../Jenkinsfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/AnywrpfeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/anywrpfe/AnywrpfeApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/anywrpfe/CollaboratorControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/anywrpfe/CollaboratorControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/anywrpfe/CollaboratorServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/anywrpfe/CollaboratorServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Anywrpfe-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Anywrpfe-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/AnywrpfeApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/anywrpfe/AnywrpfeApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.example.anywrpfe.CollaboratorControllerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.example.anywrpfe.CollaboratorControllerTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.example.anywrpfe.CollaboratorServiceImplTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.example.anywrpfe.CollaboratorServiceImplTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.example.anywrpfe.CollaboratorControllerTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.example.anywrpfe.CollaboratorControllerTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.example.anywrpfe.CollaboratorServiceImplTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.example.anywrpfe.CollaboratorServiceImplTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/anywrpfe/CollaboratorControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/anywrpfe/CollaboratorControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/example/anywrpfe/CollaboratorServiceImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/example/anywrpfe/CollaboratorServiceImplTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,7 +277,7 @@
       <workItem from="1733081143919" duration="1858000" />
       <workItem from="1733155799172" duration="196000" />
       <workItem from="1733156447269" duration="1530000" />
-      <workItem from="1733497845392" duration="3923000" />
+      <workItem from="1733497845392" duration="4187000" />
     </task>
     <servers />
   </component>

@@ -2,14 +2,20 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-# Copy the wait-for-it script into the image
+# Copy only pom.xml first for caching
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copy the rest of the application code
+COPY src ./src
+
+# Copy the wait-for-it script
 COPY wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
-# Copy the JAR file to the container
-COPY target/Anywrpfe-0.0.1-SNAPSHOT.jar app.jar
+# Package the application
+RUN mvn clean package -DskipTests
 
 EXPOSE 8085
 
-# Use wait-for-it.sh to wait for MySQL before starting the app
-ENTRYPOINT ["/wait-for-it.sh", "mysql-db:3306", "--", "java", "-jar", "app.jar"]
+ENTRYPOINT ["/wait-for-it.sh", "mysql-db:3306", "--", "java", "-jar", "target/Anywrpfe-0.0.1-SNAPSHOT.jar"]
