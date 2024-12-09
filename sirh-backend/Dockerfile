@@ -6,9 +6,10 @@ WORKDIR /app
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
     CMD curl -f http://localhost:8085/actuator/health || exit 1
 
+apt-get update && apt-get install -y curl dos2unix bash && rm -rf /var/lib/apt/lists/*
 # Copy the wait-for-it script
 COPY wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
+RUN dos2unix /wait-for-it.sh && chmod +x /wait-for-it.sh
 
 # Copy the built JAR from Jenkins workspace
 COPY target/Anywrpfe-0.0.1-SNAPSHOT.jar app.jar

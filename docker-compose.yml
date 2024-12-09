@@ -65,6 +65,7 @@ services:
     networks:
       - app-network
 
+
   # Exporter pour les métriques système
   node_exporter:
     image: prom/node-exporter

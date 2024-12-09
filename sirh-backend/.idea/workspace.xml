@@ -7,9 +7,7 @@
     <list default="true" id="95aa29a3-0200-44b9-9a89-11aa0de73b57" name="Changes" comment="User Registration success">
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../prometheus/alertmanager.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../prometheus/alertmanager.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../prometheus/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../prometheus/prometheus.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wait-for-it.sh" beforeDir="false" afterPath="$PROJECT_DIR$/wait-for-it.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,7 +280,7 @@
       <workItem from="1733156447269" duration="1530000" />
       <workItem from="1733497845392" duration="5437000" />
       <workItem from="1733743728284" duration="11000" />
-      <workItem from="1733743761734" duration="599000" />
+      <workItem from="1733743761734" duration="641000" />
     </task>
     <servers />
   </component>
