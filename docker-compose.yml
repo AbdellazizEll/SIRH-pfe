@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   mysql-db:
@@ -33,12 +32,12 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/lastDB
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
-      SPRING_MAIL_HOST: sandbox.smtp.mailtrap.io
-      SPRING_MAIL_PORT: 2525
-      SPRING_MAIL_USERNAME: 2af9054796aa31
-      SPRING_MAIL_PASSWORD: ad83f9b9e46281
-      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
-      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
       ACTIVATION_URL: http://localhost:8085/api/v1/auth/activate-account
       TOKEN_EXPIRATION_MINUTES: 360
     volumes:
@@ -56,6 +55,83 @@ services:
     networks:
       - app-network
 
+  # Exporter pour MySQL
+  mysqld_exporter:
+    image: prom/mysqld-exporter
+    environment:
+      DATA_SOURCE_NAME: "root:@tcp(mysql-db:3306)/"
+    depends_on:
+      - mysql-db
+    networks:
+      - app-network
+
+  # Exporter pour les métriques système
+  node_exporter:
+    image: prom/node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - app-network
+
+  # Exporter pour les métriques des conteneurs Docker
+  cadvisor:
+    image: google/cadvisor:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /sys:/sys
+      - /var/lib/docker/:/var/lib/docker/
+    networks:
+      - app-network
+
+  # Prometheus
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - mysqld_exporter
+      - node_exporter
+      - cadvisor
+      - alertmanager
+    networks:
+      - app-network
+
+  # Alertmanager
+  alertmanager:
+    image: prom/alertmanager
+    volumes:
+      - ./prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+    environment:
+      SMTP_SMARTHOST: ${SMTP_SMARTHOST}
+      SMTP_FROM: ${SMTP_FROM}
+      SMTP_AUTH_USERNAME: ${SMTP_AUTH_USERNAME}
+      SMTP_AUTH_PASSWORD: ${SMTP_AUTH_PASSWORD}
+    networks:
+      - app-network
+    depends_on:
+      - prometheus
+
+  # Grafana
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
@@ -63,3 +139,4 @@ networks:
 volumes:
   db_data:
   uploads:
+  grafana_data:

@@ -2,8 +2,15 @@ pipeline {
     agent any
 
     environment {
+        // DockerHub Credentials
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins DockerHub credentials
         DOCKERHUB_REPO = 'abdellazizell' // DockerHub repo username
+
+        // SMTP Credentials
+        SMTP_SMARTHOST = 'sandbox.smtp.mailtrap.io:2525'
+        SMTP_FROM = 'alertmanager@example.com'
+        SMTP_AUTH_USERNAME = credentials('smtp-username') // Jenkins SMTP Username
+        SMTP_AUTH_PASSWORD = credentials('smtp-password') // Jenkins SMTP Password
     }
 
     tools {
@@ -82,13 +89,13 @@ pipeline {
             steps {
                 script {
                     echo 'Logging into Docker Hub...'
-                    bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%'
+                    bat "docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}"
 
                     echo "Pushing Backend Image: ${env.backendImage}"
-                    bat "docker push ${env.backendImage}"
+                    bat "docker push ${backendImage}"
 
                     echo "Pushing Frontend Image: ${env.frontendImage}"
-                    bat "docker push ${env.frontendImage}"
+                    bat "docker push ${frontendImage}"
                 }
             }
         }
@@ -100,6 +107,10 @@ pipeline {
                     bat """
                     set DOCKERHUB_REPO=${env.DOCKERHUB_REPO}
                     set BUILD_NUMBER=${env.BUILD_NUMBER}
+                    set SMTP_SMARTHOST=${env.SMTP_SMARTHOST}
+                    set SMTP_FROM=${env.SMTP_FROM}
+                    set SMTP_AUTH_USERNAME=${env.SMTP_AUTH_USERNAME}
+                    set SMTP_AUTH_PASSWORD=${env.SMTP_AUTH_PASSWORD}
                     docker-compose pull
                     docker-compose up -d
                     """
