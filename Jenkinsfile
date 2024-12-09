@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Ensure this credential is set up in Jenkins
-        DOCKERHUB_REPO = 'abdellazizell' // Replace with your Docker Hub username
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins DockerHub credentials
+        DOCKERHUB_REPO = 'abdellazizell' // DockerHub repo username
     }
 
     tools {
-        maven 'Maven' // Ensure 'Maven' is configured in Jenkins
+        maven 'Maven' // Ensure Maven is configured in Jenkins
     }
 
     stages {
@@ -17,11 +17,26 @@ pipeline {
             }
         }
 
-        stage('Build Backend') {
-            steps {
-                dir('sirh-backend') {
-                    echo 'Building Backend...'
-                    bat 'mvn clean package'
+        stage('Build Applications') {
+            parallel {
+                stage('Build Backend') {
+                    steps {
+                        dir('sirh-backend') {
+                            echo 'Building Backend...'
+                            bat 'mvn clean package'
+                        }
+                    }
+                }
+                stage('Build Frontend') {
+                    steps {
+                        dir('sirh-frontend') {
+                            echo 'Building Frontend...'
+                            bat '''
+                            npm install --legacy-peer-deps
+                            npm run build
+                            '''
+                        }
+                    }
                 }
             }
         }
@@ -33,34 +48,32 @@ pipeline {
                     bat 'mvn test'
                 }
             }
-        }
-
-        stage('Build Frontend') {
-            steps {
-                dir('sirh-frontend') {
-                    echo 'Building Frontend...'
-                    bat '''
-                    npm install --legacy-peer-deps
-                    npm run build
-                    '''
+            post {
+                failure {
+                    error('Backend tests failed! Stopping the pipeline.')
                 }
             }
         }
 
-        // Optional: If you have frontend tests, you could add a Test Frontend stage here.
-
         stage('Build Docker Images') {
-            steps {
-                script {
-                    // Define image tags
-                    env.backendImage = "${DOCKERHUB_REPO}/backend:${env.BUILD_NUMBER}"
-                    env.frontendImage = "${DOCKERHUB_REPO}/frontend:${env.BUILD_NUMBER}"
-
-                    echo "Building Backend Docker Image: ${env.backendImage}"
-                    bat "docker build -t ${backendImage} -f sirh-backend/Dockerfile sirh-backend"
-
-                    echo "Building Frontend Docker Image: ${env.frontendImage}"
-                    bat "docker build -t ${frontendImage} -f sirh-frontend/Dockerfile sirh-frontend"
+            parallel {
+                stage('Backend Docker Image') {
+                    steps {
+                        script {
+                            env.backendImage = "${DOCKERHUB_REPO}/backend:${env.BUILD_NUMBER}"
+                            echo "Building Backend Docker Image: ${env.backendImage}"
+                            bat "docker build -t ${backendImage} -f sirh-backend/Dockerfile sirh-backend"
+                        }
+                    }
+                }
+                stage('Frontend Docker Image') {
+                    steps {
+                        script {
+                            env.frontendImage = "${DOCKERHUB_REPO}/frontend:${env.BUILD_NUMBER}"
+                            echo "Building Frontend Docker Image: ${env.frontendImage}"
+                            bat "docker build -t ${frontendImage} -f sirh-frontend/Dockerfile sirh-frontend"
+                        }
+                    }
                 }
             }
         }

@@ -27,7 +27,8 @@ services:
     ports:
       - "8085:8085"
     depends_on:
-      - mysql-db
+      mysql-db:
+        condition: service_healthy
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/lastDB
       SPRING_DATASOURCE_USERNAME: root
@@ -50,7 +51,8 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - spring-app
+      spring-app:
+        condition: service_started
     networks:
       - app-network
 

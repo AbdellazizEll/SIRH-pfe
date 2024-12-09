@@ -4,7 +4,7 @@ FROM node:16-alpine AS build
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy only package.json and package-lock.json first (to leverage Docker caching)
 COPY package*.json ./
 
 # Install dependencies
