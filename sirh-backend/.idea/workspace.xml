@@ -8,7 +8,8 @@
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../prometheus/alertmanager.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../prometheus/alertmanager.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../prometheus/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../prometheus/prometheus.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wait-for-it.sh" beforeDir="false" afterPath="$PROJECT_DIR$/wait-for-it.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
