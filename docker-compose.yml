@@ -59,7 +59,7 @@ services:
   mysqld_exporter:
     image: prom/mysqld-exporter
     environment:
-      DATA_SOURCE_NAME: "root:@tcp(mysql-db:3306)/"
+      DATA_SOURCE_NAME: "root@tcp(mysql-db:3306)/"
     depends_on:
       - mysql-db
     networks:
