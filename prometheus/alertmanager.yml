@@ -1,10 +1,8 @@
-# prometheus/alertmanager.yml
-
 global:
-  smtp_smarthost: 'sandbox.smtp.mailtrap.io:2525'   # Serveur SMTP de Mailtrap avec le port
-  smtp_from: 'alertmanager@example.com'            # Adresse email d'envoi des alertes
-  smtp_auth_username: '2af9054796aa31'             # Nom d'utilisateur SMTP (Mailtrap)
-  smtp_auth_password: 'ad83f9b9e46281'             # Mot de passe SMTP (Mailtrap)
+  smtp_smarthost: '${SMTP_SMARTHOST}'
+  smtp_from: '${SMTP_FROM}'
+  smtp_auth_username: '${SMTP_AUTH_USERNAME}'
+  smtp_auth_password: '${SMTP_AUTH_PASSWORD}'
 
 route:
   receiver: 'email-alerts'
@@ -15,8 +13,8 @@ route:
 receivers:
   - name: 'email-alerts'
     email_configs:
-      - to: 'abdellaziz.elloumi00@gmail.com'                # Remplacez par votre adresse email de réception
-        send_resolved: true                         # Envoie une notification lorsque l'alerte est résolue
+      - to: 'abdellaziz.elloumi00@gmail.com'  # Remplacez par votre adresse email de réception
+        send_resolved: true
 
 inhibit_rules:
   - source_match:

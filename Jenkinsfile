@@ -4,7 +4,8 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins DockerHub credentials
         DOCKERHUB_REPO = 'abdellazizell' // DockerHub repo username
-
+        SMTP_SMARTHOST = 'sandbox.smtp.mailtrap.io:2525'
+        SMTP_FROM = 'alertmanager@example.com'
     }
 
     tools {
