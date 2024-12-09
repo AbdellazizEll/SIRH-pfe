@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins DockerHub credentials
         DOCKERHUB_REPO = 'abdellazizell' // DockerHub repo username
         SMTP_SMARTHOST = 'sandbox.smtp.mailtrap.io:2525'
         SMTP_FROM = 'alertmanager@example.com'
@@ -83,37 +82,45 @@ pipeline {
         stage('Push Docker Images') {
             steps {
                 script {
-                    echo 'Logging into Docker Hub...'
-                    bat 'docker login -u %DOCKERHUB_CREDENTIALS_USR% -p %DOCKERHUB_CREDENTIALS_PSW%'
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USR', passwordVariable: 'DOCKERHUB_PSW')]) {
+                        echo 'Logging into Docker Hub...'
+                        bat "docker login -u ${DOCKERHUB_USR} -p ${DOCKERHUB_PSW}"
 
-                    echo "Pushing Backend Image: ${env.backendImage}"
-                    bat "docker push ${env.backendImage}"
+                        echo "Pushing Backend Image: ${env.backendImage}"
+                        bat "docker push ${env.backendImage}"
 
-                    echo "Pushing Frontend Image: ${env.frontendImage}"
-                    bat "docker push ${env.frontendImage}"
+                        echo "Pushing Frontend Image: ${env.frontendImage}"
+                        bat "docker push ${env.frontendImage}"
+                    }
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-
                 script {
-                  withCredentials([
-                    string(credentialsId: 'smtp-username', variable: 'SMTP_AUTH_USERNAME'),
-                    string(credentialsId: 'smtp-password', variable: 'SMTP_AUTH_PASSWORD')
-                 ]) {
-                    echo 'Deploying with Docker Compose...'
-                    bat """
-                    set DOCKERHUB_REPO=${env.DOCKERHUB_REPO}
-                    set BUILD_NUMBER=${env.BUILD_NUMBER}
-                    set SMTP_SMARTHOST=${env.SMTP_SMARTHOST}
-                    set SMTP_FROM=${env.SMTP_FROM}
-                    set SMTP_AUTH_USERNAME=${env.SMTP_AUTH_USERNAME}
-                    set SMTP_AUTH_PASSWORD=${env.SMTP_AUTH_PASSWORD}
-                    docker-compose pull
-                    docker-compose up -d
-                    """
+                    withCredentials([
+                        string(credentialsId: 'smtp-username', variable: 'SMTP_AUTH_USERNAME'),
+                        string(credentialsId: 'smtp-password', variable: 'SMTP_AUTH_PASSWORD')
+                    ]) {
+                        echo 'Deploying with Docker Compose...'
+                        bat """
+                        set DOCKERHUB_REPO=${env.DOCKERHUB_REPO}
+                        set BUILD_NUMBER=${env.BUILD_NUMBER}
+                        set SMTP_SMARTHOST=${env.SMTP_SMARTHOST}
+                        set SMTP_FROM=${env.SMTP_FROM}
+                        set SMTP_AUTH_USERNAME=%SMTP_AUTH_USERNAME%
+                        set SMTP_AUTH_PASSWORD=%SMTP_AUTH_PASSWORD%
+                        set SPRING_MAIL_HOST=%SMTP_SMARTHOST%
+                        set SPRING_MAIL_PORT=2525
+                        set SPRING_MAIL_USERNAME=%SMTP_AUTH_USERNAME%
+                        set SPRING_MAIL_PASSWORD=%SMTP_AUTH_PASSWORD%
+                        set SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+                        set SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+                        docker-compose pull
+                        docker-compose up -d
+                        """
+                    }
                 }
             }
         }
