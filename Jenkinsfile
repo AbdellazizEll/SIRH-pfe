@@ -124,6 +124,27 @@ pipeline {
                 }
             }
         }
+
+        stage('Verify Monitoring') {
+            steps {
+                script {
+                    // Wait a few seconds for services to come up
+                    sleep time: 10, unit: 'SECONDS'
+
+                    echo 'Verifying Prometheus availability...'
+                    // Check Prometheus health endpoint
+                    bat 'curl --fail http://localhost:9090/-/healthy'
+                }
+            }
+            post {
+                success {
+                    echo 'Prometheus is up and healthy!'
+                }
+                failure {
+                    error('Failed to verify Prometheus. Check logs and configuration.')
+                }
+            }
+        }
     }
 
     post {
@@ -131,10 +152,10 @@ pipeline {
             echo 'Pipeline terminé.'
         }
         success {
-            echo 'Build, test, et push réussis!'
+            echo 'Build, test, push, and deployment succeeded!'
         }
         failure {
-            echo 'Build, test, ou push échoué.'
+            echo 'Build, test, push, or deployment failed.'
         }
     }
 }
