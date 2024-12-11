@@ -146,22 +146,20 @@ pipeline {
             }
         }
     }
-        stage('Verify Grafana'){
-            steps{
-                script{
-                sleep time: 15, unit: 'SECONDS'
-                bat 'curl --fail http://localhost:3001/login'
+        stage('Verify Grafana') {
+            steps {
+                script {
+                    sleep time: 15, unit: 'SECONDS'
+                    bat 'curl --fail http://localhost:3001/login'
                 }
             }
-
             post {
                 success {
-                    echo 'Grafana is reachable'
+                    echo 'Grafana is reachable!'
                 }
                 failure {
-                    error('Failed to verify Grafana . check logs and configuration')
+                    error('Failed to verify Grafana. Check logs and configuration.')
                 }
-            }
             }
         }
     post {
