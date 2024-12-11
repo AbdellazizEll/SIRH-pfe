@@ -1,0 +1,129 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: lastDB_staging
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3308:3306"  # Use a different port to avoid conflicts
+    volumes:
+      - db_data_staging:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  spring-app:
+    image: ${DOCKERHUB_REPO}/backend:${BUILD_NUMBER}
+    ports:
+      - "8086:8085" # Different port to avoid conflicts with dev
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/lastDB_staging
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      # For staging, you can still use the same mailtrap credentials, or staging mail credentials
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH}
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
+      ACTIVATION_URL: http://localhost:8086/api/v1/auth/activate-account  # point to staging endpoint
+      TOKEN_EXPIRATION_MINUTES: 360
+    volumes:
+      - uploads_staging:/app/uploads/justificatifs
+    networks:
+      - app-network
+
+  frontend:
+    image: ${DOCKERHUB_REPO}/frontend:${BUILD_NUMBER}
+    ports:
+      - "3002:80" # Another different port for staging
+    depends_on:
+      spring-app:
+        condition: service_started
+    environment:
+    # If frontend needs different API endpoints, configure them here
+    networks:
+      - app-network
+
+  node_exporter:
+    image: prom/node-exporter
+    ports:
+      - "9101:9100" # Different port if needed
+    networks:
+      - app-network
+
+  cadvisor:
+    image: google/cadvisor:latest
+    ports:
+      - "8082:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /sys:/sys
+      - /var/lib/docker/:/var/lib/docker/
+    networks:
+      - app-network
+
+  prometheus:
+    image: prom/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus/'
+      - '--storage.tsdb.retention.time=30d'
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml
+    ports:
+      - "9091:9090" # Different port for staging Prometheus
+    depends_on:
+      - node_exporter
+      - cadvisor
+      - alertmanager
+    networks:
+      - app-network
+
+  alertmanager:
+    image: prom/alertmanager
+    volumes:
+      - ./prometheus/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9094:9093"
+    environment:
+      SMTP_SMARTHOST: ${SMTP_SMARTHOST}
+      SMTP_FROM: ${SMTP_FROM}
+      SMTP_AUTH_USERNAME: ${SMTP_AUTH_USERNAME}
+      SMTP_AUTH_PASSWORD: ${SMTP_AUTH_PASSWORD}
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3002:3000"
+    volumes:
+      - grafana_data_staging:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data_staging:
+  uploads_staging:
+  grafana_data_staging:
