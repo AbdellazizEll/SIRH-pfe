@@ -145,7 +145,7 @@ pipeline {
                 }
             }
         }
-    }
+
         stage('Verify Grafana') {
             steps {
                 script {
@@ -162,6 +162,8 @@ pipeline {
                 }
             }
         }
+    }
+
     post {
         always {
             echo 'Pipeline terminé.'
