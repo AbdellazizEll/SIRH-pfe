@@ -146,7 +146,24 @@ pipeline {
             }
         }
     }
+        stage('Verify Grafana'){
+            steps{
+                script{
+                sleep time: 15, unit: 'SECONDS'
+                bat 'curl --fail http://localhost:3001/login'
+                }
+            }
 
+            post {
+                success {
+                    echo 'Grafana is reachable'
+                }
+                failure {
+                    error('Failed to verify Grafana . check logs and configuration')
+                }
+            }
+            }
+        }
     post {
         always {
             echo 'Pipeline terminé.'
