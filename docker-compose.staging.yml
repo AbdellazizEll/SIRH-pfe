@@ -51,7 +51,7 @@ services:
       spring-app:
         condition: service_started
     environment:
-    # If frontend needs different API endpoints, configure them here
+      FRONTEND_ENV: "staging"  # If frontend needs different API endpoints, configure them here
     networks:
       - app-network
 
