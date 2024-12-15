@@ -91,7 +91,15 @@ pipeline {
                         }
                     }
                 }
-
+        stage('Cleanup Docker Resources') {
+                    steps {
+                        script {
+                            echo 'Cleaning up Docker resources...'
+                            bat 'docker-compose -f docker-compose.prod.yml down --remove-orphans'
+                            bat 'docker system prune -f'
+                        }
+                    }
+                }
         // CD Steps
         stage('Deploy to Staging') {
             steps {

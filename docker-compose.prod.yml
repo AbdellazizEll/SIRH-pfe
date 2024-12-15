@@ -7,7 +7,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
     # In production, maybe you don't expose port directly or use a different host
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data_prod:/var/lib/mysql
     networks:
@@ -71,7 +71,7 @@ services:
       - /var/lib/docker/:/var/lib/docker/
     networks:
       - app-network
-  
+
 
   prometheus:
     image: prom/prometheus
