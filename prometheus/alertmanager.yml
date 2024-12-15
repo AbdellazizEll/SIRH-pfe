@@ -1,8 +1,8 @@
 global:
   smtp_smarthost: 'sandbox.smtp.mailtrap.io:2525'
   smtp_from: 'alertmanager@example.com'
-  smtp_auth_username: '2af9054796aa31'
-  smtp_auth_password: 'ad83f9b9e46281'
+  smtp_auth_username: '6ea038d453ff37'
+  smtp_auth_password: '77b52c32c07750'
 
 route:
   receiver: 'email-alerts'
