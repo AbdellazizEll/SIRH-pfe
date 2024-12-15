@@ -46,7 +46,7 @@ services:
   frontend:
     image: ${DOCKERHUB_REPO}/frontend:${BUILD_NUMBER}
     ports:
-      - "3002:80" # Another different port for staging
+      - "3003:80" # Another different port for staging
     depends_on:
       spring-app:
         condition: service_started
@@ -108,7 +108,7 @@ services:
   grafana:
     image: grafana/grafana
     ports:
-      - "3002:3000"
+      - "3003:3000"
     volumes:
       - grafana_data_staging:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning
