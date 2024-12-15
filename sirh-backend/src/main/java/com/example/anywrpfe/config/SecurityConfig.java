@@ -24,19 +24,21 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-
-
-    private  final LogoutHandler logoutHandler;
-
+    private final LogoutHandler logoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-                http
-
-        .csrf(AbstractHttpConfigurer::disable)
+        http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**","/activate-account", "/uploads/**","/absence-kpis/**","/actuator/health").permitAll() // Allow access to uploads
+                        .requestMatchers(
+                                "/api/v1/auth/**",
+                                "/activate-account",
+                                "/uploads/**",
+                                "/absence-kpis/**",
+                                "/actuator/health",
+                                "/actuator/prometheus"
+                        ).permitAll() // Allow unauthenticated access to specified endpoints
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
@@ -54,7 +56,6 @@ public class SecurityConfig {
 
     @Configuration
     public class WebConfig implements WebMvcConfigurer {
-
         @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**")

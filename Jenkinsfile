@@ -101,33 +101,34 @@ pipeline {
             steps {
                 script {
                     echo "Verifying staging environment..."
-                    bat """
-                        powershell -Command "
-                            \$retries = 5
-                            \$delay = 10
-                            \$count = 0
-                            \$success = \$false
-                            while (\$count -lt \$retries -and -not \$success) {
-                                \$count++
-                                Write-Host 'Attempt \$count to verify staging...'
-                                try {
-                                    \$response = Invoke-RestMethod -Uri http://localhost:8086/actuator/health -Method Get
-                                    if (\$response.status -eq 'UP') {
-                                        \$success = \$true
-                                        Write-Host 'Health check succeeded.'
-                                    } else {
-                                        Write-Host 'Health check status:', \$response.status
-                                    }
-                                } catch {
-                                    Write-Host 'Health check failed:', \$_
+                    // Initial wait to allow services to start
+                    sleep time: 30, unit: 'SECONDS'
+                    // Retry mechanism for health check using PowerShell
+                    powershell """
+                        \$retries = 5
+                        \$delay = 10
+                        \$count = 0
+                        \$success = \$false
+                        while (\$count -lt \$retries -and -not \$success) {
+                            \$count++
+                            Write-Host "Attempt \$count to verify staging..."
+                            try {
+                                \$response = Invoke-RestMethod -Uri http://localhost:8086/actuator/health -Method Get
+                                if (\$response.status -eq 'UP') {
+                                    \$success = \$true
+                                    Write-Host "Health check succeeded."
+                                } else {
+                                    Write-Host "Health check status:", \$response.status
                                 }
-                                if (-not \$success -and \$count -lt \$retries) {
-                                    Write-Host "Health check failed, retrying in \$delay seconds..."
-                                    Start-Sleep -Seconds \$delay
-                                }
+                            } catch {
+                                Write-Host "Health check failed:", \$_
                             }
-                            if (-not \$success) { exit 1 }
-                        "
+                            if (-not \$success -and \$count -lt \$retries) {
+                                Write-Host "Health check failed, retrying in \$delay seconds..."
+                                Start-Sleep -Seconds \$delay
+                            }
+                        }
+                        if (-not \$success) { exit 1 }
                     """
                 }
             }
