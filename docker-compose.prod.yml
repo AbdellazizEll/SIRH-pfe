@@ -50,8 +50,7 @@ services:
     depends_on:
       spring-app:
         condition: service_started
-    environment:
-    # If frontend needs production API endpoints
+    environment: { }
     networks:
       - app-network
 

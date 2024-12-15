@@ -103,6 +103,11 @@ pipeline {
                     echo "Verifying staging environment..."
                     // Initial wait to allow services to start
                     sleep time: 30, unit: 'SECONDS'
+                    // Test connectivity before performing health check
+                    powershell """
+                        Write-Host "Testing connectivity to 127.0.0.1:8086"
+                        Test-NetConnection -ComputerName 127.0.0.1 -Port 8086
+                    """
                     // Retry mechanism for health check using PowerShell
                     powershell """
                         \$retries = 5
@@ -113,7 +118,7 @@ pipeline {
                             \$count++
                             Write-Host "Attempt \$count to verify staging..."
                             try {
-                                \$response = Invoke-RestMethod -Uri http://localhost:8086/actuator/health -Method Get
+                                \$response = Invoke-RestMethod -Uri http://127.0.0.1:8086/actuator/health -Method Get
                                 if (\$response.status -eq 'UP') {
                                     \$success = \$true
                                     Write-Host "Health check succeeded."
