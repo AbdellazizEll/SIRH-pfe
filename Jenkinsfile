@@ -157,11 +157,7 @@ pipeline {
         }
 
         // Optional manual approval before production
-        stage('Approval for Production') {
-            steps {
-                input message: 'Deploy to Production?', ok: 'Yes'
-            }
-        }
+
 
 
         stage('Approval for Production') {
