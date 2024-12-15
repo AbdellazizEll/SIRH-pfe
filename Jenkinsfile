@@ -262,13 +262,14 @@ pipeline {
             }
         }
 
+        // CD Steps
         stage('Deploy to Staging') {
             steps {
                 script {
                     echo "Deploying to Staging environment..."
                     bat """
                     docker-compose -f docker-compose.staging.yml pull
-                    docker-compose -f docker-compose.staging.yml up -d
+                    docker-compose -f docker-compose.staging.yml up -d --remove-orphans
                     """
                 }
             }
@@ -292,6 +293,7 @@ pipeline {
             }
         }
 
+        // Optional manual approval before production
         stage('Approval for Production') {
             steps {
                 input message: 'Deploy to Production?', ok: 'Yes'
@@ -304,7 +306,7 @@ pipeline {
                     echo "Deploying to Production environment..."
                     bat """
                     docker-compose -f docker-compose.prod.yml pull
-                    docker-compose -f docker-compose.prod.yml up -d
+                    docker-compose -f docker-compose.prod.yml up -d --remove-orphans
                     """
                 }
             }
