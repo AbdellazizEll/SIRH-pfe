@@ -64,13 +64,14 @@ services:
   cadvisor:
     image: google/cadvisor:latest
     ports:
-      - "8080:8080"
+      - "8082:8080"  # Changed from 8080 to 8082
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /sys:/sys
       - /var/lib/docker/:/var/lib/docker/
     networks:
       - app-network
+  
 
   prometheus:
     image: prom/prometheus

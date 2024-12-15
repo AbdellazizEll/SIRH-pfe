@@ -82,6 +82,15 @@ pipeline {
                 }
             }
         }
+        stage('Validate Docker Compose') {
+                    steps {
+                        script {
+                            echo "Validating docker-compose files..."
+                            bat 'docker-compose -f docker-compose.prod.yml config'
+                            bat 'docker-compose -f docker-compose.staging.yml config'
+                        }
+                    }
+                }
 
         // CD Steps
         stage('Deploy to Staging') {
@@ -153,6 +162,13 @@ pipeline {
                 input message: 'Deploy to Production?', ok: 'Yes'
             }
         }
+
+
+        stage('Approval for Production') {
+                    steps {
+                        input message: 'Deploy to Production?', ok: 'Yes'
+                    }
+                }
 
         stage('Deploy to Production') {
             steps {
