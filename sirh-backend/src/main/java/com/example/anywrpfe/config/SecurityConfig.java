@@ -36,7 +36,7 @@ public class SecurityConfig {
 
         .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**","/activate-account", "/uploads/**","/absence-kpis/**").permitAll() // Allow access to uploads
+                        .requestMatchers("/api/v1/auth/**","/activate-account", "/uploads/**","/absence-kpis/**","/actuator/health").permitAll() // Allow access to uploads
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

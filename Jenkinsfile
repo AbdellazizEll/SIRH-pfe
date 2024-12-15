@@ -101,25 +101,33 @@ pipeline {
             steps {
                 script {
                     echo "Verifying staging environment..."
-                    // Initial wait to allow services to start
-                    sleep time: 30, unit: 'SECONDS'
-                    // Retry mechanism for health check
                     bat """
-                        setlocal enabledelayedexpansion
-                        set RETRIES=5
-                        set COUNT=0
-                        :loop
-                        set /A COUNT+=1
-                        echo Attempt !COUNT! to verify staging...
-                        curl --fail http://localhost:8086/actuator/health && goto :success
-                        if !COUNT! GEQ !RETRIES! goto :fail
-                        echo Health check failed, retrying in 10 seconds...
-                        timeout /T 10
-                        goto :loop
-                        :success
-                        exit /B 0
-                        :fail
-                        exit /B 1
+                        powershell -Command "
+                            \$retries = 5
+                            \$delay = 10
+                            \$count = 0
+                            \$success = \$false
+                            while (\$count -lt \$retries -and -not \$success) {
+                                \$count++
+                                Write-Host 'Attempt \$count to verify staging...'
+                                try {
+                                    \$response = Invoke-RestMethod -Uri http://localhost:8086/actuator/health -Method Get
+                                    if (\$response.status -eq 'UP') {
+                                        \$success = \$true
+                                        Write-Host 'Health check succeeded.'
+                                    } else {
+                                        Write-Host 'Health check status:', \$response.status
+                                    }
+                                } catch {
+                                    Write-Host 'Health check failed:', \$_
+                                }
+                                if (-not \$success -and \$count -lt \$retries) {
+                                    Write-Host "Health check failed, retrying in \$delay seconds..."
+                                    Start-Sleep -Seconds \$delay
+                                }
+                            }
+                            if (-not \$success) { exit 1 }
+                        "
                     """
                 }
             }
