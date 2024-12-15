@@ -7,7 +7,7 @@ services:
       MYSQL_DATABASE: lastDB_staging
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
-      - "3308:3306"  # Use a different port to avoid conflicts
+      - "3308:3306"  # Staging DB port
     volumes:
       - db_data_staging:/var/lib/mysql
     networks:
@@ -22,7 +22,7 @@ services:
   spring-app:
     image: ${DOCKERHUB_REPO}/backend:${BUILD_NUMBER}
     ports:
-      - "8086:8085" # Different port to avoid conflicts with dev
+      - "8086:8085" # Staging backend port
     depends_on:
       mysql-db:
         condition: service_healthy
@@ -30,14 +30,13 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/lastDB_staging
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
-      # For staging, you can still use the same mailtrap credentials, or staging mail credentials
       SPRING_MAIL_HOST: ${SPRING_MAIL_HOST}
       SPRING_MAIL_PORT: ${SPRING_MAIL_PORT}
       SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
       SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD}
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH}
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
-      ACTIVATION_URL: http://localhost:8086/api/v1/auth/activate-account  # point to staging endpoint
+      ACTIVATION_URL: http://localhost:8086/api/v1/auth/activate-account
       TOKEN_EXPIRATION_MINUTES: 360
     volumes:
       - uploads_staging:/app/uploads/justificatifs
@@ -47,19 +46,19 @@ services:
   frontend:
     image: ${DOCKERHUB_REPO}/frontend:${BUILD_NUMBER}
     ports:
-      - "3003:80" # Changed Grafana to use a different port
+      - "3005:80" # Changed to 3005 to avoid conflict
     depends_on:
       spring-app:
         condition: service_started
     environment:
-      FRONTEND_ENV: "staging"  # If frontend needs different API endpoints, configure them here
+      FRONTEND_ENV: "staging"
     networks:
       - app-network
 
   node_exporter:
     image: prom/node-exporter
     ports:
-      - "9101:9100" # Different port if needed
+      - "9101:9100"
     networks:
       - app-network
 
@@ -84,7 +83,7 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml
     ports:
-      - "9091:9090" # Different port for staging Prometheus
+      - "9091:9090" # Staging Prometheus port
     depends_on:
       - node_exporter
       - cadvisor
